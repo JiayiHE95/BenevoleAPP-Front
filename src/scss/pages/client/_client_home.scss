@@ -1,0 +1,65 @@
+.client-home{
+  margin-top: 100px;
+  height:80vh;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+ .form-inputs{
+  align-self: center;
+  font-size: 0.9em;
+  width: 90%;
+  .icon{
+    color: #8F2113;
+  }
+  .clickable{
+    align-self: flex-end;
+    margin-right: 5%;
+  }
+  input:focus {
+    color: black;
+  }
+  input::-webkit-input-placeholder {
+    color: black;
+    font-size: 0.8em;
+  }
+ }
+ .button{
+  color: white;
+ } 
+
+ .text-bold{
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 1.5em;
+  text-align: center;
+ }
+ 
+ .notif-succes{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: green;
+  font-size: 1em;
+  >div{
+    color: green;
+  }
+ }
+}
+
+@media screen and (max-width: 650px) {
+  .client-home{
+    flex-direction: column;
+    margin-top: 100px;
+    height:80vh;
+    padding-top: 250px;
+    position: relative;
+    >div{
+      width: 90%;
+      align-self: center;
+    }
+   
+  }
+}

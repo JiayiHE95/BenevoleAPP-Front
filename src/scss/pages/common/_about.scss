@@ -1,0 +1,153 @@
+.site-content{
+ margin-top: 50px;
+ height:80vh;
+ padding-top: 50px;
+ position: relative;
+ display: flex;
+ flex-direction: row;
+ justify-content: center;
+}
+
+.site-content::-webkit-scrollbar {
+ width: 3px; 
+}
+.site-content::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.5); /* Couleur du bouton */
+  border-radius: 10px; /* Bord arrondi */
+ }
+
+ .site-content::-webkit-scrollbar-thumb:hover {
+ background-color: rgba(255, 255, 255, 0.8);
+}
+
+.slideshow-container {
+ margin:0 3%;
+ height: auto;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: space-around;
+}
+.slideshow{
+ display: flex;
+ flex-direction: row;
+ align-items: center;
+}
+.mySlides {
+ display: none;
+ margin-left: 2%;
+ margin-right: 2%;
+ height: 100%;
+ transition: opacity 1s ease;
+}
+
+.mySlides.fade {
+ opacity: 0;
+}
+
+.mySlides.show {
+ display: block;
+ opacity: 1;
+}
+
+.prev, .next {
+ font-size: 36px;
+ font-weight: bold;
+ color: #fff;
+ padding: 16px;
+ cursor: pointer;
+}
+
+.prev {
+ left: 10%;
+}
+.next {
+ right: 10%;
+}
+
+.dot {
+ display: inline-block;
+ width: 10px;
+ height: 10px;
+ margin: 0 5px;
+ border-radius: 50%;
+ background-color: #ddd;
+ cursor: pointer;
+}
+
+.dot.active {
+ background-color: orange;
+}
+
+.presentation{
+ display: flex;
+ flex-direction: column;
+ padding: 3%;
+ width: 50%;
+ color: white;
+ text-align:justify;
+ align-self: flex-end;
+ font-size: 1.3em;
+ overflow-y:auto;
+ height: 100%;
+ border: 2px solid rgba(255,255,255,.5);
+ background-color: transparent;
+ border-radius: 20px;
+ backdrop-filter: blur(60px);
+ box-shadow: 0 0 30px rgba(0,0,0,.5);
+ margin: 3%;
+ background-color: #f5f5f5;
+ border: 1px solid #ccc;
+ border-radius: 5px;
+ color: black;
+ position: relative;
+ top: 5%;
+ div{
+  margin-bottom: 1%;
+ }
+}
+
+.presentation::-webkit-scrollbar {
+ width: 3px; 
+}
+
+.presentation::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.5); 
+  border-radius: 10px; 
+  margin-top: 20px;
+ }
+
+ .presentation::-webkit-scrollbar-thumb:hover {
+ background-color: rgba(255, 255, 255, 0.8);
+}
+
+
+@media screen and (max-width: 750px) {
+ .site-content{
+  flex-direction: column;
+  align-items: center;
+  height: 80vh;
+ }
+ .presentation{
+  width: 90%;
+  height: 80vh;
+  margin-bottom: 5%;
+  align-self: center;
+  overflow-y: auto;
+ }
+
+ .presentation::-webkit-scrollbar {
+  width: 3px; 
+ }
+
+ .slideshow-container{
+  display: none;
+ }
+}
+
+@media screen and (max-width: 375px) {
+  .presentation{
+    font-size: 1em;
+  }
+
+}

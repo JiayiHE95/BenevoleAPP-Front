@@ -1,0 +1,141 @@
+.navbar-container{
+ position: fixed;
+ top: 0;
+ left: 0;
+ width: 100%;
+ height: 20vh;
+ padding: 20px 30px;
+ //background-color: black;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ z-index: 99;
+}
+
+.navbar{
+ display: flex;
+ justify-content: space-between;
+ font:bold;
+}
+
+.navbar>div{
+ position: relative;
+ font-size: 1.5em;
+ color: #fff;
+ margin-left: 30px;
+ padding: 5px;
+}
+
+.navbar>div:hover{
+ border-radius: 6px;
+ color: #D6991C;
+}
+
+.dropdown-navbar-open>div:hover{
+ background-color: rgba(255,255,255,.5);
+ padding: 5px;
+}
+
+.navbar>div::after{
+ content: '';
+ position: absolute;
+ left: 0;
+ bottom: -3px;
+ width: 100%;
+ height: 3px;
+ background: #fff;
+ border-radius: 5px;
+ transform-origin: r;
+ transform: scale(0);
+}
+
+.navbar>div:hover::after{
+transform: scale(1);
+}
+
+.logo{
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ white-space: nowrap;
+}
+.logo img{
+ max-width: 12vh;
+}
+.logo-name{
+ font-size: 1em;
+ color: black;
+ font-family: 'Brush Script MT';
+}
+
+.toggle, .dropdown-navbar{
+ display: none;
+ font-size: 1.5em;
+}
+
+.dropdown-navbar{
+ height: 0;
+}
+
+.dropdown-navbar-open{
+ position: absolute;
+ top: 80%;
+ right: 0%;
+ width: 100%;
+ padding: 3%;
+ color: #D6991C;
+ text-align:center;
+ font-size: 1.3em;
+ border: 2px solid rgba(255,255,255,.5);
+ background-color: transparent;
+ border-radius: 20px;
+ backdrop-filter: blur(60px);
+ box-shadow: 0 0 30px rgba(0,0,0,.5);
+ overflow: hidden;
+ background-color:#8F2113;
+ border: 1px solid #ccc;
+ border-radius: 5px;
+ padding: 10px;
+ height: 50vh;
+ display: flex;
+ flex-direction: column;
+ font-weight: bold;
+
+ >div{
+  margin: auto 0;
+  cursor: pointer;
+ }
+}
+
+@media screen and (min-width: 769px) {
+ .dropdown-navbar-open{
+  display: none;
+ }
+
+}
+
+@media screen and (max-width: 768px) {
+ .navbar{
+  display: none;
+ }
+ .toggle{
+  display: block;
+ }
+ .logo-name{
+  display: none;
+ }
+ .logo img{
+  max-width: 7vh;
+
+ }
+ 
+}
+
+@media screen and (max-width: 425px) {
+ .dropdown-navbar-open{
+  width: 95%;
+  right: 2.5%;
+  height: 80vh;
+ }
+
+}
