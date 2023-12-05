@@ -32,7 +32,9 @@ const userAPI={
  getUserByPWToken(token){
   return axiosInstance.get(`user/get-user-by-pwtoken/${token}`)
  },
- 
+ getUserById(userid){
+  return axiosInstance.get(`user/get-user-by-id/${userid}`)
+ },
 
 }
 

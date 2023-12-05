@@ -1,37 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit'
 import userAPI from '../api/userAPI'
 
-const authReducerInit = () => {
- try {
-   const auth = JSON.parse(localStorage.getItem('auth'))
-   return {
-     isLoggedIn: true,
-     token: auth.token,
-     user: auth.user,
-     isAdmin:auth.user.isAdmin,
-   }
- } catch {
-   return {
-     isLoggedIn: false,
-     token: null,
-     user: null,
-     isAdmin:false,
-   }
- }
-}
 
-export const getUser =()=>{
-  let user=JSON.parse(localStorage.getItem("auth"))
-  let token=JSON.parse(localStorage.getItem("auth")).token
-  if(user){
-    userAPI.getUserById(user.user.idUser).then((resp) => {
-      localStorage.setItem("auth",JSON.stringify({
-        token: token,
-        user:resp.data
-       }))
-    }).catch(error => {
-    console.log(error)
-    })
+
+const authReducerInit = () => {
+  try {
+    const auth = JSON.parse(localStorage.getItem('auth'))
+    return {
+      isLoggedIn: true,
+      token: auth.token,
+      user: auth.user,
+      isAdmin:false,
+    }
+  } catch {
+    return {
+      isLoggedIn: false,
+      token: null,
+      user: null,
+      isAdmin:false,
+    }
   }
 }
 
@@ -42,21 +29,12 @@ const authSlice = createSlice({
  initialState,
  reducers: {
      loginSuccess(state) {
-         const auth = JSON.parse(localStorage.getItem("auth"));
-         state.isLoggedIn = true
-         state.token = auth.token
-         state.user = auth.user
-         state.isAdmin = auth.user.isAdmin
-     },
 
-     loginUpdate(state) {
-      getUser()
-      const auth = JSON.parse(localStorage.getItem("auth"));
-      state.isLoggedIn = true
-      state.token = auth.token
-      state.user = auth.user
-      state.isAdmin = auth.user.isAdmin
-    },
+         state.isLoggedIn = true
+         state.token = null
+         state.user = null
+         state.isAdmin = null
+     },
 
      loginTimeOut(state) {  
       localStorage.removeItem('auth')
@@ -79,10 +57,12 @@ const authSlice = createSlice({
 export const verifyToken=()=>{
   return async (dispatch) => {
     try{
+
       const auth=JSON.parse(localStorage.getItem("auth"))
       if(!auth){
-       console.log("log out")
+        console.log("log out")
       }else{
+        console.log("checko token")
         userAPI.checkLoggedIn({
           headers:{"x-access-token":auth.token}
         }).then((resp) => {

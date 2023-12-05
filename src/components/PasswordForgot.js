@@ -5,7 +5,7 @@ import {useNavigate} from 'react-router-dom'
 import {MdMail,MdPerson,MdPersonOutline, MdKey,MdPhone, MdOutlineCancel, MdLocationCity} from 'react-icons/md'
 import {TbAlertCircle} from 'react-icons/tb'
 
-const PasswordResetCard=({isOpen})=>{
+const PasswordForgot=({isOpen})=>{
 
   const [user,setUser]=useState()
   const [mail,setMail]=useState()
@@ -21,14 +21,11 @@ const PasswordResetCard=({isOpen})=>{
   
   useEffect(()=>{ 
     if (token !==undefined){
-      console.log(token)
       userAPI.checkToken({
         headers:{"pw-token":token}
       }).then((resp)=>{
-
         setIsValide(resp.data.auth)
         if(resp.data.auth){
-          console.log("dgusygdu")
           userAPI.getUserByPWToken(token).then((resp)=>{
             console.log(resp.data[0])
             setUser(resp.data[0])
@@ -105,7 +102,6 @@ const PasswordResetCard=({isOpen})=>{
     :
     <div className='form-wrapper'>
       <div className='form-container'>
-        <MdOutlineCancel className='close-icon clickable' onClick={()=>{isOpen(false)}}/>
         <div className='form-title'>Mot de passe oublié</div>
         <div className='form-inputs'>
           <div className='form-input'>
@@ -115,10 +111,11 @@ const PasswordResetCard=({isOpen})=>{
         </div>
         {mailNotif&&<div className='notif-error'>{mailNotif}</div>}
         {!succesNotif && <div className='clickable' onClick={()=>passwordForgot()}> Valider</div>}
+        <div className='clickable' onClick={()=>{navigate("/")}}>Retourner à la page d'accueil</div>
       </div>
     </div>
     
   )
 
 }
-export default PasswordResetCard
+export default PasswordForgot

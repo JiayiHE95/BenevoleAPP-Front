@@ -3,19 +3,16 @@ import {useNavigate} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { verifyToken } from '../redux/authReducer'
 import { authActions } from '../redux/authReducer'
-import LoginCard from './LoginCard'
-import NewCompteCard from './NewCompteCard'
-import PasswordResetCard from './PasswordResetCard'
+import Login from './Login'
+import SignUp from './SignUp'
+import PasswordResetCard from './PasswordForgot'
 import {FaBars} from 'react-icons/fa'
 
 const NavBar =()=>{
  const isLoggedIn = useSelector(state => state.auth.isLoggedIn)
  const user = useSelector(state => state.auth.user)
  const navigate=useNavigate()
- const [isOpenedLogin, setIsOpenedLogin] = useState(false)
- const [isOpenedNewCompte, setIsOpenedNewCompte] = useState(false)
- const [isOpenedPasswordReset, setIsOpenedPasswordReset] = useState(false)
- const [isOpenedDropdown, setIsOpenedDropdown] = useState(false)
+ //const [isOpenedDropdown, setIsOpenedDropdown] = useState(false)
  const dispatch = useDispatch();
  //let imagePath = window.location.origin+"/picture/";
  
@@ -23,20 +20,14 @@ const NavBar =()=>{
   dispatch(verifyToken())
  },[])
 
- useEffect(()=>{ 
-  isOpenedLogin && setIsOpenedNewCompte(false)
-  isOpenedNewCompte && setIsOpenedLogin(false)
- },[isOpenedLogin,isOpenedNewCompte])
-
-
  return(
   <div className='navbar-container'>
    <div className='logo clickable' onClick={()=>{navigate("/")}}>
       <div className='logo-name'>Benevole APP</div>
    </div>
-   <div className='clickable toggle' onClick={()=>{setIsOpenedDropdown(!isOpenedDropdown)}}><FaBars/></div>
    {isLoggedIn && user ?
     <div className='navbar'>
+      <div>test</div>
       <div className='clickable' onClick={()=>{navigate("/about")}}>About</div>
       {(user.isAdmin ===1 || user.isAdmin ===true) &&
       <div className='clickable' onClick={()=>{navigate("/home/admin")}}>Admin</div>}
@@ -48,11 +39,11 @@ const NavBar =()=>{
     <div className='navbar'>
       <div className='clickable' onClick={()=>{navigate("/about")}}>About</div>
       <div className='clickable' onClick={()=>{navigate("/planning")}}>Planning</div>
-      <div className='clickable login-popup' onClick={()=>setIsOpenedLogin(true)}>Connexion</div>
     </div>
    } 
 
   {isLoggedIn && user ?
+  /*
     <div className={isOpenedDropdown ? 'dropdown-navbar-open':'dropdown-navbar'}>
       <div className='clickable' onClick={()=>{navigate("/about")}}>About</div>
       {(user.role ==="ADMIN") &&
@@ -65,13 +56,9 @@ const NavBar =()=>{
     <div className={isOpenedDropdown ? 'dropdown-navbar-open':'dropdown-navbar'} >
       <div className='clickable' onClick={()=>{navigate("/about")}}>About</div>
       <div className='clickable' onClick={()=>{navigate("/planning")}}>Planning</div>
-      <div className='clickable login-popup' onClick={()=>{setIsOpenedLogin(true);setIsOpenedDropdown(!isOpenedDropdown)}}>Connexion</div>
-    </div>
+    </div>*/
+    <div>test test</div>:<div>test test</div>
    }  
-
-   {isOpenedLogin&& <LoginCard isOpen={setIsOpenedLogin} newCompte={setIsOpenedNewCompte} reset={setIsOpenedPasswordReset}/>}
-   {isOpenedNewCompte&& <NewCompteCard isOpen={setIsOpenedNewCompte} />}
-   {isOpenedPasswordReset&&<PasswordResetCard isOpen={setIsOpenedPasswordReset}/>}
    </div>
    )
 }
