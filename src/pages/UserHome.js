@@ -1,50 +1,32 @@
 //import { useJwt } from "react-jwt";
 import React, { useEffect, useState } from "react"
-import { useDispatch, useSelector } from 'react-redux'
 import {useParams,useNavigate, Navigate} from 'react-router-dom'
-import { authActions } from '../redux/authReducer'
 import { useJwt } from "react-jwt";
-import { verifyToken } from "../redux/authReducer";
 
 const UserHome = () => {
-  const isLoggedIn = useSelector(state => state.auth.isLoggedIn)
-  //const isAdmin = useSelector(state => state.auth.isAdmin)
-  //const user = useSelector(state => state.auth.user)
-  const token=localStorage.getItem('accessToken')
-  const [userId, setUserId] = useState(null);
+
+  const [iduser, setIdUser] = useState(null);
   const navigate=useNavigate()
 
-  //const {idUser}=useParams() 
-
-  const { decodedToken,isExpired } = useJwt(token?token:"token");
+  const token=localStorage.getItem('accessToken')
+  const { decodedToken,isExpired } = useJwt(token?token:"");
 
   useEffect(() => {
-    // Vérifiez d'abord si decodedToken existe pour éviter les erreurs
     if (decodedToken) {
-      // Mise à jour de l'état userId avec la valeur de iduser du token
-      setUserId(decodedToken.iduser);
+      setIdUser(decodedToken.iduser);
     }
   }, [decodedToken]);
 
-  const dispatch = useDispatch();
-  console.log("est expiré:",isExpired)
-/*
-  useEffect(()=>{ 
-    console.log("je suis dans user home")
-    dispatch(verifyToken())
-})*/
-
   return (
-    !token||isExpired?
+    isExpired ?
     <Navigate to={'/'} />:
     <div className="UserHome">
       <h1>User Home Page</h1>
-      {/* Utilisez la valeur mise à jour de userId ici */}
-      <p>User ID: {userId}</p>
+      <p>User ID: {iduser}</p>
       <div className='clickable' onClick={() => {
       localStorage.removeItem('accessToken');
       navigate(`/`);
-    }}>Déconnexion</div>
+      }}>Déconnexion</div>
     </div> 
   )
 };

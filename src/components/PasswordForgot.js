@@ -12,7 +12,7 @@ const PasswordForgot=({isOpen})=>{
   const [mdp,setMdp]=useState("")
   const [isValide,setIsValide]=useState(false)
   const [resetPassword, setResetPassword]=useState()
-  const [notif, setNotif]=useState(false)
+  const [emptyNotif, setEmptyNotif]=useState(false)
   const [mailNotif, setMailNotif]=useState()
   const [succesNotif, setSuccesNotif]=useState(false)
   const [passwordNotif, setPasswordNotif]=useState(false)
@@ -37,13 +37,22 @@ const PasswordForgot=({isOpen})=>{
 
   useEffect(()=>{
     resetPassword!==mdp? setPasswordNotif(true) : setPasswordNotif(false)
+    setEmptyNotif(false)
   }
   ,[resetPassword,mdp])
 
+  useEffect(()=>{
+    setEmptyNotif(false)
+  }
+  ,[mail])
+
   const passwordForgot=()=>{
+    if (mail===undefined) {
+      setEmptyNotif(true)
+      return
+    }
     const data={mail:mail}
     userAPI.passwordForgot(data).then((resp) => {
-      //TODO change icone de error /valide
       setMailNotif(resp.data.message)
       if(resp.data.reset){
         setSuccesNotif(true)
@@ -74,17 +83,26 @@ const PasswordForgot=({isOpen})=>{
                <div>{user.mail}</div>
           </div>
           <div className='form-inputs'>
-            <div className='form-input'>
-               <MdKey className='icon'></MdKey>
-              <input type='password' placeholder='Nouveau mot de passe' onChange={(e)=>{setMdp(e.target.value)}}></input>
-            </div>
-            <div className='form-input'>
-               <MdKey className='icon'></MdKey>
-              <input type='password' placeholder='Resaisir le mot de passe' onChange={(e)=>{setResetPassword(e.target.value)}}></input>
-            </div>
+
+            <label htmlFor="password">Mot de passe :</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              onChange={(e)=>{setMdp(e.target.value)}}
+              required
+            />
+            <label htmlFor="password">Resaisir le mot de passe :</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              onChange={(e)=>{setResetPassword(e.target.value)}}
+              required
+            />
           </div>
             {passwordNotif&& <div className='notif-error'><TbAlertCircle className='error-icon'/><div>Mots de passe non identiques</div></div>}
-            {notif&& <div className='notif-error'><TbAlertCircle className='error-icon'/><div>Aucun champs ne peut être vide</div></div>}
+            {emptyNotif&& <div className='notif-error'><TbAlertCircle className='error-icon'/><div>Aucun champs ne peut être vide</div></div>}
             {mailNotif &&<div className='notif-error'>{mailNotif}</div>}
             {!succesNotif && <div className='clickable' onClick={()=>passwordReset()}> Valider</div>}
             <div className='clickable' onClick={()=>{navigate("/")}}>Retourner à la page d'accueil</div>
@@ -104,11 +122,16 @@ const PasswordForgot=({isOpen})=>{
       <div className='form-container'>
         <div className='form-title'>Mot de passe oublié</div>
         <div className='form-inputs'>
-          <div className='form-input'>
-            <MdMail className='icon'></MdMail> 
-            <input type='text' placeholder='Mail' onChange={(e)=>{setMail(e.target.value)}}></input>
-          </div>
+        <label htmlFor="mail">Saisir le mail :</label>
+        <input
+          type="email"
+          id="mail"
+          name="mail"
+          onChange={(e)=>{setMail(e.target.value)}}
+          required
+        />
         </div>
+        {emptyNotif&& <div className='notif-error'><TbAlertCircle className='error-icon'/><div>Aucun champs ne peut être vide</div></div>}
         {mailNotif&&<div className='notif-error'>{mailNotif}</div>}
         {!succesNotif && <div className='clickable' onClick={()=>passwordForgot()}> Valider</div>}
         <div className='clickable' onClick={()=>{navigate("/")}}>Retourner à la page d'accueil</div>

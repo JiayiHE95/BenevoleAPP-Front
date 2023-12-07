@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import userAPI from '../api/userAPI'
-import { useDispatch, useSelector } from 'react-redux'
-import { authActions } from '../redux/authReducer'
 import {MdMail,MdPerson,MdPersonOutline, MdKey,MdPhone, MdOutlineCancel, MdLocationCity} from 'react-icons/md'
 import {TbAddressBook} from 'react-icons/tb'
 import {RxCodesandboxLogo} from 'react-icons/rx'
@@ -29,7 +27,6 @@ const [connexionNotif, setconnexionNotif]=useState(false)
 const [createUserNotif, setcreateUserNotif]=useState(false)
 const [passwordNotif, setPasswordNotif]=useState(false)
 
-const dispatch = useDispatch();
 const navigate=useNavigate()
 
 useEffect(()=>{
@@ -43,7 +40,6 @@ useEffect(()=>{
   resetPassword!==mdp? setPasswordNotif(true) : setPasswordNotif(false)
 }
 ,[resetPassword])
-
 
 
 const addUser=()=>{
@@ -73,16 +69,9 @@ const addUser=()=>{
     }
     userAPI.connexion(data).then((resp) => {
       if(resp.data.auth){
-        /*localStorage.setItem("auth",JSON.stringify({
-         token: resp.data.token,
-         user:resp.data.user.iduser
-        }))*/
         localStorage.setItem('accessToken', resp.data.token);
-       
+        navigate(`/home/user`)
       }
-      //dispatch(authActions.loginSuccess())
-      navigate(`/home/user`)
-      
     }).catch(error => {
       setconnexionNotif(true)
       console.log(error)
@@ -94,14 +83,9 @@ const addUser=()=>{
 }
 
  return(
-
-
-
-//new
-
-<div>
+  <div>
       <h1>Signup</h1>
-      <div >
+      <div>
         <label htmlFor="pseudo">Pseudo:</label>
         <input
           type="text"
@@ -154,7 +138,6 @@ const addUser=()=>{
           name="association"
           onChange={(e)=>{setAssociation(e.target.value)}}
         />
-
 
         <label htmlFor="taille_tshirt">Taille Tshirt:</label>
         <select
@@ -221,8 +204,6 @@ const addUser=()=>{
         <button type="submit" onClick={()=>addUser()}>Sign Up</button>
       </div>
     </div>
-
-
  )
 
 }
