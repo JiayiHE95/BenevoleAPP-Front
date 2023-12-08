@@ -3,8 +3,9 @@ import sidebarAPI from '../api/sidebarAPI';
 import Bouton from './Bouton';
 import '../scss/components/sidebar.css'
 
-const Sidebar = ({ dataName }) => {
+const Sidebar = () => {
   const [liste, setListe] = useState([]);
+  const [dataName, setDataName] = useState('poste');
 
   useEffect(() => {
     const getList = async () => {
@@ -33,11 +34,11 @@ const Sidebar = ({ dataName }) => {
 
   return (
     <div className="sidebar">
-      {liste.map((item) => (
+      {liste && liste.map((item) => (
         <Bouton
           key={dataName === 'poste' ? `Poste ${item.idposte}` : `Espace ${item.idzonebenevole}`}
           label={item.nom}
-          onClick={() => console.log(`Bouton cliqué pour ${dataName} ${item.nom}`)}
+          onClick={() => item.nom === 'Animation jeux' && setDataName('espace')}
           // Passez dataName et les propriétés spécifiques au composant Bouton
           dataName={dataName}
           itemId={item.id}

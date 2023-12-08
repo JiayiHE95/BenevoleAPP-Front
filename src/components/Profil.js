@@ -8,8 +8,7 @@ import {TbAddressBook} from 'react-icons/tb'
 import {RxCodesandboxLogo} from 'react-icons/rx'
 import {MdMail,MdPerson,MdPersonOutline, MdKey,MdPhone, MdOutlineCancel, MdLocationCity} from 'react-icons/md'
 
-const Profil = ({iduser})=>{
- const [user,setUser]=useState()
+const Profil = ({user, onUpdateUser})=>{
  const [infoReset,setInfoReset]=useState(false)
  const [passwordSucces,setPasswordSucces]=useState(false)
  const [infoSucces,setInfoSucces]=useState(false)
@@ -22,6 +21,7 @@ const Profil = ({iduser})=>{
  const [resetPassword, setResetPassword]=useState()
  const [passwordReset,setPasswordReset]=useState(false)
  
+ /*
  const [prenom,setPrenom]=useState()
  const [nom,setNom]=useState()
  const [pseudo,setPseudo]=useState()
@@ -32,14 +32,26 @@ const Profil = ({iduser})=>{
  const [hebergement,setHebergement]=useState()
  const [taille_tshirt,setTailleT]=useState()
  const [est_vegetarien,setEst_vegetarien]=useState()
- const [jeu_prefere,setJeu_prefere]=useState()
+ const [jeu_prefere,setJeu_prefere]=useState()*/
 
- 
+ const [prenom,setPrenom]=useState(user.prenom)
+ const [nom,setNom]=useState( user.nom)
+ const [pseudo,setPseudo]=useState(  user.pseudo)
+ const [mdp,setMdp]=useState(   user.mdp)
+ const [tel,setTel]=useState( user.tel)
+ const [mail,setMail]=useState( user.mail)
+ const [association,setAssociation]=useState( user.association)
+ const [hebergement,setHebergement]=useState( user.hebergement)
+ const [taille_tshirt,setTailleT]=useState(   user.taille_tshirt)
+ const [est_vegetarien,setEst_vegetarien]=useState( user.est_vegetarien)
+ const [jeu_prefere,setJeu_prefere]=useState( user.jeu_prefere)
+
+ /*
  useEffect(()=>{
-  userAPI.getUserById(iduser).then((resp)=>{
+  userAPI.getUserById(user.iduser).then((resp)=>{
    if (resp.data.user){
 
-    setUser(resp.data.user)
+    setUpdatedUser(resp.data.user)
     setNom(resp.data.user.nom)
     setPrenom(resp.data.user.prenom)
     setPseudo(resp.data.user.pseudo)
@@ -53,7 +65,7 @@ const Profil = ({iduser})=>{
     
    }
   })
- },[])
+ },[])*/
 
  useEffect(()=>{ 
   setNotif(false)
@@ -103,7 +115,7 @@ const changeInfos=()=>{
   prenom:prenom,
   tel:tel,
   mail:mail,
-  asociation:asociation,
+  association:association,
   taille_tshirt:taille_tshirt,
   est_vegetarien:est_vegetarien,
   hebergement:hebergement,
@@ -122,7 +134,7 @@ const changeInfos=()=>{
     setInfoSucces(true)
     setInfoReset(false)
     userAPI.getUserById(user.iduser).then((resp)=>{
-      setUser(resp.data)
+      onUpdateUser(resp.data.user)
     })
     }
   })
@@ -133,7 +145,7 @@ const changeInfos=()=>{
   <div className='personal-data'>
    <div className="text-bold">Informations Personnelles</div>
    {!infoReset && 
-   <div>
+   /*<div>
     <div>{user.pseudo}</div>
     <div>{user.nom} {user.prenom}</div>
     <div>{user.mail}</div>
@@ -144,7 +156,19 @@ const changeInfos=()=>{
     <div>{user.hebergement}</div>
     <div>{user.jeu_prefere}</div>
     <div>{user.role}</div>
-   </div>
+   </div>*/
+   <div>
+  <div>{pseudo}</div>
+  <div>{nom} {prenom}</div>
+  <div>{mail}</div>
+  <div>{tel}</div>
+  <div>{association}</div>
+  <div>{taille_tshirt}</div>
+  <div>{est_vegetarien}</div>
+  <div>{hebergement}</div>
+  <div>{jeu_prefere}</div>
+  <div>{user.role}</div>
+</div>
    }
    {!passwordReset&& !infoReset&&<div className='clickable button' onClick={()=>{setPasswordReset(true); setPasswordSucces(false)}}>Changer le mot de passe</div>}
    {!passwordReset&& !infoReset&&<div className='clickable button' onClick={()=>{setInfoReset(true); setInfoSucces(false)}}>Changer les informtions</div>}

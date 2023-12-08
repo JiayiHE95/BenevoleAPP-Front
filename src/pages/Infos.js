@@ -7,7 +7,7 @@ const Infos = () => {
   <div>
    <NavBar/>
    <h1>Infos</h1>
-   <Sidebar dataName="poste" />
+   <Sidebar dataName="espace" />
   </div>
  )
 }
