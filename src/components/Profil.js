@@ -121,7 +121,7 @@ const changeInfos=()=>{
     if(resp.data.update){
     setInfoSucces(true)
     setInfoReset(false)
-    userAPI.getUserById(user.idUser).then((resp)=>{
+    userAPI.getUserById(user.iduser).then((resp)=>{
       setUser(resp.data)
     })
     }

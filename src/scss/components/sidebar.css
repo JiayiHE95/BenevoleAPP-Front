@@ -1,0 +1,13 @@
+/* Sidebar.css */
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align items to the start (left) */
+  }
+  
+  /* Add some additional styling for buttons if needed */
+  .sidebar .bouton {
+    margin-bottom: 8px; /* Adjust the spacing between buttons */
+  }
+  
