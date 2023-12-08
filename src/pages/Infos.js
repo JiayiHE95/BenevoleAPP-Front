@@ -5,6 +5,7 @@ import PosteDetails from '../components/PosteDetails'
 
 
 const Infos = () => {
+
     const [selectedPosteId, setSelectedPosteId] = useState(1);
 
     const handlePosteClick = (posteId) => {
@@ -20,5 +21,6 @@ const Infos = () => {
         <PosteDetails posteId={selectedPosteId} />
     </div>
     )
+
 }
 export default Infos

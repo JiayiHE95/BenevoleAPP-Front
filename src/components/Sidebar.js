@@ -4,8 +4,10 @@ import espaceAPI from '../api/espaceAPI';
 import Bouton from './Bouton';
 import '../scss/components/sidebar.css'
 
+
 const Sidebar = ({ dataName, onPosteClick, onEspaceClick }) => {
   const [liste, setListe] = useState([]);
+  const [dataName, setDataName] = useState('poste');
 
   useEffect(() => {
     const getList = async () => {
@@ -43,7 +45,7 @@ const Sidebar = ({ dataName, onPosteClick, onEspaceClick }) => {
 
   return (
     <div className="sidebar">
-      {liste.map((item) => (
+      {liste && liste.map((item) => (
         <Bouton
           key={dataName === 'poste' ? `Poste ${item.idposte}` : `Espace ${item.idzonebenevole}`}
           label={item.nom}

@@ -5,6 +5,7 @@ import { useJwt } from "react-jwt";
 import NavBar from "../components/NavBar";
 import Profil from "../components/Profil";
 import userAPI from "../api/userAPI";
+import FileUploader from "../components/FileUploader";
 
 const UserHome = () => {
 
@@ -14,27 +15,31 @@ const UserHome = () => {
 
   const token=localStorage.getItem('accessToken')
   const { decodedToken,isExpired } = useJwt(token?token:"");
+  const [users, setUsers] = useState(null);
 
   useEffect(() => {
     if (decodedToken) {
       setIdUser(decodedToken.iduser);
+      userAPI.getUserById(decodedToken.iduser).then((res) => {
+        setUser(res.data.user);
+      });
     }
   }, [decodedToken]);
+
+  const handleUpdateUser = (updatedUser) => {
+    setUser(updatedUser);
+  };
 
 
 
   return (
-    !token||isExpired ?
+    isExpired ?
     <Navigate to={'/'} />:
     <div className="UserHome">
       <NavBar/>
-      {iduser &&<Profil iduser={iduser}/>}
       <h1>User Home Page</h1>
-      <p>User ID: {iduser}</p>
-      <div className='clickable' onClick={() => {
-      localStorage.removeItem('accessToken');
-      navigate(`/`);
-      }}>Déconnexion</div>
+      {user && <Profil user={user} onUpdateUser={handleUpdateUser}/>}
+      {user?.role==="ADMIN"&&<FileUploader/>}
     </div> 
   )
 };
