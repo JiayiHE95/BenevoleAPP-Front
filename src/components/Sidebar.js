@@ -4,7 +4,7 @@ import espaceAPI from '../api/espaceAPI';
 import Bouton from './Bouton';
 import '../scss/components/sidebar.css'
 
-const Sidebar = ({ dataName }) => {
+const Sidebar = ({ dataName, onPosteClick, onEspaceClick }) => {
   const [liste, setListe] = useState([]);
 
   useEffect(() => {
@@ -12,16 +12,15 @@ const Sidebar = ({ dataName }) => {
       try {
         let response;
 
-        // Choisissez la requête en fonction de dataName
         if (dataName === 'poste') {
           response = await posteAPI.getPostesListe();
           console.log('Réponse de l\'API :', response.data);
-          setListe(response.data.postes); // Assurez-vous que la structure de réponse est correcte
+          setListe(response.data.postes); 
         } else if (dataName === 'espace') {
           response = await espaceAPI.getEspacesListe();
           console.log('Réponse de l\'API :', response.data);
-          setListe(response.data.espaces); // Assurez-vous que la structure de réponse est correcte
-        } // Ajoutez autant de conditions que nécessaire
+          setListe(response.data.espaces);
+        } 
 
         
       } catch (error) {
@@ -32,16 +31,23 @@ const Sidebar = ({ dataName }) => {
     getList();
   }, [dataName]);
 
+  const handleItemClick = (itemId) => {
+    if (dataName === 'poste'){
+      onPosteClick(itemId);
+    }
+    else if (dataName === 'espace'){
+      onEspaceClick(itemId);
+    }
+  };
+  
+
   return (
     <div className="sidebar">
       {liste.map((item) => (
         <Bouton
           key={dataName === 'poste' ? `Poste ${item.idposte}` : `Espace ${item.idzonebenevole}`}
           label={item.nom}
-          onClick={() => console.log(`Bouton cliqué pour ${dataName} ${item.nom}`)}
-          // Passez dataName et les propriétés spécifiques au composant Bouton
-          dataName={dataName}
-          itemId={item.id}
+          onClick={() => handleItemClick(dataName === 'poste' ? item.idposte : item.idzonebenevole)}
         />
       ))}
     </div>

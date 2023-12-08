@@ -6,6 +6,7 @@ const espaceAPI = {
     getEspacesListe(){
         return axiosInstance.get('espace/allespaces'); 
     },  
+    
 
 }
 

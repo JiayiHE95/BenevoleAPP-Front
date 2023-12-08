@@ -10,6 +10,7 @@ import Planning from './pages/Planning'
 import Admin from './pages/admin/Admin'
 import Registration from './pages/Registration'
 import Infos from './pages/Infos'
+import Espace from '../src/pages/Espace'
 
 
 const App =()=> {
@@ -28,6 +29,7 @@ const App =()=> {
         <Route path={'/registration'} element={<Registration />} />
         <Route path={'/admin'} element={<Admin />} />
         <Route path={"*"} element={<ErrorPage/>} />
+        <Route path={'/espaces'} element={<Espace/>} />
       </Routes>
     </BrowserRouter>
   )
