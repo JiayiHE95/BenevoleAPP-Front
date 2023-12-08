@@ -6,6 +6,11 @@ const userAPI={
   return axiosInstance.post(`user/inscription`,data)
  },
 
+ updateUser(data){
+  return axiosInstance.post(`user/update-user`,data)
+ },
+
+
  connexion(data){
   return axiosInstance.post(`user/connexion`,data)
  },
@@ -17,6 +22,11 @@ const userAPI={
  checkToken(data){
   return axiosInstance.get(`user/check-pw-token`,data)
  },
+
+ checkPassword(data){
+  return axiosInstance.post(`user/password-check`,data)
+ },
+
  
  passwordReset(data){
   return axiosInstance.post(`user/password-reset`,data)
