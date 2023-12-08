@@ -1,14 +1,13 @@
 import axiosInstance from "./axiosInstance";
 
-const sidebarAPI = {
+const espaceAPI = {
 
-    getPostesListe(){
-        return axiosInstance.get('poste/allpostes'); 
-    }, 
+     
     getEspacesListe(){
         return axiosInstance.get('espace/allespaces'); 
     },  
+    
 
 }
 
-export default sidebarAPI;
+export default espaceAPI;

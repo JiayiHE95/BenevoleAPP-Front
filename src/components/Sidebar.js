@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import sidebarAPI from '../api/sidebarAPI';
+import posteAPI from '../api/posteAPI';
+import espaceAPI from '../api/espaceAPI';
 import Bouton from './Bouton';
 import '../scss/components/sidebar.css'
 
-const Sidebar = () => {
+
+const Sidebar = ({ dataName, onPosteClick, onEspaceClick }) => {
   const [liste, setListe] = useState([]);
   const [dataName, setDataName] = useState('poste');
 
@@ -12,16 +14,15 @@ const Sidebar = () => {
       try {
         let response;
 
-        // Choisissez la requête en fonction de dataName
         if (dataName === 'poste') {
-          response = await sidebarAPI.getPostesListe();
+          response = await posteAPI.getPostesListe();
           console.log('Réponse de l\'API :', response.data);
-          setListe(response.data.postes); // Assurez-vous que la structure de réponse est correcte
+          setListe(response.data.postes); 
         } else if (dataName === 'espace') {
-          response = await sidebarAPI.getEspacesListe();
+          response = await espaceAPI.getEspacesListe();
           console.log('Réponse de l\'API :', response.data);
-          setListe(response.data.espaces); // Assurez-vous que la structure de réponse est correcte
-        } // Ajoutez autant de conditions que nécessaire
+          setListe(response.data.espaces);
+        } 
 
         
       } catch (error) {
@@ -32,16 +33,23 @@ const Sidebar = () => {
     getList();
   }, [dataName]);
 
+  const handleItemClick = (itemId) => {
+    if (dataName === 'poste'){
+      onPosteClick(itemId);
+    }
+    else if (dataName === 'espace'){
+      onEspaceClick(itemId);
+    }
+  };
+  
+
   return (
     <div className="sidebar">
       {liste && liste.map((item) => (
         <Bouton
           key={dataName === 'poste' ? `Poste ${item.idposte}` : `Espace ${item.idzonebenevole}`}
           label={item.nom}
-          onClick={() => item.nom === 'Animation jeux' && setDataName('espace')}
-          // Passez dataName et les propriétés spécifiques au composant Bouton
-          dataName={dataName}
-          itemId={item.id}
+          onClick={() => handleItemClick(dataName === 'poste' ? item.idposte : item.idzonebenevole)}
         />
       ))}
     </div>

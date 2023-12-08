@@ -135,6 +135,7 @@ const changeInfos=()=>{
     setInfoReset(false)
     userAPI.getUserById(user.iduser).then((resp)=>{
       onUpdateUser(resp.data.user)
+
     })
     }
   })
