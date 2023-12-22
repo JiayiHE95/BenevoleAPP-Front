@@ -7,7 +7,6 @@ import '../scss/components/sidebar.css'
 
 const Sidebar = ({ dataName, onPosteClick, onEspaceClick }) => {
   const [liste, setListe] = useState([]);
-  const [dataName, setDataName] = useState('poste');
 
   useEffect(() => {
     const getList = async () => {
