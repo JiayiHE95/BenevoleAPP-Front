@@ -7,8 +7,10 @@ const posteAPI = {
     },
     getPosteDetails(posteId) {
         return axiosInstance.get('poste/one',{ params: { idposte: posteId } })
+    },
+    createPoste(data){
+        return axiosInstance.post('poste/create',data)
     }
-    
     
 }
 

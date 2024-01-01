@@ -1,0 +1,28 @@
+.planningTable{
+ display: flex;
+ flex-direction: row;
+
+ &__date{
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  width: 60%;
+  
+  margin: 10px;
+  font-weight: bold;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
+  transition: all 0.3s ease-in-out;
+  &:hover{
+   transform: scale(1.1);
+  }
+  &:hover{
+   transform: scale(1.1);
+  }
+
+  &__creneau{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  }
+ }
+}

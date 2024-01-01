@@ -21,23 +21,9 @@ const Profil = ({user, onUpdateUser})=>{
  const [resetPassword, setResetPassword]=useState()
  const [passwordReset,setPasswordReset]=useState(false)
  
- /*
- const [prenom,setPrenom]=useState()
- const [nom,setNom]=useState()
- const [pseudo,setPseudo]=useState()
- const [mdp,setMdp]=useState()
- const [tel,setTel]=useState()
- const [mail,setMail]=useState()
- const [asociation,setAssociation]=useState()
- const [hebergement,setHebergement]=useState()
- const [taille_tshirt,setTailleT]=useState()
- const [est_vegetarien,setEst_vegetarien]=useState()
- const [jeu_prefere,setJeu_prefere]=useState()*/
-
  const [prenom,setPrenom]=useState(user.prenom)
  const [nom,setNom]=useState( user.nom)
  const [pseudo,setPseudo]=useState(  user.pseudo)
- const [mdp,setMdp]=useState(   user.mdp)
  const [tel,setTel]=useState( user.tel)
  const [mail,setMail]=useState( user.mail)
  const [association,setAssociation]=useState( user.association)
@@ -46,26 +32,6 @@ const Profil = ({user, onUpdateUser})=>{
  const [est_vegetarien,setEst_vegetarien]=useState( user.est_vegetarien)
  const [jeu_prefere,setJeu_prefere]=useState( user.jeu_prefere)
 
- /*
- useEffect(()=>{
-  userAPI.getUserById(user.iduser).then((resp)=>{
-   if (resp.data.user){
-
-    setUpdatedUser(resp.data.user)
-    setNom(resp.data.user.nom)
-    setPrenom(resp.data.user.prenom)
-    setPseudo(resp.data.user.pseudo)
-    setTel(resp.data.user.tel)
-    setMail(resp.data.user.mail)
-    setAssociation(resp.data.user.association)
-    setHebergement(resp.data.user.hebergement)
-    setTailleT(resp.data.user.taille_tshirt)
-    setEst_vegetarien(resp.data.user.est_vegetarien)
-    setJeu_prefere(resp.data.user.jeu_prefere)
-    
-   }
-  })
- },[])*/
 
  useEffect(()=>{ 
   setNotif(false)
@@ -122,13 +88,6 @@ const changeInfos=()=>{
   jeu_prefere:jeu_prefere,
   iduser:user.iduser
  }
- /*
-  for (const key in data) {
-    if(data[key]===undefined||data[key]===""){
-      setNotif(true)
-      return
-    }
-  }*/
   userAPI.updateUser(data).then((resp)=>{
     if(resp.data.update){
     setInfoSucces(true)
@@ -141,23 +100,13 @@ const changeInfos=()=>{
   })
 }
 
+
+
  return(
   user&&
   <div className='personal-data'>
    <div className="text-bold">Informations Personnelles</div>
    {!infoReset && 
-   /*<div>
-    <div>{user.pseudo}</div>
-    <div>{user.nom} {user.prenom}</div>
-    <div>{user.mail}</div>
-    <div>{user.tel}</div>
-    <div>{user.association}</div>
-    <div>{user.taille_tshirt}</div>
-    <div>{user.est_vegetarien}</div>
-    <div>{user.hebergement}</div>
-    <div>{user.jeu_prefere}</div>
-    <div>{user.role}</div>
-   </div>*/
    <div>
   <div>{pseudo}</div>
   <div>{nom} {prenom}</div>
@@ -277,12 +226,12 @@ const changeInfos=()=>{
           onChange={(e)=>{setTailleT(e.target.value)}}
           required
         >
-          <option value="XS">XS</option>
-          <option value="S">S</option>
-          <option value="M">M</option>
-          <option value="L">L</option>
-          <option value="XL">XL</option>
-          <option value="XXL">XXL</option>
+          <option value="XS" selected={user.taille_tshirt==="XS"}>XS</option>
+          <option value="S" selected={user.taille_tshirt==="S"}>S</option>
+          <option value="M" selected={user.taille_tshirt==="M"}>M</option>
+          <option value="L" selected={user.taille_tshirt==="L"}>L</option>
+          <option value="XL" selected={user.taille_tshirt==="XL"}>XL</option>
+          <option value="XXL" selected={user.taille_tshirt==="XXL"}>XXL</option>
         </select>
 
         <label htmlFor="est_vegetarien">Est Végétarien:</label>
@@ -290,7 +239,7 @@ const changeInfos=()=>{
           type="checkbox"
           id="est_vegetarien"
           name="est_vegetarien"
-          placeholder={user.est_vegetarien}
+          defaultChecked={user.est_vegetarien}
           onChange={(e)=>{setEst_vegetarien(e.target.value)}}
         />
 

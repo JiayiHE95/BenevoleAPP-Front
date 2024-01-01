@@ -4,7 +4,7 @@ import * as XLSX from 'xlsx';
 import { FaFileExcel } from 'react-icons/fa';
 import fileAPI from '../api/fileAPI';
 
-const FileUploader = () => {
+const FileUploader = ({festival}) => {
   const [fileName, setFileName] = useState(null);
   const [alert, setAlert] = useState(null); 
   const [file, setFile] = useState(null); 
@@ -36,27 +36,35 @@ const FileUploader = () => {
    const reader = new FileReader();
    reader.readAsBinaryString(file);
 
-    reader.onload = (e) => {
+    reader.onload = async (e) => {
       const data = e.target.result;
       const workbook = XLSX.read(data, { type: 'binary' });
       const sheet=workbook.Sheets[workbook.SheetNames[0]]
       const rows = XLSX.utils.sheet_to_json(sheet, { header: 1 });
-  
-      fileAPI.importDataToDB({rows}).then((res) => {
-       console.log(res.data);
-       if(res.data.success){
-        setAlert(res.data.message);
-       }else{
-        setAlert("Importation échouée, veuillez réessayer.");
-        console.log(res.data.message);
+      
+      await Promise.all(
+       rows.map((async (row,index) => {
+        if(index>0){
+        const data={
+          rows:row,
+          idfestival:festival.idfestival,
+          lastRow:index===rows.length-1 ? true:false
+        }
+        fileAPI.importDataToDB(data).then((res) => {
+         if(!res.data.success){
+          setAlert("Importation échouée, veuillez réessayer.");
+         }
        }
-     }
+        )
+      }
+      }))
       )
-    }
+      setAlert("Importation réussie");
+  }
   }
 
   return (
-    <div>
+    festival && <div>
       <div {...getRootProps()} style={dropzoneStyle}>
         <input {...getInputProps()} />
         <p>
@@ -75,8 +83,8 @@ const FileUploader = () => {
         {comfirm&&
         <div>
          <div>Attention : Etes vous sûr de vouloir importer ce fichier ?</div>
-         <div>Les jeux ayant un nouveau nom seront considérés comme un nouveau jeu, vous risquerez d'avoir des doublons </div>
-         <div>Si vous souhaitez modifier les informations concernant un jeu déjà enregistré auparavant, veuillez vous diriger vers l'espace admin</div>
+         <div>Les suppression ne seront pas détecter pour préserver les archives des années précédentes</div>
+         <div>Si vous souhaitez supprimer des donnes pour le festival en cours, veuillez vous diriger vers l'espace admin</div>
           <div onClick={()=>readFile()}>Comfirmer</div>
           <div onClick={()=>setComfirm(false)}>Annuler</div>
         </div>

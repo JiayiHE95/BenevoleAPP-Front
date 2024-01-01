@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import {useNavigate} from 'react-router-dom'
 
 import NavBar from '../components/NavBar';
 import Sidebar from '../components/Sidebar';
@@ -6,21 +7,22 @@ import TableauJeux from '../components/TableauJeux';
 import jeuEspaceAPI from '../api/jeuEspaceAPI';
 
 const Espace = () => {
-    const [selectedEspaceId, setSelectedEspaceId] = useState(1);
-    const [jeux, setJeux] = useState([]);
+    const [selectedEspaceId, setSelectedEspaceId] = useState(null);
+    const [jeux, setJeux] = useState(null);
+    const navigate=useNavigate()
 
-    useEffect(() => {
-        const fetchJeux = async () => {
+    console.log("hiiiiiiiiiiii",selectedEspaceId)
+    useEffect( () => {
+        if(selectedEspaceId!=null){
             try {
-                const response = await jeuEspaceAPI.getJeuxListe(selectedEspaceId)
-                setJeux(response.data.jeux);
-                console.log(response.data.jeux)
+               jeuEspaceAPI.getJeuxListe(selectedEspaceId).then((response) => {
+                   setJeux(response.data.jeux);
+                   console.log(response.data)
+               })
             } catch (error) {
                 console.error('Erreur lors de la récupération des jeux :', error);
             }
-        };
-
-        fetchJeux();
+    }
     }, [selectedEspaceId]); 
 
     const handleEspaceClick = (idzonebenevole) => {
@@ -32,7 +34,8 @@ const Espace = () => {
             <NavBar/>
             <h1>Espaces</h1>
             <Sidebar dataName="espace" onEspaceClick={handleEspaceClick} />
-            <TableauJeux jeux={jeux}/>
+            {jeux&&<TableauJeux jeux={jeux} idEspace={selectedEspaceId}/>}
+            <div className='clickable' onClick={()=>{navigate("/infos")}}>Retourner à la page Info</div>
         </div>
     )
 }

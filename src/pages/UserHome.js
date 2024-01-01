@@ -9,17 +9,15 @@ import FileUploader from "../components/FileUploader";
 
 const UserHome = () => {
 
-  const [iduser, setIdUser] = useState(null);
   const [user, setUser] = useState(null);
   const navigate=useNavigate()
 
   const token=localStorage.getItem('accessToken')
   const { decodedToken,isExpired } = useJwt(token?token:"");
-  const [users, setUsers] = useState(null);
+  isExpired && localStorage.removeItem('accessToken')
 
   useEffect(() => {
     if (decodedToken) {
-      setIdUser(decodedToken.iduser);
       userAPI.getUserById(decodedToken.iduser).then((res) => {
         setUser(res.data.user);
       });
@@ -39,7 +37,6 @@ const UserHome = () => {
       <NavBar/>
       <h1>User Home Page</h1>
       {user && <Profil user={user} onUpdateUser={handleUpdateUser}/>}
-      {user?.role==="ADMIN"&&<FileUploader/>}
     </div> 
   )
 };

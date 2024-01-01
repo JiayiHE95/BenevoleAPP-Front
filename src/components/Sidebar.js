@@ -15,7 +15,7 @@ const Sidebar = ({ dataName, onPosteClick, onEspaceClick }) => {
 
         if (dataName === 'poste') {
           response = await posteAPI.getPostesListe();
-          console.log('Réponse de l\'API :', response.data);
+          console.log('Réponse de l\'API post :', response.data);
           setListe(response.data.postes); 
         } else if (dataName === 'espace') {
           response = await espaceAPI.getEspacesListe();

@@ -11,6 +11,7 @@ import Admin from './pages/admin/Admin'
 import Registration from './pages/Registration'
 import Infos from './pages/Infos'
 import Espace from '../src/pages/Espace'
+import NewFestival from './pages/admin/NewFestival'
 
 
 const App =()=> {
@@ -28,8 +29,9 @@ const App =()=> {
         <Route path={'/planning'} element={<Planning />} />
         <Route path={'/registration'} element={<Registration />} />
         <Route path={'/admin'} element={<Admin />} />
+        <Route path={'/jeux-espaces'} element={<Espace/>} />
+        <Route path={'/new-festival'} element={<NewFestival/>} />
         <Route path={"*"} element={<ErrorPage/>} />
-        <Route path={'/espaces'} element={<Espace/>} />
       </Routes>
     </BrowserRouter>
   )

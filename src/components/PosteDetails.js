@@ -21,7 +21,7 @@ const PosteDetails = ({ posteId }) => {
   }, [posteId]);
 
   const handleButtonClick = () => {
-    navigate("/espaces");
+    navigate("/jeux-espaces");
   };
 
 
