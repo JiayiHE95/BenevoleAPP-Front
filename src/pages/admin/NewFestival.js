@@ -65,7 +65,8 @@ const [heure_fin, setHeure_fin]=useState()
    }
 
    festivalAPI.createFestival(festivalData).then((resp)=>{
-    const festivalId=resp.data.festival.idfestival
+    const festivalId = resp.data.festival.idfestival
+    
     setFestival(resp.data.festival)
     
     const postecreneauData={

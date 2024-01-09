@@ -1,24 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import posteAPI from '../api/posteAPI';
+import posteCreneauAPI from '../api/posteCreneauAPI';
 import espaceAPI from '../api/espaceAPI';
 import Bouton from './Bouton';
 import '../scss/components/sidebar.css'
 
+import { useParams, Navigate } from 'react-router-dom';
+
 
 const Sidebar = ({ dataName, onPosteClick, onEspaceClick }) => {
   const [liste, setListe] = useState([]);
-
+  const { festivalId } = useParams();
+  
+  
   useEffect(() => {
     const getList = async () => {
       try {
         let response;
-
+        console.log(festivalId)
         if (dataName === 'poste') {
-          response = await posteAPI.getPostesListe();
+          response = await posteCreneauAPI.getPosteByFestival(festivalId);
           console.log('Réponse de l\'API post :', response.data);
           setListe(response.data.postes); 
         } else if (dataName === 'espace') {
-          response = await espaceAPI.getEspacesListe();
+          response = await espaceAPI.getEspacesListe(festivalId);
           console.log('Réponse de l\'API :', response.data);
           setListe(response.data.espaces);
         } 
@@ -40,8 +45,8 @@ const Sidebar = ({ dataName, onPosteClick, onEspaceClick }) => {
       onEspaceClick(itemId);
     }
   };
-  
 
+  
   return (
     <div className="sidebar">
       {liste && liste.map((item) => (

@@ -12,6 +12,7 @@ import Registration from './pages/Registration'
 import Infos from './pages/Infos'
 import Espace from '../src/pages/Espace'
 import NewFestival from './pages/admin/NewFestival'
+import FestivalPage from './pages/FestivalPage'; 
 
 
 const App =()=> {
@@ -24,14 +25,16 @@ const App =()=> {
         <Route path={'/signup'} element={<SignUp/>} />
         <Route path={'/password-forgot'} element={<PasswordForgot/>} />
         <Route path={'/reset-password/:token'} element={<PasswordForgot />} />
-        <Route path={'/home/user'} element={<UserHome />} />
-        <Route path={'/infos'} element={<Infos />} />
-        <Route path={'/planning'} element={<Planning />} />
-        <Route path={'/registration'} element={<Registration />} />
+        <Route path={'/home/user'} element={<UserHome />} /> 
+        <Route path={'/infos/:festivalId'} element={<Infos />} />
+        <Route path={'/planning/:festivalId'} element={<Planning />} />
+        <Route path={'/registration/:festivalId'} element={<Registration />} />
         <Route path={'/admin'} element={<Admin />} />
-        <Route path={'/jeux-espaces'} element={<Espace/>} />
+        <Route path={'/jeux-espaces/:festivalId'} element={<Espace/>} />
         <Route path={'/new-festival'} element={<NewFestival/>} />
         <Route path={"*"} element={<ErrorPage/>} />
+        <Route path="/festival/:festivalId" element={<FestivalPage />} />
+
       </Routes>
     </BrowserRouter>
   )

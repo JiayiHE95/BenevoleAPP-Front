@@ -7,6 +7,8 @@ import userAPI from "../api/userAPI";
 import PlanningTable from "../components/PlanningTable";
 
 const Planning = () => {
+  const { festivalId } = useParams();
+
  const [user, setUser] = useState(null);
  const [comfirmFestivalPopUp, setComfirmFestivalPopUp] = useState(false);
  const [festival, setFestival] = useState(null);
@@ -24,7 +26,7 @@ const Planning = () => {
   }, [decodedToken]);
 
   useEffect(() => {
-    festivalAPI.getCurrentFestival().then((res) => {
+    festivalAPI.getCurrentFestival(festivalId).then((res) => {
       if(res.data.find){
        console.log(res.data.festival)
        setFestival(res.data.festival)
@@ -47,7 +49,7 @@ const Planning = () => {
   <Navigate to={'/'} />
   :
   <div>
-   <NavBar/>
+  <NavBar festivalId = {festivalId}/>
    <h1>Planning</h1>
    {user && user.role === "ADMIN" ?
     (festival?

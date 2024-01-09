@@ -1,10 +1,12 @@
-import NavBar from '../../components/NavBar';
+import NavBarProfil from '../../components/NavbarProfil';
 import React, { useEffect, useState } from "react"
 import {useParams,useNavigate, Navigate} from 'react-router-dom'
 import { useJwt } from "react-jwt";
 import Profil from "../../components/Profil";
 import userAPI from "../../api/userAPI";
 import FileUploader from "../../components/FileUploader";
+
+import FestivalInfo from "../../components/FestivalInfo"
 import festivalAPI from '../../api/festivalAPI';
 import NewFestival from './NewFestival';
 
@@ -34,6 +36,7 @@ const Admin=()=>{
     }
   })},[])
 
+  
   useEffect(() => {
     if (festivals) {
       const currentDate = new Date();
@@ -55,48 +58,37 @@ const Admin=()=>{
     isExpired || (user && user.role !=="ADMIN") ? <Navigate to={'/'} />
     :
     <div className="Admin">
-      <NavBar/>
+      <NavBarProfil />
       <h1>AdminPage</h1>
-      <div onClick={()=>{navigate("/new-festival")}}>Ajouter un festival</div>
-      
+
+      <div onClick={() => { navigate("/new-festival") }}>Ajouter un festival</div>
+
       <div>
-      <h2>Festival en cours</h2>
-        <div>
-          {currentfestivals ? currentfestivals.map((festival)=>{
-            return(
-              <div key={festival.idfestival}>
-                <div>{festival.nom} {festival.annee}</div>
-                <div>{festival.date_debut} - {festival.date_fin}</div>
-                  <div>
-                       <h2>Importer le fichier de jeu et espace maintenant ou depuis la page Admin</h2>
-                       <FileUploader festival={festival}/>
-                   </div>
-              </div>
-         
-            )
-          }):
+        {currentfestivals && currentfestivals.length > 0 ? (
+          <div>
+            <h2>Festival en cours</h2>
+            {currentfestivals.map((festival) => (
+              <FestivalInfo key={festival.idfestival} festival={festival} />
+            ))}
+          </div>
+        ) : (
           <div>Il n'y a pas de festival en cours</div>
-          
-          }
+        )}
 
-        </div>
         <h2>Festivals précédents</h2>
-        <div>
-          {pastFestivals ? pastFestivals.map((festival)=>{
-            return(
-              <div key={festival.idfestival}>
-                <div>{festival.nom} {festival.annee}</div>
-                <div>{festival.date_debut} - {festival.date_fin}</div>
-              </div>
-            )
-          })
-          :
+        {pastFestivals && pastFestivals.length > 0 ? (
+          <div>
+            <h2>Festivals précédents</h2>
+            {pastFestivals.map((festival) => (
+              <FestivalInfo key={festival.idfestival} festival={festival} />
+            ))}
+          </div>
+        ) : (
           <div>Il n'y a pas de festivals précédents</div>
-          }
-
-        </div>
+        )}
       </div>
-    </div> 
+    </div>
+    
   )
 }
 export default Admin;

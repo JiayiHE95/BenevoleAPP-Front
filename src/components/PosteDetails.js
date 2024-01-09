@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import posteAPI from '../api/posteAPI';
 import { useNavigate } from 'react-router-dom';
 
-const PosteDetails = ({ posteId }) => {
+const PosteDetails = ({ posteId, idfestival }) => {
   const [posteDetails, setPosteDetails] = useState(null);
   const navigate = useNavigate();
 
@@ -18,11 +18,12 @@ const PosteDetails = ({ posteId }) => {
     };
 
    fetchPosteDetails();
-  }, [posteId]);
+  }, []);
 
   const handleButtonClick = () => {
-    navigate("/jeux-espaces");
+    navigate(`/jeux-espaces/${idfestival}`);
   };
+  
 
 
     return (

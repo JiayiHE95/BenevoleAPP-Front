@@ -13,8 +13,8 @@ const festivalAPI = {
   return axiosInstance.post(`festival/create`,data)
  },
 
- getCurrentFestival(){
-  return axiosInstance.get(`festival/current`)
+ getCurrentFestival(festivalId){
+  return axiosInstance.get(`festival/${festivalId}`)
  },
 
  updateFestival(data){

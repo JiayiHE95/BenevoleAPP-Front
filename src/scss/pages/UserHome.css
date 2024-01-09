@@ -1,0 +1,43 @@
+.userHome {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .left-block {
+    width: 80%;
+    padding: 20px;
+    background-color: #f0f0f0;
+  }
+  
+  .right-block {
+    width: 20%;
+    padding: 20px;
+    background-color: #e0e0e0;
+  }
+  .card {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px;
+    background-color: #4caf50; /* Couleur verte du bouton */
+    color: white; /* Couleur du texte en blanc */
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px; /* Coins arrondis */
+    border: none; /* Pas de bordure */
+    transition: background-color 0.3s ease; /* Transition pour une animation fluide */
+  }
+  
+  .card:hover {
+    text-decoration: none; /* Remove underline */
+    background-color: #45a049; /* Nouvelle couleur au survol */
+  }
+  /* Add this to your UserHome.css file or any other stylesheet you are using */
+Link {
+  text-decoration: none; /* Remove underline */
+}
+
+  
+  /* Ajoutez d'autres styles au besoin */
+  

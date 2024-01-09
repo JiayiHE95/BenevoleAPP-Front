@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import {useNavigate} from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { verifyToken } from '../redux/authReducer'
+import { authActions } from '../redux/authReducer'
 import userAPI from '../api/userAPI'
 import { useJwt } from "react-jwt";
 
-const NavBar =({ festivalId })=>{
+const NavBarProfil =()=>{
  const [user, setUser] = useState(null);
  const navigate=useNavigate()
  //const [isOpenedDropdown, setIsOpenedDropdown] = useState(false)
@@ -30,17 +33,16 @@ const NavBar =({ festivalId })=>{
    </div>  
    {user&&
     <div className='navbar'>
-    <div className='clickable' onClick={() => { navigate("/home/user"); }}>{user.pseudo}</div>
-    <div className='clickable' onClick={() => { navigate(`/infos/${festivalId}`); }}>Infos</div>
-    <div className='clickable' onClick={() => { navigate(`/planning/${festivalId}`); }}>Planning</div>
-    {(user.role === "BENEVOLE") &&
-      <div className='clickable' onClick={() => { navigate(`/registration/${festivalId}`); }}>Inscription</div>
-    }
-    <div className='clickable' onClick={() => { localStorage.removeItem('accessToken'); navigate(`/`); }}>Déconnexion</div>
-  </div>
-  
+      <div className='clickable' onClick={()=>{navigate("/home/user")}}>{user.pseudo}</div>
+      {(user.role==="ADMIN") &&
+      <div className='clickable' onClick={()=>{navigate("/admin")}}>Admin</div>
+      }
+     
+    
+      <div className='clickable' onClick={() => {localStorage.removeItem('accessToken');navigate(`/`);}}>Déconnexion</div>
+    </div>
     }
    </div>
    )
 }
-export default NavBar
+export default NavBarProfil;
