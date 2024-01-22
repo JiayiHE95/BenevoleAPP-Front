@@ -13,6 +13,7 @@ import Infos from './pages/Infos'
 import Espace from '../src/pages/Espace'
 import NewFestival from './pages/admin/NewFestival'
 import FestivalPage from './pages/FestivalPage'; 
+import NotificationPage from './pages/NotificationPage'
 
 
 const App =()=> {
@@ -29,6 +30,7 @@ const App =()=> {
         <Route path={'/infos/:festivalId'} element={<Infos />} />
         <Route path={'/planning/:festivalId'} element={<Planning />} />
         <Route path={'/registration/:festivalId'} element={<Registration />} />
+        <Route path={'/notification/:festivalId'} element={<NotificationPage />} />
         <Route path={'/admin'} element={<Admin />} />
         <Route path={'/jeux-espaces/:festivalId'} element={<Espace/>} />
         <Route path={'/new-festival'} element={<NewFestival/>} />

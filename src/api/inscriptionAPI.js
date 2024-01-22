@@ -12,6 +12,9 @@ const inscriptionAPI = {
     createInscription(data){
         return axiosInstance.post(`inscription/create`,data)
     },
+    createInscription2(data){
+        return axiosInstance.post(`inscription/create2`,data)
+    },
     deleteInscription(data){
         return axiosInstance.post(`inscription/delete`,data)
     },
@@ -20,7 +23,11 @@ const inscriptionAPI = {
     },
     getRegisteredPeopleByCreneau(data){
         return axiosInstance.post(`inscription/registered`, data)
+    },
+    inscriptionValisation(data){
+        return axiosInstance.post(`inscription/validation`, data)
     }
+    
     
 }
 export default inscriptionAPI;

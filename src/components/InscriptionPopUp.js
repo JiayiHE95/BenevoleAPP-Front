@@ -57,7 +57,7 @@ const inscrireBenevole=(idcreneau,idposte)=>{
      idcreneau:idcreneau, 
      idposte:idposte,
      idfestival:festival.idfestival,
-     idzonebenevole: idposte===1 ?selectedZones:null
+     idzonebenevole: idposte===1 ?selectedZones:null,
  }
    inscriptionAPI.createInscription(data).then((res)=>{
      if(res.data.created){

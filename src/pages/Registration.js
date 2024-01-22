@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import inscriptionAPI from '../api/inscriptionAPI';
 import userAPI from '../api/userAPI';
 import { useJwt } from 'react-jwt';
+import CarteInscription from '../components/CarteInscription';
 
 const Registration = () => {
   const { festivalId } = useParams();
@@ -38,6 +39,22 @@ const Registration = () => {
     }
   };
 
+  const handleValidation = async (idinscription, valide) => {
+    const data = {
+      idinscription: idinscription,
+      valide: valide
+    };
+  
+    try {
+      await inscriptionAPI.inscriptionValisation(data);
+      recuperationInscriptions();
+    } catch (error) {
+      console.error('Error handling validation:', error);
+      // Consider providing user-friendly feedback or a global error handling solution
+    }
+  };
+  
+
   return (
     <div>
       <NavBar festivalId={festivalId} />
@@ -47,15 +64,13 @@ const Registration = () => {
       {inscriptions.length > 0 ? (
         <div>
           {inscriptions.map((inscription, index) => (
-           <div className='carte'> 
-                <div>Poste : {inscription.idposte}  </div>
-                <div>Creneau : {inscription.idcreneau} </div>
-                <div> _________________________________ </div>
-           </div>
+            <CarteInscription
+              key={index}
+              inscription={inscription}
+              onValider={handleValidation}
+            />
           ))}
-
         </div>
-
       ) : (
         <p>Aucune inscription</p>
       )}

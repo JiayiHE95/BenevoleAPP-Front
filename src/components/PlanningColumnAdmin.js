@@ -47,7 +47,11 @@ const PlanningColumnAdmin = ({ creneaux }) => {
         ))}
       </div>
 
-      {popupVisible && (
+      {popupVisible && (selectedCreneau.idposte !== 1)&&(
+        <PopUpAdminCreneau selectedCreneau={selectedCreneau} closePopup={closePopup} />
+      )}
+
+      {popupVisible && (selectedCreneau.idposte === 1)&&(
         <PopUpAdminCreneau selectedCreneau={selectedCreneau} closePopup={closePopup} />
       )}
 

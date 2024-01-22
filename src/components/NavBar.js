@@ -31,6 +31,7 @@ const NavBar =({ festivalId })=>{
    {user&&
     <div className='navbar'>
     <div className='clickable' onClick={() => { navigate("/home/user"); }}>{user.pseudo}</div>
+    <div className='clickable' onClick={() => { navigate(`/notification/${festivalId}`)}}>Notifications</div>
     <div className='clickable' onClick={() => { navigate(`/infos/${festivalId}`); }}>Infos</div>
     <div className='clickable' onClick={() => { navigate(`/planning/${festivalId}`); }}>Planning</div>
     {(user.role === "BENEVOLE") &&
