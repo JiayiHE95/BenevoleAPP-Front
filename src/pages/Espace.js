@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, useParams} from 'react-router-dom'
 
 import NavBar from '../components/NavBar';
 import Sidebar from '../components/Sidebar';
 import TableauJeux from '../components/TableauJeux';
 import jeuEspaceAPI from '../api/jeuEspaceAPI';
 
-const Espace = ({idfestival}) => {
+const Espace = () => {
     const [selectedEspaceId, setSelectedEspaceId] = useState(null);
     const [jeux, setJeux] = useState(null);
     const navigate=useNavigate()
-
-    console.log("hiiiiiiiiiiii",selectedEspaceId)
+    const { festivalId } = useParams();
+    
     useEffect( () => {
         if(selectedEspaceId!=null){
             try {
@@ -35,7 +35,7 @@ const Espace = ({idfestival}) => {
             <h1>Espaces</h1>
             <Sidebar dataName="espace" onEspaceClick={handleEspaceClick} />
             {jeux&&<TableauJeux jeux={jeux} idEspace={selectedEspaceId}/>}
-            <div className='clickable' onClick={()=>{navigate("/infos/:{idfestival}")}}>Retourner à la page Info</div>
+            <div className='clickable' onClick={()=>{navigate(`/infos/${festivalId}`)}}>Retourner à la page Info</div>
         </div>
     )
 }

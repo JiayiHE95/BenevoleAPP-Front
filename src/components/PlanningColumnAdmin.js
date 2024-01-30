@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import '../scss/components/planning.css'
 import PopUpAdminCreneau from "./PopUpAdminCreneau";
+import inscriptionAPI from "../api/inscriptionAPI";
 
-const PlanningColumnAdmin = ({ creneaux }) => {
+const PlanningColumnAdmin = ({ creneaux, getPosteCreneau }) => {
   const [listeInscription, setListeInscription] = useState(null);
   const [popupVisible, setPopupVisible] = useState(false);
   const [selectedCreneau, setSelectedCreneau] = useState(null);
   
+
 
   
 
@@ -19,9 +21,10 @@ const PlanningColumnAdmin = ({ creneaux }) => {
     setPopupVisible(true);
   };
 
-  const closePopup = () => {
+  const closePopup = async() => {
     setSelectedCreneau(null);
     setPopupVisible(false);
+    getPosteCreneau();
   };
 
   return (

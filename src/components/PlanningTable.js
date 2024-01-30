@@ -114,7 +114,7 @@ const inscrireBenevole=(idcreneau,idposte)=>{
            {user.role==="BENEVOLE" ?
            <PlanningColumnUser festival={festival} user={user} creneaux={creneaux} onColonneChange={getPosteCreneau} />
            :
-            <PlanningColumnAdmin festival={festival} user={user} creneaux={creneaux} />
+            <PlanningColumnAdmin festival={festival} user={user} creneaux={creneaux} getPosteCreneau={getPosteCreneau} />
            } 
         </div>
       ))}
