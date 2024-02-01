@@ -45,6 +45,9 @@ const userAPI={
  getUserById(userid){
   return axiosInstance.get(`user/get-user-by-id/${userid}`)
  },
+ searchUsers(searchQuery){
+    return axiosInstance.post("user/searchQuery", searchQuery)
+ }
 
 }
 
