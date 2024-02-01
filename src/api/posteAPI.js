@@ -13,6 +13,9 @@ const posteAPI = {
     },
     createPoste(data){
         return axiosInstance.post('poste/create',data)
+    },
+    updatePoste(data){
+        return axiosInstance.post('poste/update',data)
     }
     
 }

@@ -26,6 +26,9 @@ const inscriptionAPI = {
     },
     inscriptionValisation(data){
         return axiosInstance.post(`inscription/validation`, data)
+    },
+    getByFestival(idfestival){
+        return axiosInstance.get(`inscription/get-by-festival/${idfestival}`)
     }
     
     

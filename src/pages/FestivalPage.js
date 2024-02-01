@@ -86,7 +86,7 @@ const FestivalPage = () => {
         <div>le festival {festival.valide? " est " : "n'est pas encore "} ouvert aux inscriptions des bénévoles</div>
         <div>Importer le fichier contenant les informations des jeux et des espaces</div>
         <FileUploader festival={festival} />
-        {festival.valide===false && <div onClick={()=>setComfirmFestivalPopUp(true)}>Comfirmer la date et les créneaux du festival</div>}
+        {festival.valide===false && <div onClick={()=>setComfirmFestivalPopUp(true)}>Ouvrir l'inscrption des bénévoles au festival</div>}
         {comfirmFestivalPopUp &&
           <div style ={popupStyle}>
           <div>Attention, cette action est irréversible. Les dates et les creneaux seront bloqué pour que les bénévoles puissent s'inscrire, mais vous pouvez toujours ajouster le nombre de bénévole pour chaque creneau</div>
@@ -103,7 +103,11 @@ const FestivalPage = () => {
           <div onClick={()=>setDeletePopup(false)}>Non</div>
         </div>
         }
+        <div className='clickable' onClick={() => { navigate(`/referents/${festivalId}`); }}>Gestion Référent</div>
+        <div className='clickable' onClick={() => { navigate(`/inscriptions/${festivalId}`); }}>Gestion Inscription</div>
+
       </div>
+
       }
     </div>
   );

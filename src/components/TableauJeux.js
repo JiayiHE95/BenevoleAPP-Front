@@ -2,7 +2,11 @@ import React from 'react';
 
 const TableauJeux = ({ jeux, idEspace }) => {
 
+  console.log("jeux",jeux);
+
   return (
+    (jeux && jeux.length>0) ?
+    <div>
     <table>
       <thead>
         <tr>
@@ -25,6 +29,9 @@ const TableauJeux = ({ jeux, idEspace }) => {
       
       
     </table>
+    </div>
+    :
+    <div>Aucun jeu inscrit dans cet espace</div>
   );
 };
 

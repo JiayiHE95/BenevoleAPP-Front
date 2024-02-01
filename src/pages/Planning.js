@@ -54,6 +54,7 @@ const Planning = () => {
    {user && user.role === "ADMIN" ?
     (festival?
      <div>
+     {/*
      {festival.valide===false && <div onClick={()=>setComfirmFestivalPopUp(true)}>Comfirmer la date et les créneaux du festival</div>}
      {comfirmFestivalPopUp &&
       <div>
@@ -61,7 +62,7 @@ const Planning = () => {
       <div onClick={()=>setComfirmFestivalPopUp(false)}>Annuler</div>
       <div onClick={()=>comfirmFestival()}>Comfirmer</div>
       </div>
-     }
+     }*/}
      <PlanningTable festival={festival} user={user}/>
      </div>
      :

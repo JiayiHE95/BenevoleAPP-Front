@@ -11,6 +11,16 @@ const Espace = () => {
     const [jeux, setJeux] = useState(null);
     const navigate=useNavigate()
     const { festivalId } = useParams();
+    const [csvImported, setCsvImported] = useState(false);
+
+    useEffect(() => {
+        jeuEspaceAPI.getOneByFestival(festivalId).then((res) => {
+            if(res.data.find){
+                setCsvImported(true)
+            }
+        })
+    }, []);
+
     
     useEffect( () => {
         if(selectedEspaceId!=null){
@@ -31,10 +41,23 @@ const Espace = () => {
 
     return (
         <div>
-            <NavBar/>
+            <NavBar festivalId = {festivalId}/>
             <h1>Espaces</h1>
-            <Sidebar dataName="espace" onEspaceClick={handleEspaceClick} />
-            {jeux&&<TableauJeux jeux={jeux} idEspace={selectedEspaceId}/>}
+            {!csvImported ?
+            <div>
+                   <div>
+                Veuillez importer le fichier csv contenant les informations des jeux et des espaces
+                </div>
+                <div className='clickable' onClick={()=>{navigate(`/festival/${festivalId}`)}}>Importer le fichier</div>
+                </div>
+            :
+            <div>
+                <Sidebar dataName="espace" onEspaceClick={handleEspaceClick} />
+                {selectedEspaceId!=null&&
+                    <TableauJeux jeux={jeux} idEspace={selectedEspaceId}/>
+                }
+            </div>
+            }
             <div className='clickable' onClick={()=>{navigate(`/infos/${festivalId}`)}}>Retourner à la page Info</div>
         </div>
     )
