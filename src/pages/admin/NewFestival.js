@@ -8,7 +8,7 @@ import posteAPI from '../../api/posteAPI'
 import NavBar from '../../components/NavBar'
 import posteCreneauAPI from '../../api/posteCreneauAPI'
 import FileUploader from '../../components/FileUploader'
-
+import NavBarProfil from '../../components/NavbarProfil';
 
 const NewFestival=()=>{
   const [user, setUser] = useState(null);
@@ -135,7 +135,7 @@ const handleCapaciteClick = (id, capacite) => {
   isExpired || (user && user.role !=="ADMIN") ? <Navigate to={'/'} />
   :
   <div className="NewFestival">
-     <NavBar/>
+     <NavBarProfil/>
     <h1>Créer un nouveau festival</h1>
     <label htmlFor="date_debut">Date Début : </label>
     <input type="date" name="date_debut" id="date_debut"
