@@ -68,7 +68,7 @@ const Planning = () => {
      <div>Il n'y a pas de festival en cours </div>
     )
     :
-    (festival && festival.valide===true &&user) ? <PlanningTable festival={festival} user={user}/> : <div>Il n'y a pas de festival pour s'inscrire</div>
+    (festival && festival.valide===true &&user) ? <PlanningTable festival={festival} user={user}/> : <div>Veuillez patienter, l'inscription pour les bénévoles n'est pas encore ouverte</div>
     }
 
   </div>

@@ -19,6 +19,10 @@ const festivalAPI = {
 
  updateFestival(data){
   return axiosInstance.post(`festival/update`,data)
+ },
+
+ deleteFestival(data){
+  return axiosInstance.post(`festival/delete`,data)
  }
 
 }

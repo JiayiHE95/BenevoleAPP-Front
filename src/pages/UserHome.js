@@ -41,14 +41,14 @@ const UserHome = () => {
 
   
   useEffect(() => {
-    if (festivals) {
+    if (festivals && user) {
       const currentDate = new Date();
-        const currentFestivals = festivals
+        let currentFestivals = festivals
           .filter((festival) => new Date(festival.date_fin) >= currentDate)
         setCurrentFestivals(currentFestivals);
     }
 
-  },[festivals])
+  },[festivals, user])
 
   const handleUpdateUser = (updatedUser) => {
     setUser(updatedUser);

@@ -210,14 +210,16 @@ const handleCapaciteClick = (id, capacite) => {
     <button type="submit" onClick={()=>createPoste()}>Ajouter le poste</button>
    </div>
 
-   {festival&&
+   {festival ?
    <div>
-        <h2>Festival créé ! Importer le fichier de jeu et espace maintenant ou depuis la page Admin</h2>
+        <div>Festival créé ! Importer le fichier de jeu et espace maintenant ou depuis la page Admin</div>
         <FileUploader festival={festival}/>
-    </div>}
+    </div>:
+    
+   <button type="submit" onClick={()=>createFestival()}>Créer le festival</button>
+    }
     
 
-   <button type="submit" onClick={()=>createFestival()}>Créer le festival</button>
        
   </div>
  )
