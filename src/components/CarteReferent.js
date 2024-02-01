@@ -52,7 +52,7 @@ const CarteReferent = ({ poste }) => {
           <div>Référents:</div>
           <ul>
             {referents.map((referent, index) => (
-              <li key={index}>{referent.User.pseudo}</li>
+              <li key={index}>pseudo : {referent.User.pseudo}  | tel : {referent.User.tel}</li>
             ))}
           </ul>
         </div>

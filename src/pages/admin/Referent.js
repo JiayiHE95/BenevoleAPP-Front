@@ -6,12 +6,14 @@ import CarteReferent from '../../components/CarteReferent';
 import posteCreneauAPI from '../../api/posteCreneauAPI';
 import supervisionAPI from '../../api/supervisionAPI';
 import userAPI from '../../api/userAPI';
+import UserSearch from '../../components/UserSearch';
 
 const Referent = () => {
   const { festivalId } = useParams();
   const [postes, setPostes] = useState([]);
   const [user, setUser] = useState(null);
   const [showSearchBar, setShowSearchBar] = useState(false);
+  const [validation, setValisation] = useState(false);
   const [users, setUsers] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedPoste, setSelectedPoste] = useState(null);
@@ -77,10 +79,10 @@ const Referent = () => {
     setSelectedPoste(selectedPosteId);
   };
 
-  const handleUserSelect = (selectedUserID) => {
+  const handleUserSelect = (user) => {
     // Vérifier si l'utilisateur est trouvé avant de mettre à jour l'état
     if (user) {
-      setSelectedUserID(selectedUserID);
+      setSelectedUserID(user.iduser);
       // Mettre à jour la recherche avec le pseudo de l'utilisateur sélectionné
       setSearchQuery(user.pseudo);
     } else {
@@ -100,6 +102,11 @@ const Referent = () => {
         await supervisionAPI.addReferent(data);
         // Mise à jour dynamique des postes
         recuperationPostes();
+        setValisation(true);
+        setPostes([]);
+        recuperationPostes();
+        setValisation(false);
+        setShowSearchBar(false)
       } catch (error) {
         console.error('Erreur lors de l\'ajout du référent:', error);
       }
@@ -141,23 +148,19 @@ const Referent = () => {
             ))}
           </select>
           
-          {/* Barre de recherche pour trouver un utilisateur */}
-          <input type="text" value={searchQuery} placeholder="Rechercher un utilisateur" onChange={handleSearchChange} />
+          {/* Composant indépendant pour la recherche d'utilisateur */}
+          <UserSearch
+            searchQuery={searchQuery}
+            handleSearchChange={handleSearchChange}
+            users={users}
+            selectedUserID={selectedUserID ? selectedUserID.iduser : null}
+            handleUserSelect={handleUserSelect}
+          />
           
-          {/* Liste déroulante des utilisateurs trouvés */}
-          <select onChange={(e) => handleUserSelect(e.target.value)}>
-            <option value="" disabled selected>
-              Sélectionnez un utilisateur
-            </option>
-            {users.map((user) => (
-              <option key={user.iduser} value={user.iduser}>
-                {user.pseudo}
-              </option>
-            ))}
-          </select>
           
           {/* Bouton d'ajout */}
           <button onClick={addReferent}>Ajouter</button>
+          {validation && <p>Le référent a été ajouté avec succès.</p>}
         </div>
       )}
     </div>

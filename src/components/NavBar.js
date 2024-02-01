@@ -37,9 +37,13 @@ const NavBar =({ festivalId })=>{
     {(user.role === "BENEVOLE") &&
       <div className='clickable' onClick={() => { navigate(`/registration/${festivalId}`); }}>Inscription</div>
     }
-     {(user.role === "ADMIN") &&
-      <div className='clickable' onClick={() => { navigate(`/referents/${festivalId}`); }}>Référents</div>
-    }
+    {(user.role === "ADMIN") && (
+      <>
+        <div className='clickable' onClick={() => { navigate(`/referents/${festivalId}`); }}>Référents</div>
+        <div className='clickable' onClick={() => { navigate(`/inscriptions/${festivalId}`); }}>Trouve quelqu'un </div>
+      </>
+    )}
+
     <div className='clickable' onClick={() => { localStorage.removeItem('accessToken'); navigate(`/`); }}>Déconnexion</div>
   </div>
   

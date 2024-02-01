@@ -15,6 +15,7 @@ import NewFestival from './pages/admin/NewFestival'
 import FestivalPage from './pages/FestivalPage'; 
 import Referent from './pages/admin/Referent'
 import NotificationPage from './pages/NotificationPage'
+import Inscriptions from './pages/Inscriptions'
 
 
 const App =()=> {
@@ -32,6 +33,7 @@ const App =()=> {
         <Route path={'/planning/:festivalId'} element={<Planning />} />
         <Route path={'/registration/:festivalId'} element={<Registration />} />
         <Route path={'/referents/:festivalId'} element={<Referent />} />
+        <Route path={'/inscriptions/:festivalId'} element={<Inscriptions />} />
         <Route path={'/notification/:festivalId'} element={<NotificationPage />} />
         <Route path={'/admin'} element={<Admin />} />
         <Route path={'/jeux-espaces/:festivalId'} element={<Espace/>} />
