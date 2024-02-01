@@ -78,7 +78,6 @@ const Admin=()=>{
         <h2>Festivals précédents</h2>
         {pastFestivals && pastFestivals.length > 0 ? (
           <div>
-            <h2>Festivals précédents</h2>
             {pastFestivals.map((festival) => (
               <FestivalInfo key={festival.idfestival} festival={festival} />
             ))}

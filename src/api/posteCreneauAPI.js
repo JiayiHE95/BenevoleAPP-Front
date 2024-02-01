@@ -16,7 +16,11 @@ const posteCreneauAPI = {
     },
     getCreneauxByFestival(idfestival){
         return axiosInstance.get(`poste-creneau/get-creneaux-by-festival/${idfestival}`); 
-    }
+    },
+    updateCreneauHoraire(data){
+        return axiosInstance.post(`poste-creneau/update-horaire`,data); 
+    },
+
     
 }
 
