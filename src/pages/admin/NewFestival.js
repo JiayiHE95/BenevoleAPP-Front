@@ -8,7 +8,7 @@ import posteAPI from '../../api/posteAPI'
 import NavBar from '../../components/NavBar'
 import posteCreneauAPI from '../../api/posteCreneauAPI'
 import FileUploader from '../../components/FileUploader'
-
+import NavBarProfil from '../../components/NavbarProfil';
 
 const NewFestival=()=>{
   const [user, setUser] = useState(null);
@@ -24,6 +24,8 @@ const [heure_fin, setHeure_fin]=useState()
  const [postesId, setPostesId]=useState([])
  const [notif,setNotif]=useState(false)
  const [festival, setFestival] = useState(null);
+
+ const dateActuelle = new Date().toISOString().split('T')[0];
 
  const token=localStorage.getItem('accessToken')
   const { decodedToken,isExpired } = useJwt(token?token:"");
@@ -97,6 +99,10 @@ const [heure_fin, setHeure_fin]=useState()
   console.log(data);
   posteAPI.createPoste(data).then((resp)=>{
    console.log(resp.data);
+   posteAPI.getPostesListe().then((resp)=>{
+    console.log(resp.data);
+    setPostes(resp.data.postes)
+   })
   })
 
  }
@@ -129,16 +135,18 @@ const handleCapaciteClick = (id, capacite) => {
   isExpired || (user && user.role !=="ADMIN") ? <Navigate to={'/'} />
   :
   <div className="NewFestival">
-     <NavBar/>
+     <NavBarProfil/>
     <h1>Créer un nouveau festival</h1>
     <label htmlFor="date_debut">Date Début : </label>
     <input type="date" name="date_debut" id="date_debut"
     onChange={(e)=> {setDate_debut(e.target.value)} }
+    min={dateActuelle}
     required/>
 
     <label htmlFor="date_fin">Date Fin : </label>
     <input type="date" name="date_fin" id="date_fin"
     onChange={(e)=> {setDate_fin(e.target.value)} }
+    min={date_debut}
     required/>
 
     <label htmlFor="nomFestival">Nom du festival : </label>
@@ -179,7 +187,7 @@ const handleCapaciteClick = (id, capacite) => {
             <input
               type="number"
               placeholder="Capacité par créneau"
-              min={0}
+              min={1}
               onChange={(e) => handleCapaciteClick(poste.idposte, Number(e.target.value))}
             />
             )}

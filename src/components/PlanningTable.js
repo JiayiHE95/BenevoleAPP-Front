@@ -5,10 +5,14 @@ import flexibleAPI from "../api/flexibleAPI";
 import inscriptionAPI from "../api/inscriptionAPI";
 import PlanningColumnUser from "./PlanningColumnUser";
 import PlanningColumnAdmin from "./PlanningColumnAdmin";
+import ChangeHorairePopup from "./ChangeHorairePopup";
 
 const PlanningTable = ({ festival, user }) => {
 
  const [posteCreneau, setPosteCreneau] = useState(null);
+ const [changeHoraire, setChangeHoraire] = useState(false);
+ const [clickedHoraire, setClickedHoraire] = useState(null);
+  const [clickedDate, setClickedDate] = useState(null);
 
 
  useEffect(() => {
@@ -98,9 +102,16 @@ const inscrireBenevole=(idcreneau,idposte)=>{
   console.log("fonction callback à supprimer si pas besoin");
 }
 
+const handleClickHoraire=(date, horaire)=>{
+  setClickedHoraire(horaire);
+  setClickedDate(date);
+  setChangeHoraire(true);
+}
+
+
  return(
  <div className="planningTable"> 
-  <h2>plannning du festival {festival.annee}</h2>
+  <h2>plannning du festival {festival.annee} ({festival.date_debut} - {festival.date_fin})</h2>
   <Sidebar dataName={"poste"} onPosteClick={()=>{}} />
   {posteCreneau &&
   Object.entries(posteCreneau).map(([date, horaires]) => (
@@ -109,7 +120,9 @@ const inscrireBenevole=(idcreneau,idposte)=>{
       <div className="planningTable__date__creneau">
       {Object.entries(horaires).map( ([horaire, creneaux]) => (
         <div key={horaire} >
-          <div>{horaire}</div>
+          <div onClick={()=>{user.role ==="ADMIN"&& !festival.valide && handleClickHoraire(date, horaire)}}>{horaire}</div>
+          {changeHoraire && clickedDate===date && clickedHoraire===horaire &&
+             <ChangeHorairePopup festival={festival} horaire={horaire} date={date} setChangeHoraire={setChangeHoraire} getPosteCreneau={getPosteCreneau}/>}
            {/* NEW*/}
            {user.role==="BENEVOLE" ?
            <PlanningColumnUser festival={festival} user={user} creneaux={creneaux} onColonneChange={getPosteCreneau} />
