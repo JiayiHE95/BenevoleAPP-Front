@@ -46,7 +46,7 @@ const Infos = () => {
         <NavBar festivalId = {festivalId}/>
         <h1>Infos</h1>
         {(user.role==="ADMIN" || festival.valide) && <Sidebar dataName="poste" onPosteClick={handlePosteClick} />}
-        {(user.role==="ADMIN" || festival.valide) && <PosteDetails posteId={selectedPosteId} idfestival={festivalId} />}
+        {(user.role==="ADMIN" || festival.valide) && <PosteDetails posteId={selectedPosteId} idfestival={festivalId} user={user} />}
         {(user.role==="BENEVOLE" && !festival.valide )&& <div>Veuillez patienter, les informations du festival seront bientôt disponible</div>}
     </div>
 

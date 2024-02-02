@@ -30,20 +30,14 @@ const NavBar =({ festivalId })=>{
    </div>  
    {user&&
     <div className='navbar'>
-    <div className='clickable' onClick={() => { navigate("/home/user"); }}>{user.pseudo}</div>
+    <div className='clickable' onClick={() => { navigate("/home/user"); }}>Home</div>
+    <div className='clickable' onClick={() => { navigate(`/festival/${festivalId}`); }}>Festival</div>
     <div className='clickable' onClick={() => { navigate(`/notification/${festivalId}`)}}>Notifications</div>
     <div className='clickable' onClick={() => { navigate(`/infos/${festivalId}`); }}>Infos</div>
     <div className='clickable' onClick={() => { navigate(`/planning/${festivalId}`); }}>Planning</div>
     {(user.role === "BENEVOLE") &&
       <div className='clickable' onClick={() => { navigate(`/registration/${festivalId}`); }}>Inscription</div>
     }
-    {(user.role === "ADMIN") && (
-      <>
-        <div className='clickable' onClick={() => { navigate(`/referents/${festivalId}`); }}>Référents</div>
-        <div className='clickable' onClick={() => { navigate(`/inscriptions/${festivalId}`); }}>Trouve quelqu'un </div>
-      </>
-    )}
-
     <div className='clickable' onClick={() => { localStorage.removeItem('accessToken'); navigate(`/`); }}>Déconnexion</div>
   </div>
   

@@ -26,6 +26,14 @@ const Inscriptions = () => {
       recuperationInscriptions();
     }
   }, [selectedUserID]);
+
+  useEffect(() => {
+    inscriptionAPI.getByFestival(festivalId).then((res)=>{
+      console.log(res.data.inscriptions)
+      setInscriptions("get all",res.data.inscriptions)
+    })
+  }
+  , [])
   
   const fetchUsers = async () => {
     try {
@@ -61,7 +69,7 @@ const Inscriptions = () => {
   return (
     <div>
       <NavBar festivalId={festivalId}/>
-      <h1>Mes Inscriptions</h1>
+      <h1>Gestion Inscription</h1>
 
       {/* Utilisez le composant UserSearch réutilisé */}
       <UserSearch
