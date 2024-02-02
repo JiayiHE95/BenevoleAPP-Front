@@ -18,7 +18,6 @@ const PosteDetails = ({ posteId, idfestival, user }) => {
   const [users, setUsers] = useState([]);
   const [referents, setReferents] = useState(null);
   const [selectedUserID, setSelectedUserID] = useState(null);
-  const [validation, setValidation] = useState(false);
 
   const navigate = useNavigate();
 
@@ -91,6 +90,8 @@ const PosteDetails = ({ posteId, idfestival, user }) => {
 
 
   const handleAddReferent = () => {
+    setSearchQuery('')
+    setUsers([]);
     setShowSearchBar((prevShowComponent) => !prevShowComponent);
   };
 
@@ -109,6 +110,7 @@ const PosteDetails = ({ posteId, idfestival, user }) => {
       try {
         await supervisionAPI.addReferent(data);
         setShowSearchBar(false);
+        setSearchQuery('');
         recuperationReferents();
       } catch (error) {
         console.error('Erreur lors de l\'ajout du référent:', error);
