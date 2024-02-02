@@ -45,31 +45,22 @@ const Planning = () => {
 
 
  return (
-  isExpired  ?
+  isExpired ?
   <Navigate to={'/'} />
   :
   <div>
-  <NavBar festivalId = {festivalId}/>
-   <h1>Planning</h1>
+    <NavBar festivalId = {festivalId}/>
    {user && user.role === "ADMIN" ?
-    (festival?
-     <div>
-     {/*
-     {festival.valide===false && <div onClick={()=>setComfirmFestivalPopUp(true)}>Comfirmer la date et les créneaux du festival</div>}
-     {comfirmFestivalPopUp &&
-      <div>
-      <div>Attention, cette action est irréversible. Les dates et les creneaux seront bloqué pour que les bénévoles puissent s'inscrire, mais vous pouvez toujours ajouster le nombre de bénévole pour chaque creneau</div>
-      <div onClick={()=>setComfirmFestivalPopUp(false)}>Annuler</div>
-      <div onClick={()=>comfirmFestival()}>Comfirmer</div>
-      </div>
-     }*/}
+    (festival ?
      <PlanningTable festival={festival} user={user}/>
-     </div>
      :
      <div>Il n'y a pas de festival en cours </div>
     )
     :
-    (festival && festival.valide===true &&user) ? <PlanningTable festival={festival} user={user}/> : <div>Veuillez patienter, l'inscription pour les bénévoles n'est pas encore ouverte</div>
+    (festival && festival.valide===true && user) ? 
+    <PlanningTable festival={festival} user={user}/> 
+    : 
+    <div>Veuillez patienter, l'inscription pour les bénévoles n'est pas encore ouverte</div>
     }
 
   </div>

@@ -31,7 +31,14 @@ const InscriptionPopUp=({user,creneau,festival,fetchInscriptions, setInscription
      } 
     })
    )
-   setListeZoneBenevole(temp)
+
+   const sortedKeys = Object.keys(temp).sort();
+   const sortedTemp = {};
+   sortedKeys.forEach((key) => {
+     sortedTemp[key] = temp[key];
+   });
+
+   setListeZoneBenevole(sortedTemp)
   }
  
   }
@@ -94,7 +101,7 @@ const handleClickZone = (e) => {
 
  return(
   <div style={popupStyle} onClick={(e) => e.stopPropagation()}>
-  <div>Vous allez vous inscrire sur ce créneau</div>
+  <div>Veuillez choisir une ou plusieurs zone</div>
   {listeZoneBenevole &&
    <div>
     {Object.entries(listeZoneBenevole).map(([cle, zone], index) => (

@@ -62,7 +62,13 @@ const PopUpAdminCreneau = ({ creneau, closePopup, user }) => {
      })
     )
     
-    setListeZoneBenevole(temp)
+   const sortedKeys = Object.keys(temp).sort()
+   const sortedTemp = {};
+   sortedKeys.forEach((key) => {
+     sortedTemp[key] = temp[key];
+   });
+
+   setListeZoneBenevole(sortedTemp)
    }
   
    }

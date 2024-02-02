@@ -13,10 +13,14 @@ const PlanningTable = ({ festival, user }) => {
  const [changeHoraire, setChangeHoraire] = useState(false);
  const [clickedHoraire, setClickedHoraire] = useState(null);
   const [clickedDate, setClickedDate] = useState(null);
+  const [listePoste, setListePoste] = useState(null);
 
 
  useEffect(() => {
   getPosteCreneau()
+  posteCreneauAPI.getPosteByFestival(festival.idfestival).then((res) => {
+      setListePoste(res.data.postes);
+  })
  },[])
 
  const getPosteCreneau = () => {
@@ -98,10 +102,6 @@ const groupByIdPoste = (groupedByIdCreneau) => {
  return listeFinale
 }
 
-const inscrireBenevole=(idcreneau,idposte)=>{
-  console.log("fonction callback à supprimer si pas besoin");
-}
-
 const handleClickHoraire=(date, horaire)=>{
   setClickedHoraire(horaire);
   setClickedDate(date);
@@ -111,21 +111,46 @@ const handleClickHoraire=(date, horaire)=>{
 
  return(
  <div className="planningTable"> 
-  <h2>plannning du festival {festival.annee} ({festival.date_debut} - {festival.date_fin})</h2>
-  <Sidebar dataName={"poste"} onPosteClick={()=>{}} />
+  <h2>Plannning du festival {festival.annee} ({festival.date_debut} - {festival.date_fin})</h2>
   {posteCreneau &&
   Object.entries(posteCreneau).map(([date, horaires]) => (
     <div key={date} className="planningTable__date">
-      <div>{date}</div>
-      <div className="planningTable__date__creneau">
+      <div className="date">{date}</div>
+      <div className="planningTable__creneaux">
+        <div className="planningTable__colonne">
+          <div className="planningTable__creneauPoste"></div>
+          {listePoste && listePoste.map((poste) => (
+            <div key={poste.idposte} className="planningTable__creneauPoste">{poste.nom}</div>
+          ))}
+          <div className="planningTable__creneauPoste">Flexible</div>
+        </div>
       {Object.entries(horaires).map( ([horaire, creneaux]) => (
-        <div key={horaire} >
-          <div onClick={()=>{user.role ==="ADMIN"&& !festival.valide && handleClickHoraire(date, horaire)}}>{horaire}</div>
+        <div key={horaire} className="planningTable__colonne">
+          
+          <div 
+            className="planningTable__creneauHoraire"
+            onClick={()=>{user.role ==="ADMIN" && !festival.valide && handleClickHoraire(date, horaire)}}>
+              {horaire}
+          </div>
+
           {changeHoraire && clickedDate===date && clickedHoraire===horaire &&
-             <ChangeHorairePopup festival={festival} horaire={horaire} date={date} setChangeHoraire={setChangeHoraire} getPosteCreneau={getPosteCreneau}/>}
-           {/* NEW*/}
+             <ChangeHorairePopup 
+              festival={festival} 
+              horaire={horaire} 
+              date={date} 
+              setChangeHoraire={setChangeHoraire} 
+              getPosteCreneau={getPosteCreneau}
+             />}
+           
+            
+
            {user.role==="BENEVOLE" ?
-           <PlanningColumnUser festival={festival} user={user} creneaux={creneaux} onColonneChange={getPosteCreneau} />
+           <PlanningColumnUser 
+            festival={festival} 
+            user={user} 
+            creneaux={creneaux} 
+            onColonneChange={getPosteCreneau} 
+           />
            :
             <PlanningColumnAdmin festival={festival} user={user} creneaux={creneaux} getPosteCreneau={getPosteCreneau} />
            } 

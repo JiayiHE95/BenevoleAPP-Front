@@ -99,13 +99,14 @@ const PlanningColumnUser = ({ festival, user, creneaux, onColonneChange }) => {
 
 
  return(
-  <div>
-   <div>
+  <>
      {creneaux.map((c, index) => (
       c.length>1?
 
-      <div key={index} onClick={()=>{handleClickCreneau("jeu")}}>
-        <div style={{ color: estInscrit === c[0].Poste.idposte ? "blue" : "black" }}> 
+      <div key={index} onClick={()=>{handleClickCreneau("jeu")}} >
+        <div 
+         className={`planningTable__creneau cursor ${estInscrit === c[0].Poste.idposte && "estInscrit"}`}
+        > 
        {listeInscription? listeInscription.length:0}/
         {Object.values(c).reduce((somme, posteCreneau) => somme + posteCreneau.capacite, 0)}
        </div>
@@ -150,15 +151,18 @@ const PlanningColumnUser = ({ festival, user, creneaux, onColonneChange }) => {
 
       c.map((creneau, index) => (
        <div key={index} onClick={()=>{handleClickCreneau(creneau.Poste.idposte)}}>
-         <div style={{ color: estInscrit === creneau.Poste.idposte ? "blue" : "black" }}> 
-         {creneau.capacite-creneau.capacite_restante}/{creneau.capacite}
-         </div>
+       <div
+          className={`planningTable__creneau cursor ${estInscrit === creneau.Poste.idposte && "estInscrit"}`}
+        >
+          {creneau.capacite - creneau.capacite_restante}/{creneau.capacite}
+        </div>
+
       
         {inscriptionPopUp && selectedCreaneau===creneau.Poste.idposte &&
          (!estInscrit && !estFlexible ?   
           (creneau.capacite_restante>0?
           <div style={popupStyle} onClick={(e) => e.stopPropagation()}>
-           <div>Vous allez vous inscrire sur ce créneau</div>
+           <div>Veuillez choisir une ou plusieurs zones</div>
            <div onClick={()=>{inscrireBenevole(creneau.Creneau.idcreneau, creneau.Poste.idposte)}}>Comfirmer</div>
            <div onClick={()=>{handleClickCreneau(null)}}>Annuler</div>
           </div>
@@ -187,15 +191,17 @@ const PlanningColumnUser = ({ festival, user, creneaux, onColonneChange }) => {
      
       ))
      ))}
-   </div>
    
-   <input
-    type="checkbox"
-    id="est_flexible"
-    name="est_flexible"
-    checked={ estFlexible ? true : false}
-    onClick={()=>{ setFlexiblePopUp(flexibePopUp? false: true)}}
-   />
+   <div className="planningTable__checkbox"> 
+    <input
+    className="cursor"
+      type="checkbox"
+      id="est_flexible"
+      name="est_flexible"
+      checked={ estFlexible ? true : false}
+      onClick={()=>{ setFlexiblePopUp(flexibePopUp? false: true)}}
+    />
+   </div>
    {flexibePopUp  && 
     (!estFlexible  ?
      (estInscrit?
@@ -219,7 +225,7 @@ const PlanningColumnUser = ({ festival, user, creneaux, onColonneChange }) => {
     )  
    }
 
-  </div>
+  </>
  )
 
 }
