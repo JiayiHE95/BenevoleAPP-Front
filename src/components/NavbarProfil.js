@@ -28,18 +28,18 @@ const NavBarProfil =()=>{
  return(
 
   <div className='navbar-container'>
-   <div className='logo clickable' onClick={()=>{navigate("/")}}>
-      <div className='logo-name'>Benevole APP</div>
+   <div  onClick={()=>{navigate("/")}}>
+      <div className='logo-name'>Festival de Jeux</div>
    </div>  
    {user&&
     <div className='navbar'>
-      <div className='clickable' onClick={()=>{navigate("/home/user")}}>{user.pseudo}</div>
+      <div  onClick={()=>{navigate("/home/user")}}>Home</div>
       {(user.role==="ADMIN") &&
-      <div className='clickable' onClick={()=>{navigate("/admin")}}>Admin</div>
+      <div  onClick={()=>{navigate("/admin")}}>Admin</div>
       }
      
     
-      <div className='clickable' onClick={() => {localStorage.removeItem('accessToken');navigate(`/`);}}>Déconnexion</div>
+      <div class="material-icons" onClick={() => {localStorage.removeItem('accessToken');navigate(`/`);}}>logout</div>
     </div>
     }
    </div>

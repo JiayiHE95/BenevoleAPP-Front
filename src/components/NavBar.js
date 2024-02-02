@@ -25,20 +25,20 @@ const NavBar =({ festivalId })=>{
  return(
 
   <div className='navbar-container'>
-   <div className='logo clickable' onClick={()=>{navigate("/")}}>
-      <div className='logo-name'>Benevole APP</div>
+   <div onClick={()=>{navigate("/")}}>
+      <div className='logo-name'>Festival de Jeux</div>
    </div>  
    {user&&
     <div className='navbar'>
-    <div className='clickable' onClick={() => { navigate("/home/user"); }}>Home</div>
-    <div className='clickable' onClick={() => { navigate(`/festival/${festivalId}`); }}>Festival</div>
-    <div className='clickable' onClick={() => { navigate(`/notification/${festivalId}`)}}>Notifications</div>
-    <div className='clickable' onClick={() => { navigate(`/infos/${festivalId}`); }}>Infos</div>
-    <div className='clickable' onClick={() => { navigate(`/planning/${festivalId}`); }}>Planning</div>
+    <div  onClick={() => { navigate("/home/user"); }}>Home</div>
+    <div  onClick={() => { navigate(`/festival/${festivalId}`); }}>Accueil</div>
+    <div  onClick={() => { navigate(`/notification/${festivalId}`)}}>Notifications</div>
+    <div  onClick={() => { navigate(`/infos/${festivalId}`); }}>Infos</div>
+    <div  onClick={() => { navigate(`/planning/${festivalId}`); }}>Planning</div>
     {(user.role === "BENEVOLE") &&
-      <div className='clickable' onClick={() => { navigate(`/registration/${festivalId}`); }}>Inscription</div>
+      <div  onClick={() => { navigate(`/registration/${festivalId}`); }}>Inscription</div>
     }
-    <div className='clickable' onClick={() => { localStorage.removeItem('accessToken'); navigate(`/`); }}>Déconnexion</div>
+    <div class="material-icons" onClick={() => {localStorage.removeItem('accessToken');navigate(`/`);}}>logout</div>
   </div>
   
     }

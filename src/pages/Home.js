@@ -22,18 +22,11 @@ const Home = () =>{
       <Navigate to={'/home/user'} />
       :
       <div className="site-container">
-        <h1>Accueil</h1>
-    <div >
-      <div>Festival du Jeu Montpellier</div>
-      <div>Bienvenue sur notre site </div>
-      <div>
-      <div className='navbar'>
-      <div className='clickable' onClick={()=>{navigate('/login')}}>Connexion</div>
-      <div className='clickable' onClick={()=>{navigate('/signup')}}>Inscription</div>
+        <div className="navbar">
+          <div className="accueil" onClick={()=>{navigate('/login')}}>Connexion</div>
+          <div className="accueil" onClick={()=>{navigate('/signup')}}>Inscription</div>
       </div >
     </div>
-    </div>
-      </div>
     );
   }
   export default Home

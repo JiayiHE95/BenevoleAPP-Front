@@ -1,63 +1,13 @@
-.home-presentation{
- display: flex;
- flex-direction: column;
- padding: 5%;
- width: 50%;
- color: white;
- text-align:justify;
- align-self: flex-end;
- font-size: 1.3em;
 
- .commander{
-  align-self: flex-end;
-  justify-self: flex-end;
-  font-size: 1em;
-  font-weight: bold;
-  border-radius: 15px;
-  background: #fff;
-  color: #8D1717;
-  text-align: center;
-  display: inline-block;
-  padding: 2%;
-  margin-top: 10%;
-  z-index: 1;
- }
+.contour {
+height: 60vh;
+width: 60vw;
+background-color: whitesmoke;
+border: whitesmoke;
+display: flex;
+align-items: center;
+justify-content: center;
 }
-.commander:hover {
- scale: 1.05;
- color: #D6991C;
- cursor: pointer;
-}
-
-.presentation-title{
- font-size: 3em;
- text-align: center;
- font-family: 'Brush Script MT';
- margin-bottom: 5%;
- white-space: nowrap;
-}
-
-
-
-@media screen and (max-width: 768px) {
- .home-presentation{
-  width: 90%;
-  align-self: center;
-  padding: 0;
-  margin: 0;
-  text-align: center;
-  font-size: 1.2em;
-  color: white;
-  margin-top: 10%;
-  margin-bottom: 10%;
   
-  .commander{
-   margin-top: 5%;
-   margin-bottom: 5%;
-  }
- }
- .presentation-title{
-  font-size: 2em;
-  margin-bottom: 5%;
- }
-}
+ 
+  
