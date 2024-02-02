@@ -1,0 +1,95 @@
+.contenantt{
+    width:79%;
+    justify-content: center;
+    margin: 10px;
+}
+.presentationPoste{
+    font-weight: bold;
+    font-size: 15px;
+    margin: 10px;
+    background-color: whitesmoke;
+    width: 100%;
+
+
+}
+.group{
+
+    display: flex;
+    justify-content: center;
+}
+.addReferentBouton{
+    height: 5vh;
+    width: 5vw;
+    border : none;
+    background-color: lightblue;
+}
+.addReferentBouton:hover{
+    background-color: rgb(125, 203, 228);
+}
+.SearchBar{
+    height: 5vh;
+    width: 50vw;
+}
+
+.editButton{
+    height: 2em;
+    width: auto;
+    border-color: lightblue;
+    
+}
+.searchResult:hover{
+background-color: whitesmoke;
+
+}
+.selectable-user-list{
+    border : solid lightgray 1px
+}
+.editButton:hover{
+    height: 2em;
+    width: auto;
+    
+    background-color: rgb(125, 203, 228);
+    
+}
+.ref{
+    text-align: center;
+    padding: 10px
+}
+.showEspaceButton{
+    margin-top: 5vh;
+    background-color: lightblue;
+    width: 70%;
+    height: 5vh;
+
+}
+.showEspaceButton:hover{
+    background-color: rgb(125, 203, 228);
+}
+
+textarea {
+    width: 100%; /* ou une autre valeur en pixels */
+    height: 30vh; /* ou une autre valeur en pixels */
+}
+
+.description{
+    text-align: center;
+    padding:2px;
+}
+.entoure{
+
+    display: flex;
+    justify-content: center;
+
+}
+.bouton1{
+    
+    margin : 10px;
+    border: none;
+    width: 10vw;
+    height : 5vh;
+    background-color: lightblue;
+}
+.bouton1:hover{
+    
+    background-color: rgb(125, 203, 228);
+}

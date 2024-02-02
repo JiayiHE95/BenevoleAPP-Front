@@ -42,7 +42,7 @@ const Espace = () => {
     return (
         <div>
             <NavBar festivalId = {festivalId}/>
-            <h1>Espaces</h1>
+            <h1>Informations sur les espaces</h1>
             {!csvImported ?
             <div>
                    <div>

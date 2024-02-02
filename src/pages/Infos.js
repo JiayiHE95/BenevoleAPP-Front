@@ -13,7 +13,7 @@ const Infos = () => {
     const { festivalId } = useParams();
     const [festival, setFestival] = useState(null);
 
-    const [selectedPosteId, setSelectedPosteId] = useState(1);
+    const [selectedPosteId, setSelectedPosteId] = useState(null);
 
 
     const [user, setUser] = useState(null);
@@ -42,14 +42,23 @@ const Infos = () => {
 
     return (
   
-    user && festival&& <div>
+    user && festival && <div>
         <NavBar festivalId = {festivalId}/>
-        <h1>Infos</h1>
-        {(user.role==="ADMIN" || festival.valide) && <Sidebar dataName="poste" onPosteClick={handlePosteClick} />}
-        {(user.role==="ADMIN" || festival.valide) && <PosteDetails posteId={selectedPosteId} idfestival={festivalId} user={user} />}
-        {(user.role==="BENEVOLE" && !festival.valide )&& <div>Veuillez patienter, les informations du festival seront bientôt disponible</div>}
-    </div>
+        
+        <h1>Informations sur les postes</h1>
+        <div className='contenant'>        
+          {(user.role==="ADMIN" || festival.valide) && 
+            <Sidebar dataName="poste" onPosteClick={handlePosteClick} />}
+          
+          {(user.role==="ADMIN" || festival.valide) && selectedPosteId != null && 
+            <PosteDetails posteId={selectedPosteId} idfestival={festivalId} user={user} />}
+       </div>
 
+
+        {(user.role==="BENEVOLE" && !festival.valide )&& 
+          <div>Veuillez patienter, les informations du festival seront bientôt disponible</div>}
+    </div>
+    
     );
 
 }

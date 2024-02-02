@@ -4,10 +4,16 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start; /* Align items to the start (left) */
+    width: 20vw;
+  
   }
   
   /* Add some additional styling for buttons if needed */
   .sidebar .bouton {
-    margin-bottom: 8px; /* Adjust the spacing between buttons */
+    margin-bottom: 3px; /* Adjust the spacing between buttons */
+    width: 100%;
+    height: 10vh;
+    font-size: 15px;
+    border: none;
   }
   

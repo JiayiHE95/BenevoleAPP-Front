@@ -12,10 +12,15 @@ const Referent = () => {
   const { festivalId } = useParams();
   const [postes, setPostes] = useState([]);
   const [user, setUser] = useState(null);
-  const [showSearchBar, setShowSearchBar] = useState(false);
+
+
+
+  const [showSearchBar, setShowSearchBar] = useState(false);//
+
+
   const [validation, setValisation] = useState(false);
-  const [users, setUsers] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [users, setUsers] = useState([]);//
+  const [searchQuery, setSearchQuery] = useState('');//
   const [selectedPoste, setSelectedPoste] = useState(null);
   const [selectedUserID, setSelectedUserID] = useState(null);
 
