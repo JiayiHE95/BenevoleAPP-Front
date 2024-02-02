@@ -2,11 +2,61 @@ import { useEffect, useState } from "react";
 import '../scss/components/planning.css';
 import inscriptionAPI from "../api/inscriptionAPI";
 import flexibleAPI from "../api/flexibleAPI";
+import espaceAPI from "../api/espaceAPI";
+import { useParams } from "react-router-dom";
+
+
 
 const PopUpAdminCreneau = ({ selectedCreneau, closePopup, registerPerson }) => {
   const [registeredPeople, setRegisteredPeople] = useState([]);
   const [flexiblePeople, setFlexiblePeople] = useState([])
   const [isMounted, setIsMounted] = useState(true);
+  const {festivalId}  = useParams();
+  const [selectedZone, setSelectedZone] = useState(null);
+
+  const [selectedZones,setSelectedZones]=useState({}) 
+  const [listeZoneBenevole, setListeZoneBenevole]=useState(null)
+  const [selectZoneAlerte, setSelectZoneAlert]=useState(false)
+ 
+  useEffect(() => {
+     fetchListeZoneBenevole();
+  },[]);
+ 
+  
+  const fetchListeZoneBenevole = async () => {
+   const res = await espaceAPI.getEspacesListe()
+   if (res.data) {
+    const espaces=res.data.espaces;
+    const temp={}
+    await Promise.all(
+     espaces.map(async(espace)=>{
+      const res = await espaceAPI.getSousZone(espace.idzonebenevole, festivalId,selectedCreneau.idcreneau);
+      if (res.data.espaces.length>0) {
+        temp[espace.nom]=res.data.espaces;
+      } 
+     })
+    )
+    
+    setListeZoneBenevole(temp)
+   }
+  
+   }
+   const handleClickZone = (e) => {
+    const selectedOption = e.target.options[e.target.selectedIndex];
+    const idzone = selectedOption.value;
+    const zonename = selectedOption.text;
+  
+    const temp={...selectedZones}
+    if(temp[idzone]){
+      delete temp[idzone]
+    }else{
+      temp[idzone]=zonename
+    }
+    setSelectedZones(temp)
+    setSelectZoneAlert(false)
+   }
+
+
 
   const getRegisteredPeople = async () => {
     try {
@@ -68,16 +118,66 @@ useEffect(() => {
       setIsMounted(false);
     }
   }, [isMounted, selectedCreneau]);
+
+
+
+    const showww = (index) => {
+      console.log(index);
+      setSelectedZone(index)
+      console.log(Object.entries(listeZoneBenevole)[index][1])
+      
+      
     
+    }
   
   return (
     <div className="popup-container">
       <div className="popup-content">
-      {selectedCreneau && (selectedCreneau.idposte === 1) && (
+      {!selectedZone ? (
+      <div>
+        {selectedCreneau && selectedCreneau.idposte === 1 && (
           <div>
-            la merde
+            {listeZoneBenevole && (
+              <div>
+                {Object.entries(listeZoneBenevole).map(([cle, zone], index) => (
+                  <button key={index} onClick={() => showww(index)}>
+                    {cle}
+                    {/* Your existing commented-out <select> element goes here */}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         )}
+      </div>
+    ) : (
+      <div>
+        <select id={Object.entries(listeZoneBenevole)[selectedZone][0]} name={Object.entries(listeZoneBenevole)[selectedZone][0]} onChange={(e) => handleClickZone(e)} >
+          <option value="" disabled selected>Choisir une zone</option>
+          {Object.entries(Object.entries(listeZoneBenevole)[selectedZone][1]).map(([sousCle, souszone], index) => (
+            Object.entries(listeZoneBenevole)[selectedZone][1].length <= 1 ? 
+            
+            <option key={index} value={souszone.idzonebenevole} disabled={souszone.PosteCreneaus[0]?.capacite_restante <= 0} >{souszone.nom} ({souszone.PosteCreneaus[0]?.capacite_restante}/{souszone.PosteCreneaus[0]?.capacite})</option>
+              : 
+              Object.entries(listeZoneBenevole)[index][0] !== souszone.nom && 
+              <option key={index} value={souszone.idzonebenevole} disabled={souszone.PosteCreneaus[0]?.capacite_restante <= 0} >{souszone.nom} ({souszone.PosteCreneaus[0]?.capacite_restante}/{souszone.PosteCreneaus[0]?.capacite})</option>
+              
+            
+          ))}
+          </select>
+      </div>
+    )}
+
+
+
+
+
+
+
+
+
+
+
 
 
         {selectedCreneau && (selectedCreneau.idposte !== 1) &&(
