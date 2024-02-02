@@ -3,14 +3,26 @@ import '../scss/components/planning.css'
 import PopUpAdminCreneau from "./PopUpAdminCreneau";
 import inscriptionAPI from "../api/inscriptionAPI";
 
-const PlanningColumnAdmin = ({ creneaux, getPosteCreneau }) => {
+const PlanningColumnAdmin = ({ creneaux, user, getPosteCreneau }) => {
   const [listeInscription, setListeInscription] = useState(null);
   const [popupVisible, setPopupVisible] = useState(false);
   const [selectedCreneau, setSelectedCreneau] = useState(null);
-  
-
 
   
+  useEffect(() => {
+    fetchInscriptions(); 
+  }, []);
+  
+  const fetchInscriptions = async () => {
+    const data = { idposte: 1, idcreneau: creneaux[0][0].idcreneau };
+    
+    const res = await inscriptionAPI.getInscriptionByPosteCreneau(data);
+    if (res.data.find) {
+      setListeInscription(res.data.inscriptions)
+
+    } 
+  
+   }
 
   const isCapacityFilled = (creneau) => {
     return creneau.capacite - creneau.capacite_restante === 0;
@@ -24,6 +36,7 @@ const PlanningColumnAdmin = ({ creneaux, getPosteCreneau }) => {
   const closePopup = async() => {
     setSelectedCreneau(null);
     setPopupVisible(false);
+    fetchInscriptions();
     getPosteCreneau();
   };
 
@@ -50,13 +63,11 @@ const PlanningColumnAdmin = ({ creneaux, getPosteCreneau }) => {
         ))}
       </div>
 
-      {popupVisible && (selectedCreneau.idposte !== 1)&&(
-        <PopUpAdminCreneau selectedCreneau={selectedCreneau} closePopup={closePopup} />
+      {popupVisible &&(
+        <PopUpAdminCreneau creneau={selectedCreneau} closePopup={closePopup} user={user}/>
       )}
 
-      {popupVisible && (selectedCreneau.idposte === 1)&&(
-        <PopUpAdminCreneau selectedCreneau={selectedCreneau} closePopup={closePopup} />
-      )}
+
 
     </div>
   );

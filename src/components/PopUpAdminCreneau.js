@@ -4,23 +4,48 @@ import inscriptionAPI from "../api/inscriptionAPI";
 import flexibleAPI from "../api/flexibleAPI";
 import espaceAPI from "../api/espaceAPI";
 import { useParams } from "react-router-dom";
+import posteCreneauAPI from "../api/posteCreneauAPI";
 
 
 
-const PopUpAdminCreneau = ({ selectedCreneau, closePopup, registerPerson }) => {
+const PopUpAdminCreneau = ({ creneau, closePopup, user }) => {
   const [registeredPeople, setRegisteredPeople] = useState([]);
   const [flexiblePeople, setFlexiblePeople] = useState([])
-  const [isMounted, setIsMounted] = useState(true);
+
   const {festivalId}  = useParams();
   const [selectedZone, setSelectedZone] = useState(null);
 
-  const [selectedZones,setSelectedZones]=useState({}) 
+  const [selectedZones,setSelectedZones]=useState(null) 
   const [listeZoneBenevole, setListeZoneBenevole]=useState(null)
-  const [selectZoneAlerte, setSelectZoneAlert]=useState(false)
+
+  const [selectedCreneau, setSelectedCreaneau]=useState(creneau)
  
   useEffect(() => {
      fetchListeZoneBenevole();
   },[]);
+
+  useEffect(() => {
+    if(selectedZones){
+      const data={
+        idcreneau: selectedCreneau.idcreneau,
+        idzonebenevole: Object.keys(selectedZones)[0],
+        idfestival: selectedCreneau.idfestival
+      }
+      posteCreneauAPI.getByZoneFestival(data).then((res)=>{
+        console.log("res testttttttttttttttt",res.data)
+        setSelectedCreaneau(res.data.posteCreneau)
+        getRegisteredPeople();
+      })
+    }
+  }, [selectedZones]);
+
+  useEffect(() => {
+
+      getRegisteredPeople();
+      getFlexiblePeople();
+
+    }
+  , [selectedCreneau]);
  
   
   const fetchListeZoneBenevole = async () => {
@@ -46,14 +71,10 @@ const PopUpAdminCreneau = ({ selectedCreneau, closePopup, registerPerson }) => {
     const idzone = selectedOption.value;
     const zonename = selectedOption.text;
   
-    const temp={...selectedZones}
-    if(temp[idzone]){
-      delete temp[idzone]
-    }else{
-      temp[idzone]=zonename
-    }
+    let temp={}
+    temp[idzone]=zonename
+  
     setSelectedZones(temp)
-    setSelectZoneAlert(false)
    }
 
 
@@ -68,7 +89,8 @@ const PopUpAdminCreneau = ({ selectedCreneau, closePopup, registerPerson }) => {
             creneau: {
                 idfestival: selectedCreneau.idfestival,
                 idcreneau: selectedCreneau.idcreneau,
-                idposte: selectedCreneau.idposte
+                idposte: selectedCreneau.idposte,
+                idzonebenevole: selectedCreneau.idzonebenevole
             },
             // Other data if needed
         };
@@ -78,6 +100,7 @@ const PopUpAdminCreneau = ({ selectedCreneau, closePopup, registerPerson }) => {
         console.error("Error fetching registered people:", error);
     }
 };
+
 const getFlexiblePeople = async () => {
   try {
       if (!selectedCreneau) {
@@ -91,6 +114,7 @@ const getFlexiblePeople = async () => {
       console.error("Error fetching registered people:", error);
   }
 };
+
 const handleAddPerson= async (iduser) =>{
   const data = {
     iduser: iduser,
@@ -111,76 +135,79 @@ const handleAddPerson= async (iduser) =>{
   getFlexiblePeople();
 }
 
-useEffect(() => {
-    if (isMounted) {
-      getRegisteredPeople();
-      getFlexiblePeople();
-      setIsMounted(false);
-    }
-  }, [isMounted, selectedCreneau]);
+
 
 
 
     const showww = (index) => {
       console.log(index);
       setSelectedZone(index)
-      console.log(Object.entries(listeZoneBenevole)[index][1])
-      
-      
-    
+      console.log(Object.entries(listeZoneBenevole)[index][1])  
     }
+
   
   return (
     <div className="popup-container">
       <div className="popup-content">
-      {!selectedZone ? (
-      <div>
-        {selectedCreneau && selectedCreneau.idposte === 1 && (
-          <div>
-            {listeZoneBenevole && (
-              <div>
-                {Object.entries(listeZoneBenevole).map(([cle, zone], index) => (
-                  <button key={index} onClick={() => showww(index)}>
-                    {cle}
-                    {/* Your existing commented-out <select> element goes here */}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
-      </div>
-    ) : (
-      <div>
-        <select id={Object.entries(listeZoneBenevole)[selectedZone][0]} name={Object.entries(listeZoneBenevole)[selectedZone][0]} onChange={(e) => handleClickZone(e)} >
-          <option value="" disabled selected>Choisir une zone</option>
-          {Object.entries(Object.entries(listeZoneBenevole)[selectedZone][1]).map(([sousCle, souszone], index) => (
-            Object.entries(listeZoneBenevole)[selectedZone][1].length <= 1 ? 
+       {/*commmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmment */} 
+
+
+    {/*commmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmment */} 
+
+
+
+
+  {(listeZoneBenevole && selectedCreneau.idposte === 1 ) && selectedZones===null ?
+  
+
+  <div>
+    {Object.entries(listeZoneBenevole).map(([cle, zone], index) => (
+     <div key={index}>
+      {cle} :
+      <select id={cle} name={cle} onChange={(e) => handleClickZone(e)} >
+        <option value="" disabled selected>Choisir une zone</option>
+        {Object.entries(zone).map(([sousCle, souszone], index) => (
+          zone.length <= 1 ? 
+           
+          <option 
+            key={index} 
+            value={souszone.idzonebenevole} 
+           
+          >
+            {souszone.nom} ({souszone.PosteCreneaus[0]?.capacite - souszone.PosteCreneaus[0]?.capacite_restante}/{souszone.PosteCreneaus[0]?.capacite})
+          </option>
+          : 
+          cle !== souszone.nom && 
+          <option 
+            key={index} 
+            value={souszone.idzonebenevole} 
+      
+          >
+            {souszone.nom} ({souszone.PosteCreneaus[0]?.capacite - souszone.PosteCreneaus[0]?.capacite_restante}/{souszone.PosteCreneaus[0]?.capacite})
+          </option>
             
-            <option key={index} value={souszone.idzonebenevole} disabled={souszone.PosteCreneaus[0]?.capacite_restante <= 0} >{souszone.nom} ({souszone.PosteCreneaus[0]?.capacite_restante}/{souszone.PosteCreneaus[0]?.capacite})</option>
-              : 
-              Object.entries(listeZoneBenevole)[index][0] !== souszone.nom && 
-              <option key={index} value={souszone.idzonebenevole} disabled={souszone.PosteCreneaus[0]?.capacite_restante <= 0} >{souszone.nom} ({souszone.PosteCreneaus[0]?.capacite_restante}/{souszone.PosteCreneaus[0]?.capacite})</option>
-              
-            
-          ))}
-          </select>
+        ))}
+      </select>
+     </div>
+   ))}
+  </div>
+
+  :
+
+  selectedZones && 
+    <div>
+    <div>Zones selectionnées : </div>
+    {Object.entries(selectedZones).map(([cle, zone], index) => (
+      <div key={index}>{zone}</div>
+      ))}
+      <div onClick={()=>{setSelectedZones(null)}}>Retournez à la liste des zones</div>
       </div>
-    )}
+    
+    
+  }
 
 
-
-
-
-
-
-
-
-
-
-
-
-        {selectedCreneau && (selectedCreneau.idposte !== 1) &&(
+        {selectedCreneau && (selectedCreneau.idposte!==1 || selectedZones) &&(
           <div>
             <h3>Details for Creneau {selectedCreneau.id}</h3>
             <p>Capacité: {selectedCreneau.capacite}</p>

@@ -21,6 +21,10 @@ const posteCreneauAPI = {
         return axiosInstance.post(`poste-creneau/update-horaire`,data); 
     },
 
+    getByZoneFestival(data){
+        return axiosInstance.post(`poste-creneau/get-by-zone-festival`, data); 
+    },
+
     
 }
 

@@ -212,10 +212,10 @@ const handleCapaciteClick = (id, capacite) => {
 
    {festival ?
    <div>
-        <div>Festival créé ! Importer le fichier de jeu et espace maintenant ou depuis la page Admin</div>
-        <FileUploader festival={festival}/>
-    </div>:
-    
+      <div>Festival créé ! Importer le fichier de jeu et espace maintenant ou depuis la page Admin</div>
+      <FileUploader festival={festival}/>
+    </div>
+    :
    <button type="submit" onClick={()=>createFestival()}>Créer le festival</button>
     }
     

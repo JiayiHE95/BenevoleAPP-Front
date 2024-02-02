@@ -11,6 +11,8 @@ const InscriptionPopUp=({user,creneau,festival,fetchInscriptions, setInscription
  const [listeZoneBenevole, setListeZoneBenevole]=useState(null)
  const [selectZoneAlerte, setSelectZoneAlert]=useState(false)
 
+ console.log("c dans inscription popop",creneau)
+
  useEffect(() => {
     fetchListeZoneBenevole();
  },[]);
@@ -103,12 +105,23 @@ const handleClickZone = (e) => {
         {Object.entries(zone).map(([sousCle, souszone], index) => (
           zone.length <= 1 ? 
            
-          <option key={index} value={souszone.idzonebenevole} disabled={souszone.PosteCreneaus[0]?.capacite_restante <= 0} >{souszone.nom} ({souszone.PosteCreneaus[0]?.capacite_restante}/{souszone.PosteCreneaus[0]?.capacite})</option>
-             : 
-            cle !== souszone.nom && 
-            <option key={index} value={souszone.idzonebenevole} disabled={souszone.PosteCreneaus[0]?.capacite_restante <= 0} >{souszone.nom} ({souszone.PosteCreneaus[0]?.capacite_restante}/{souszone.PosteCreneaus[0]?.capacite})</option>
+          <option 
+            key={index} 
+            value={souszone.idzonebenevole} 
+            disabled={souszone.PosteCreneaus[0]?.capacite_restante <= 0} 
+          >
+            {souszone.nom} ({souszone.PosteCreneaus[0]?.capacite - souszone.PosteCreneaus[0]?.capacite_restante}/{souszone.PosteCreneaus[0]?.capacite})
+          </option>
+          : 
+          cle !== souszone.nom && 
+          <option 
+            key={index} 
+            value={souszone.idzonebenevole} 
+            disabled={souszone.PosteCreneaus[0]?.capacite_restante <= 0} 
+          >
+            {souszone.nom} ({souszone.PosteCreneaus[0]?.capacite - souszone.PosteCreneaus[0]?.capacite_restante}/{souszone.PosteCreneaus[0]?.capacite})
+          </option>
             
-           
         ))}
       </select>
      </div>
