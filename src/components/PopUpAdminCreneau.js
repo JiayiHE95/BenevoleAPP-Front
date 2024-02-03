@@ -5,7 +5,7 @@ import flexibleAPI from "../api/flexibleAPI";
 import espaceAPI from "../api/espaceAPI";
 import { useParams } from "react-router-dom";
 import posteCreneauAPI from "../api/posteCreneauAPI";
-
+import { TiUserAdd } from "react-icons/ti";
 
 
 const PopUpAdminCreneau = ({ creneau, closePopup, user }) => {
@@ -134,83 +134,100 @@ const handleAddPerson= async (iduser) =>{
   getFlexiblePeople();
 }
 
+const calculerTotalInscrits = (zones) => {
+  console.log("coucou",zones)
+  const total = zones.reduce((acc, zone) => acc + (zone.Inscriptions ? zone.Inscriptions.length : 0), 0);
+  console.log("total",total)
+  return total;
+};
+
   
   return (
-    <div className={`popup 
-      ${ (listeZoneBenevole && selectedCreneau.idposte === 1 ) && selectedZones===null ? "popup__big" : "popup__middle"}`}
+    <div className={`popup popup__middle`}
     >
       <h3>Gestion Inscription</h3>
 
       {(listeZoneBenevole && selectedCreneau.idposte === 1 ) && selectedZones===null ?
       
-      <div>
+      <div className="listeZones">
         {Object.entries(listeZoneBenevole).map(([cle, zone], index) => (
-        <div key={index} className="zones">
+        <div key={index} className="zones zones-admin">
            <div className="zonename">{cle} : </div>
           <select id={cle} name={cle} onChange={(e) => handleClickZone(e)} >
             <option value="" disabled selected>Choisir une zone</option>
             {Object.entries(zone).map(([sousCle, souszone], index) => (
-              zone.length <= 1 ? 
-              
+  
+              zone.length <= 1 ?             
               <option 
-                key={index} 
-                value={souszone.idzonebenevole} 
+              key={index} 
+              value={souszone.idzonebenevole} 
               >
                 {souszone.nom} ({souszone.PosteCreneaus[0]?.capacite - souszone.PosteCreneaus[0]?.capacite_restante}/{souszone.PosteCreneaus[0]?.capacite})
               </option>
               : 
               cle !== souszone.nom && 
               <option 
-                key={index} 
-                value={souszone.idzonebenevole} 
+              key={index} 
+              value={souszone.idzonebenevole} 
               >
                 {souszone.nom} ({souszone.PosteCreneaus[0]?.capacite - souszone.PosteCreneaus[0]?.capacite_restante}/{souszone.PosteCreneaus[0]?.capacite})
               </option>
                 
-            ))}
+                ))}
           </select>
+          <div>{calculerTotalInscrits(zone)} inscrit{calculerTotalInscrits(zone)>1 && "s"}</div>
         </div>
       ))}
       </div>
 
     :
 
-      selectedZones && 
-        <div>
-          <div>Zone selectionnée : </div>
-          {Object.entries(selectedZones).map(([cle, zone], index) => (
-            <div key={index}>{zone}</div>))}
+
+      (selectedZones || selectedCreneau.idposte!==1) && 
+        <div className="inscription-content">
+         
+            <div className="creneau-info">
+              {selectedZones &&  
+                  Object.entries(selectedZones).map(([cle, zone], index) => (
+                  <div key={index} className="bold"> {zone.split("(")[0]}</div>))
+                }
+              <div className="bold">{selectedCreneau.Poste.nom} ({selectedCreneau.Creneau.heure_debut} - {selectedCreneau.Creneau.heure_fin})</div>
+              <div>Capacité restante: {selectedCreneau.capacite_restante}/{selectedCreneau.capacite}</div>
+              {/* Add more details as needed */}
+            </div>
+            <div>
+              <div className="bold"> Bénévoles inscrits : </div>
+              <div>
+                {registeredPeople.length>0 ? registeredPeople.map((person, index) => (
+                  <div key={index}> {person.User.prenom} {person.User.nom} ({person.User.pseudo})</div>
+                  // Assuming each person has an 'iduser' property, adjust accordingly
+                  ))
+                  :
+                  <div>Aucun bénévole inscrit</div>
+                }
+              </div>
+              </div>
+              <div>
+                <div className="bold"> Bénévoles flexibles : </div>
+              <div>
+                {flexiblePeople.length>0 ? 
+                  flexiblePeople.map((person, index) => (
+                  <div key={index} className="zones">
+                    <div className="zonename"> {person.User.prenom} {person.User.nom} ({person.User.pseudo}) </div>
+                    <TiUserAdd className="cursor" onClick={() => handleAddPerson(person.iduser)}/>
+                  </div>
+                    // Assuming each person has an 'iduser' property, adjust accordingly
+                    ))
+                  :
+                  <div>Aucun bénévole flexible inscrit</div>
+                }
+              </div>
+              </div>
         </div>
         
       }
 
 
-      {selectedCreneau && (selectedCreneau.idposte!==1 || selectedZones) &&(
-        <div>
-          <div>Capacité: {selectedCreneau.capacite}</div>
-          <div>Capacité Restante: {selectedCreneau.capacite_restante}</div>
-          {/* Add more details as needed */}
-
-          <h3> Bénévoles inscrits : </h3>
-          <ul>
-            {registeredPeople.map((person, index) => (
-              <li key={index}>{person.iduser}</li>
-              // Assuming each person has an 'iduser' property, adjust accordingly
-            ))}
-          </ul>
-
-          <h3> Bénévoles flexibles : </h3>
-          <ul>
-            {flexiblePeople.map((person, index) => (
-              <li key={index}>
-              {person.iduser}
-              <button onClick={() => handleAddPerson(person.iduser)}>Ajouter</button>
-            </li>
-              // Assuming each person has an 'iduser' property, adjust accordingly
-            ))}
-          </ul>
-        </div>
-      )}
 
       <div className="boutons">
         {selectedZones && <button onClick={()=>{setSelectedZones(null)}} className="bouton1 cursor"> Changer de zone</button>}

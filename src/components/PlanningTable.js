@@ -7,6 +7,7 @@ import PlanningColumnUser from "./PlanningColumnUser";
 import PlanningColumnAdmin from "./PlanningColumnAdmin";
 import ChangeHorairePopup from "./ChangeHorairePopup";
 import { formatDate } from "../utils/dateUtils";
+import { TiEdit } from "react-icons/ti";
 
 const PlanningTable = ({ festival, user }) => {
 
@@ -131,12 +132,9 @@ const handleClickHoraire=(date, horaire)=>{
           
           <div className="planningTable__creneauHoraire">
               {horaire}
-              {user.role ==="ADMIN" && !festival.valide &&
-              <button className="editButton cursor" onClick={() => { handleClickHoraire(date, horaire)}}>
-                <span className="material-symbols-outlined">
-                  edit
-                </span>
-              </button>}
+              {user.role ==="ADMIN" && !festival.valide && 
+                <TiEdit className="cursor" onClick={() => { handleClickHoraire(date, horaire)}}/>
+             }
           </div>
 
           {changeHoraire && clickedDate===date && clickedHoraire===horaire &&

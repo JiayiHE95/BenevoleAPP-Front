@@ -8,10 +8,10 @@
  background-color: white;
  padding: 20px;
  border: 2px solid #ccc; /* Couleur gris clair pour la bordure */
-  border-radius: 8px; /* Coins arrondis */
+ border-radius: 8px; /* Coins arrondis */
  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
  z-index: 1000;
- width: 300px;
+
 
  .boutons {
    display: flex;
@@ -26,6 +26,7 @@
    display: flex;
    justify-content: center;
    align-items: center;
+   width: 100px;
  }
 
  .bold{
@@ -39,9 +40,11 @@
  
  &__small{
    height: 200px;
+   width: 300px;
  }
  &__middle{
    height: 400px;
+   width: 400px;
  }
  &__big{
    width: 500px;
@@ -65,17 +68,91 @@
  }
 }
 
-//Changer l'horaire
+//liste zones
 .popup {
  select{
   margin-left: 10px;
+  appearance: none; /* Supprime le style par défaut du navigateur */
+  padding: 3px; /* Ajoute un peu de rembourrage pour un aspect plus agréable */
+  width: 50%; /* Occupe la largeur du conteneur parent */
+  border: 1px solid #ccc; /* Bordure grise */
+  border-radius: 5px; /* Coins arrondis */
+  background-color: white; /* Couleur de fond */
+  cursor: pointer; /* Curseur de pointeur lorsqu'il est survolé */
  }
+
  .zones{
   display: flex;
   flex-direction: row;
   margin-bottom: 3px;
  }
+
+ .zones-admin{
+  select{
+   width: 40%;
+   margin-right: 5px;
+  }
+  .zonename{
+   width: 130px;
+  }
+
+ }
+
  .zonename{
   width: 140px;
+ }
+
+ .listeZones{
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  height: 250px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+
+  scrollbar-width: thin; /* Pour Firefox */
+  scrollbar-color: #ccc #f0f0f0; /* Couleur de la barre et de la piste (peut être ajustée) */
+
+  /* Style de la barre de défilement pour les navigateurs basés sur WebKit (Chrome, Safari) */
+  &::-webkit-scrollbar {
+    width: 10px; /* Largeur de la barre de défilement */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #ccc; /* Couleur de la barre de défilement */
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #f0f0f0; /* Couleur de la piste de la barre de défilement */
+  }
+ }
+
+ 
+ .selectedZones{
+  display: flex;
+  flex-direction: column;
+  height: 100px;
+  margin-bottom: 20px;
+ }
+}
+
+.popup{
+ .inscription-content{
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  > div{
+   margin-bottom: 10px;
+   padding: 5px;
+   width: 90%;
+  }
+  .creneau-info{
+   background-color: whitesmoke;
+   display: flex;
+   flex-direction: column;
+   text-align: center;
+  }
  }
 }

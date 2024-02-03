@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import inscriptionAPI from "../api/inscriptionAPI";
 import espaceAPI from "../api/espaceAPI";
+import { TiDelete } from "react-icons/ti";
 
 const InscriptionPopUp=({user,creneau,festival,fetchInscriptions, setInscriptionPopUp})=>{
 
@@ -94,8 +95,9 @@ const handleClickZone = (e) => {
  return(
   <div className={`popup ${ comfirmerZone ? "popup__middle": "popup__big"}`} onClick={(e) => e.stopPropagation()}>
     <h3>Inscription</h3>
+    <div className="bold">Veuillez sélectionner une des zones</div>
   {listeZoneBenevole && !comfirmerZone &&
-   <div>
+   <div className="listeZones">
     {Object.entries(listeZoneBenevole).map(([cle, zone], index) => (
      <div key={index} className="zones">
       <div className="zonename">{cle} : </div>
@@ -128,28 +130,25 @@ const handleClickZone = (e) => {
   </div>
 
  }
-  {Object.keys(selectedZones).length>0 && comfirmerZone &&
-   <div>
-    <div className="bold">Zones selectionnées : </div>
+ <div className="selectedZones">
+   <div className="bold">Zones selectionnées : </div>
+  {Object.keys(selectedZones).length>0 ? 
+   <>
       {Object.entries(selectedZones).map(([cle, zone], index) => (
         <div className="zones">
         <div className="zonename" key={index}>{zone.split("(")[0]}</div>
-        <div className="cursor" onClick={()=>{deleteZone(cle)}}>Delete</div>
+        <div className="cursor" onClick={()=>{deleteZone(cle)}}><TiDelete></TiDelete></div>
         </div>
       ))}
-      {selectZoneAlerte && <div>Vous devez choisir au moins une zone</div>}
-  </div>
-  }
+  </> : 
+  <div>Aucune zone selectionnée</div>
+}
+</div>
+  
 
+  {selectZoneAlerte && <div>Vous devez choisir au moins une zone</div>}
   <div className="boutons">
-    {comfirmerZone ?
-    <>
-    {<div className="bouton1 cursor" onClick={()=>{inscrireBenevole(creneau[0].Creneau.idcreneau, creneau[0].Poste.idposte)}}>Comfirmer</div>}
-    <div className="bouton1 cursor" onClick={()=>{setComfirmerZone(false)}}>Liste des zones</div>
-    </>
-    :
-    Object.keys(selectedZones).length>0 && 
-      <div className="bouton1 cursor" onClick={()=>{setComfirmerZone(true)}}>Comfirmer Zones</div>}
+    <div className="bouton1 cursor" onClick={()=>{inscrireBenevole(creneau[0].Creneau.idcreneau, creneau[0].Poste.idposte)}}>Comfirmer</div>
     <div className="bouton1 cursor" onClick={()=>{setInscriptionPopUp(null) ; setComfirmerZone(false)}}>Annuler</div>
   </div>
  </div>
