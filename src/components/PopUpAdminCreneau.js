@@ -13,7 +13,6 @@ const PopUpAdminCreneau = ({ creneau, closePopup, user }) => {
   const [flexiblePeople, setFlexiblePeople] = useState([])
 
   const {festivalId}  = useParams();
-  const [selectedZone, setSelectedZone] = useState(null);
 
   const [selectedZones,setSelectedZones]=useState(null) 
   const [listeZoneBenevole, setListeZoneBenevole]=useState(null)
@@ -32,7 +31,6 @@ const PopUpAdminCreneau = ({ creneau, closePopup, user }) => {
         idfestival: selectedCreneau.idfestival
       }
       posteCreneauAPI.getByZoneFestival(data).then((res)=>{
-        console.log("res testttttttttttttttt",res.data)
         setSelectedCreaneau(res.data.posteCreneau)
         getRegisteredPeople();
       })
@@ -40,10 +38,8 @@ const PopUpAdminCreneau = ({ creneau, closePopup, user }) => {
   }, [selectedZones]);
 
   useEffect(() => {
-
       getRegisteredPeople();
       getFlexiblePeople();
-
     }
   , [selectedCreneau]);
  
@@ -82,8 +78,6 @@ const PopUpAdminCreneau = ({ creneau, closePopup, user }) => {
   
     setSelectedZones(temp)
    }
-
-
 
   const getRegisteredPeople = async () => {
     try {
@@ -134,114 +128,95 @@ const handleAddPerson= async (iduser) =>{
     iduser: iduser,
     idcreneau: selectedCreneau.idcreneau,
   }
-  console.log("before");
   const response = await inscriptionAPI.createInscription2(data);
   await flexibleAPI.deleteFlexibleUser(data2);
   getRegisteredPeople();
   getFlexiblePeople();
 }
 
-
-
-
-
-    const showww = (index) => {
-      console.log(index);
-      setSelectedZone(index)
-      console.log(Object.entries(listeZoneBenevole)[index][1])  
-    }
-
   
   return (
-    <div className="popup-container">
-      <div className="popup-content">
-       {/*commmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmment */} 
+    <div className={`popup 
+      ${ (listeZoneBenevole && selectedCreneau.idposte === 1 ) && selectedZones===null ? "popup__big" : "popup__middle"}`}
+    >
+      <h3>Gestion Inscription</h3>
 
-
-    {/*commmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmment */} 
-
-
-
-
-  {(listeZoneBenevole && selectedCreneau.idposte === 1 ) && selectedZones===null ?
-  
-
-  <div>
-    {Object.entries(listeZoneBenevole).map(([cle, zone], index) => (
-     <div key={index}>
-      {cle} :
-      <select id={cle} name={cle} onChange={(e) => handleClickZone(e)} >
-        <option value="" disabled selected>Choisir une zone</option>
-        {Object.entries(zone).map(([sousCle, souszone], index) => (
-          zone.length <= 1 ? 
-           
-          <option 
-            key={index} 
-            value={souszone.idzonebenevole} 
-           
-          >
-            {souszone.nom} ({souszone.PosteCreneaus[0]?.capacite - souszone.PosteCreneaus[0]?.capacite_restante}/{souszone.PosteCreneaus[0]?.capacite})
-          </option>
-          : 
-          cle !== souszone.nom && 
-          <option 
-            key={index} 
-            value={souszone.idzonebenevole} 
+      {(listeZoneBenevole && selectedCreneau.idposte === 1 ) && selectedZones===null ?
       
-          >
-            {souszone.nom} ({souszone.PosteCreneaus[0]?.capacite - souszone.PosteCreneaus[0]?.capacite_restante}/{souszone.PosteCreneaus[0]?.capacite})
-          </option>
-            
-        ))}
-      </select>
-     </div>
-   ))}
-  </div>
-
-  :
-
-  selectedZones && 
-    <div>
-    <div>Zones selectionnées : </div>
-    {Object.entries(selectedZones).map(([cle, zone], index) => (
-      <div key={index}>{zone}</div>
+      <div>
+        {Object.entries(listeZoneBenevole).map(([cle, zone], index) => (
+        <div key={index} className="zones">
+           <div className="zonename">{cle} : </div>
+          <select id={cle} name={cle} onChange={(e) => handleClickZone(e)} >
+            <option value="" disabled selected>Choisir une zone</option>
+            {Object.entries(zone).map(([sousCle, souszone], index) => (
+              zone.length <= 1 ? 
+              
+              <option 
+                key={index} 
+                value={souszone.idzonebenevole} 
+              >
+                {souszone.nom} ({souszone.PosteCreneaus[0]?.capacite - souszone.PosteCreneaus[0]?.capacite_restante}/{souszone.PosteCreneaus[0]?.capacite})
+              </option>
+              : 
+              cle !== souszone.nom && 
+              <option 
+                key={index} 
+                value={souszone.idzonebenevole} 
+              >
+                {souszone.nom} ({souszone.PosteCreneaus[0]?.capacite - souszone.PosteCreneaus[0]?.capacite_restante}/{souszone.PosteCreneaus[0]?.capacite})
+              </option>
+                
+            ))}
+          </select>
+        </div>
       ))}
-      <div onClick={()=>{setSelectedZones(null)}}>Retournez à la liste des zones</div>
       </div>
-    
-    
-  }
+
+    :
+
+      selectedZones && 
+        <div>
+          <div>Zone selectionnée : </div>
+          {Object.entries(selectedZones).map(([cle, zone], index) => (
+            <div key={index}>{zone}</div>))}
+        </div>
+        
+      }
 
 
-        {selectedCreneau && (selectedCreneau.idposte!==1 || selectedZones) &&(
-          <div>
-            <h3>Details for Creneau {selectedCreneau.id}</h3>
-            <p>Capacité: {selectedCreneau.capacite}</p>
-            <p>Capacité Restante: {selectedCreneau.capacite_restante}</p>
-            {/* Add more details as needed */}
+      {selectedCreneau && (selectedCreneau.idposte!==1 || selectedZones) &&(
+        <div>
+          <div>Capacité: {selectedCreneau.capacite}</div>
+          <div>Capacité Restante: {selectedCreneau.capacite_restante}</div>
+          {/* Add more details as needed */}
 
-            <h3> People registered </h3>
-            <ul>
-              {registeredPeople.map((person, index) => (
-                <li key={index}>{person.iduser}</li>
-                // Assuming each person has an 'iduser' property, adjust accordingly
-              ))}
-            </ul>
+          <h3> Bénévoles inscrits : </h3>
+          <ul>
+            {registeredPeople.map((person, index) => (
+              <li key={index}>{person.iduser}</li>
+              // Assuming each person has an 'iduser' property, adjust accordingly
+            ))}
+          </ul>
 
-            <h3> People available for this slot</h3>
-            <ul>
-              {flexiblePeople.map((person, index) => (
-                <li key={index}>
-                {person.iduser}
-                <button onClick={() => handleAddPerson(person.iduser)}>Ajouter</button>
-              </li>
-                // Assuming each person has an 'iduser' property, adjust accordingly
-              ))}
-            </ul>
-          </div>
-        )}
-        <button onClick={closePopup}>Close Popup</button>
+          <h3> Bénévoles flexibles : </h3>
+          <ul>
+            {flexiblePeople.map((person, index) => (
+              <li key={index}>
+              {person.iduser}
+              <button onClick={() => handleAddPerson(person.iduser)}>Ajouter</button>
+            </li>
+              // Assuming each person has an 'iduser' property, adjust accordingly
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <div className="boutons">
+        {selectedZones && <button onClick={()=>{setSelectedZones(null)}} className="bouton1 cursor"> Changer de zone</button>}
+        <button className="bouton1 cursor" onClick={closePopup}>Fermer</button>
       </div>
+   
     </div>
   );
 };

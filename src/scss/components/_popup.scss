@@ -1,0 +1,81 @@
+
+.popup {
+ position: fixed;
+ top: 50%;
+ left: 50%;
+ width: 500px;
+ transform: translate(-50%, -50%);
+ background-color: white;
+ padding: 20px;
+ border: 2px solid #ccc; /* Couleur gris clair pour la bordure */
+  border-radius: 8px; /* Coins arrondis */
+ box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+ z-index: 1000;
+ width: 300px;
+
+ .boutons {
+   display: flex;
+   flex-direction: row;
+   justify-content: center; /* Ajustez le style pour centrer les boutons horizontalement */
+   bottom: 10%;
+   margin-top: 15px;
+ }
+
+ .bouton1 {
+   text-align: center;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+ }
+
+ .bold{
+   font-weight: bold;
+ }
+
+ h3{
+   margin-bottom: 20px;
+   text-align: center;
+ }
+ 
+ &__small{
+   height: 200px;
+ }
+ &__middle{
+   height: 400px;
+ }
+ &__big{
+   width: 500px;
+   height: 550px;
+ }
+}
+
+
+//Changer l'horaire
+.popup {
+ .heure{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 10px;
+  div{
+   width: 100px;
+   margin: 0 10px;
+   align-items: center;
+  }
+ }
+}
+
+//Changer l'horaire
+.popup {
+ select{
+  margin-left: 10px;
+ }
+ .zones{
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 3px;
+ }
+ .zonename{
+  width: 140px;
+ }
+}

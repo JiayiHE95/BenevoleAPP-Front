@@ -101,3 +101,19 @@ input[type=date]:valid {
 .cursor {
   cursor: pointer; 
 }
+
+
+.bouton2{
+  margin : 10px;
+  border: none;
+  width: 20vw;
+  height : 5vh;
+  background-color: lightblue;
+  text-align: center;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+.bouton2:hover{
+  background-color: rgb(125, 203, 228);
+}
