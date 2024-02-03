@@ -22,10 +22,15 @@ const Sidebar = ({ dataName, onPosteClick, onEspaceClick }) => {
           response = await posteCreneauAPI.getPosteByFestival(festivalId);
           console.log('Réponse de l\'API post :', response.data);
           setListe(response.data.postes);
+          setActiveItem(response.data.postes[0].idposte);
+
         } else if (dataName === 'espace') {
           response = await espaceAPI.getEspacesListe(festivalId);
           console.log('Réponse de l\'API :', response.data);
           setListe(response.data.espaces);
+          if (response.data.espaces.length > 0) {
+            setActiveItem(response.data.espaces[0].idzonebenevole);
+          }
         }
       } catch (error) {
         console.error('Erreur lors de la récupération des données :', error);
@@ -33,6 +38,7 @@ const Sidebar = ({ dataName, onPosteClick, onEspaceClick }) => {
     };
 
     getList();
+    
   }, [dataName, festivalId]);
 
   const handleItemClick = (itemId) => {

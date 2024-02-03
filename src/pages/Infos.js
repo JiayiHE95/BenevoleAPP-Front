@@ -32,7 +32,7 @@ const Infos = () => {
             setFestival(res.data.festival)
          }
         })
-
+        setSelectedPosteId(1)
      }, [decodedToken]);
 
     const handlePosteClick = (posteId) => {
@@ -50,7 +50,7 @@ const Infos = () => {
           {(user.role==="ADMIN" || festival.valide) && 
             <Sidebar dataName="poste" onPosteClick={handlePosteClick} />}
           
-          {(user.role==="ADMIN" || festival.valide) && selectedPosteId != null && 
+          {(user.role==="ADMIN" || festival.valide)  && 
             <PosteDetails posteId={selectedPosteId} idfestival={festivalId} user={user} />}
        </div>
 

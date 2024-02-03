@@ -61,7 +61,7 @@ const NotificationPage = () => {
       <h1>Notifications</h1>
 
       {notifications.length > 0 ? (
-        <div>
+        <div className='centrer'>
           {notifications.map((notification, index) => (
             <CarteNotification
               key={index}
@@ -71,7 +71,7 @@ const NotificationPage = () => {
           ))}
         </div>
       ) : (
-        <p>Aucune notification</p>
+        <p className='centrer'>Aucune notification</p>
       )}
     </div>
   );

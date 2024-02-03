@@ -9,12 +9,14 @@ const CarteNotification = ({ notification , onDelete }) => {
 
   return (
     <div className='carte'> 
-      <div>Date : a ajouter </div>
-      <div>label : {notification.label}</div>
-        
-      <button onClick={() => handleDelete()}> Supprimer </button>
-      <div> _________________________________ </div>
-
+      <div className="couleur"> </div>
+      <div className="contourLabel">
+        <div className="label"> {notification.label}</div>
+      </div>
+      <button className="del" onClick={() => handleDelete()}><span class="material-symbols-outlined cursor del">
+close
+</span></button>  
+      
     </div>
   );
 };
