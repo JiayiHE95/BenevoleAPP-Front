@@ -5,18 +5,37 @@ import UserSearch from '../components/UserSearch';// Importez le composant UserS
 import userAPI from '../api/userAPI'; // Importez l'API des utilisateurs (si nécessaire)
 import inscriptionAPI from '../api/inscriptionAPI';
 import {useParams} from "react-router-dom"
+import { useJwt } from 'react-jwt';
+import {trierInscriptions} from '../utils/inscriptionUtils';
 
 const Inscriptions = () => {
-  const [inscriptions, setInscriptions] = useState([]);
+  const [inscriptions, setInscriptions] = useState();
   const [users, setUsers] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedUserID, setSelectedUserID] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
   const {festivalId} = useParams();
+
+  const [user, setUser] = useState(null);
+
+  const token = localStorage.getItem('accessToken');
+  const { decodedToken, isExpired } = useJwt(token ? token : "");
+
+  useEffect(() => {
+    if (decodedToken && decodedToken.iduser) {
+      userAPI.getUserById(decodedToken.iduser).then((res) => {
+        setUser(res.data.user);
+      });
+    }
+  }, [decodedToken]);
+
+
   useEffect(() => {
     // Fetch users based on search query
     if (searchQuery.trim() !== '') {
       fetchUsers();
+    }else{
+      allInscriptions();
     }
   }, [searchQuery]);
 
@@ -27,11 +46,17 @@ const Inscriptions = () => {
     }
   }, [selectedUserID]);
 
-  useEffect(() => {
+  const allInscriptions = async () => {
     inscriptionAPI.getByFestival(festivalId).then((res)=>{
       console.log(res.data.inscriptions)
-      setInscriptions("get all",res.data.inscriptions)
+      console.log("get all",res.data.inscriptions)
+      const temp = trierInscriptions(res.data.inscriptions);
+      setInscriptions(temp);
     })
+  }
+
+  useEffect(() => {
+    allInscriptions();
   }
   , [])
   
@@ -46,17 +71,20 @@ const Inscriptions = () => {
       console.error('Error fetching users:', error);
     }
   };
+
   const recuperationInscriptions = async () => {
     try {
+      console.log("selectedUser",selectedUser)
       const response = await inscriptionAPI.getInscriptionOfUser(selectedUser.iduser, festivalId);
-      console.log("inscriptions ..........................", response.data.inscriptions);
-      setInscriptions(response.data.inscriptions);
+      const temp = trierInscriptions(response.data.inscriptions);
+      setInscriptions(temp);
     } catch (error) {
       console.error('Error fetching inscriptions:', error);
     }
   };
 
   const handleUserSearchChange = (e) => {
+    console.log("teeeeeeeeest",e.target.value);
     setSearchQuery(e.target.value);
   };
 
@@ -69,7 +97,7 @@ const Inscriptions = () => {
   return (
     <div>
       <NavBar festivalId={festivalId}/>
-      <h1>Gestion Inscription</h1>
+      <h1>Gestion Inscription test</h1>
 
       {/* Utilisez le composant UserSearch réutilisé */}
       <UserSearch
@@ -80,21 +108,17 @@ const Inscriptions = () => {
         handleUserSelect={handleUserSelect}
       />
 
-      {selectedUser && (
-        <div>
-          <p>Les inscriptions de l'utilisateur {selectedUser.pseudo} :</p>
+      {inscriptions && user && <div>
+        {selectedUser && <p>Les inscriptions de l'utilisateur {selectedUser.pseudo} :</p>}
 
-          {inscriptions.length > 0 ? (
-            <div>
-              {inscriptions.map((inscription, index) => (
-                <CarteInscription key={index} inscription={inscription} />
-              ))}
-            </div>
-          ) : (
-            <p>Aucune inscription trouvée pour cet utilisateur.</p>
-          )}
-        </div>
-      )}
+         {Object.entries(inscriptions).length > 0 ? (
+          <CarteInscription inscriptions={inscriptions} user={user} />
+        ) : (
+          <p>Aucune inscription trouvée pour cet utilisateur.</p>
+        )}
+      </div>
+      }
+      
     </div>
   );
 };

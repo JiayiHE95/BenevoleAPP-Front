@@ -1,0 +1,77 @@
+.inscriptions{
+ display: flex;
+ flex-direction: column;
+}
+.inscriptions-jour{
+ width: 70%;
+ padding: 20px;
+ background-color: whitesmoke;
+ margin-bottom: 20px;
+ border-radius: 5px;
+ h3{
+  text-align: center;
+ }
+
+}
+
+.inscription-creneau{
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ margin-top: 5px;
+ padding: 10px;
+ 
+ .valide{
+  background-color: #9dabe2;
+  color: black;
+ }
+ .attente{
+  background-color: #002663;
+  color: white;
+ }
+ >div:first-child{
+  width: 100%;
+  margin-bottom: 5px;
+  text-align: center;
+ }
+ 
+}
+
+.inscription-single{
+ width: 100%;
+ margin-bottom: 5px;
+ padding: 10px 30px;
+ border-radius: 3px;
+ .boutons{
+  display: flex;
+  flex-direction: row;
+  justify-content: center
+ }
+ .admin{
+  >div{width: 33%;}
+ }
+ .user{
+  >div{width: 40%;}
+ }
+ .notif-error{
+  display: flex;
+  width: 50%;
+  justify-content: left;
+  border: none;
+  color: white;
+  padding: 0%;
+  background-color: transparent;
+  margin-bottom: 10px;
+ }
+ 
+}
+
+.inscription-info{
+ display: flex;
+ flex-direction: row;
+ >div{
+  width: 30%;
+  text-align: left;
+ }
+
+}

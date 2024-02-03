@@ -103,29 +103,10 @@ const Registration = () => {
       <h1>Mes inscriptions</h1>
 
       {Object.entries(inscriptions).length > 0 ? (
-        <div className='centrer'>
-          {Object.entries(inscriptions).map(([jour, heures]) => (
-            <div key={jour}>
-          <h2>{formatDate(jour)}</h2>
-          {Object.entries(heures).map(([heureDebut, inscriptions]) => (
-            <div key={heureDebut}>
-              <h3>{`${inscriptions[0].Creneau.heure_debut} - ${inscriptions[0].Creneau.heure_fin}`}</h3>
-              <div>
-                {inscriptions.map((inscription) => (
-                  <div>
-                    {console.log("jouxxxxr",inscription)}
-                    <CarteInscription
-                      inscription={inscription}
-                      onValider={handleValidation}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      ))}
-        </div>
+        <CarteInscription 
+          inscriptions={inscriptions} 
+          onValider={handleValidation} 
+          user={user}/>
       ) : (
         <div>Aucune inscription, inscrivez-vous dès maintenant depuis le planning ! </div>
       )}
