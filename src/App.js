@@ -32,7 +32,6 @@ const App =()=> {
         <Route path={'/infos/:festivalId'} element={<Infos />} />
         <Route path={'/planning/:festivalId'} element={<Planning />} />
         <Route path={'/registration/:festivalId'} element={<Registration />} />
-        <Route path={'/referents/:festivalId'} element={<Referent />} />
         <Route path={'/inscriptions/:festivalId'} element={<Inscriptions />} />
         <Route path={'/notification/:festivalId'} element={<NotificationPage />} />
         <Route path={'/admin'} element={<Admin />} />
