@@ -34,34 +34,34 @@ const Login=()=>{
     })
   } 
 
- return(
-
-<div>
-<label htmlFor="email">Email :</label>
-<input
-  type="email"
-  id="email"
-  name="email"
-  onChange={(e)=>{setMail(e.target.value)}}
-  required
-/>
-
-<label htmlFor="password">Mot de passe :</label>
-<input
-  type="password"
-  id="password"
-  name="password"
-  onChange={(e)=>{setMdp(e.target.value)}}
-  required
-/>
-
-{notif && <div className='notif-error'><TbAlertCircle className='error-icon'/><div>{notif}</div></div>}
-<div className='clickable' onClick={()=>{navigate("/password-forgot")}}>Mot de passe oublié</div>
-<div onClick={()=>{navigate("/signup")}}>Je n'ai pas de compte</div>
-<button type="submit" onClick={()=>connexion()} >Se connecter</button>
-
-</div>
- )
-
+  return (
+    <div className='login-container'>
+      <label htmlFor="email" className='label'>Email :</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        className='input-field'
+        onChange={(e) => { setMail(e.target.value) }}
+        required
+      />
+  
+      <label htmlFor="password" className='label'>Mot de passe :</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        className='input-field'
+        onChange={(e) => { setMdp(e.target.value) }}
+        required
+      />
+  
+      {notif && <div className='notif-error'><TbAlertCircle className='error-icon' /><div>{notif}</div></div>}
+      <div className='clickable' onClick={() => { navigate("/password-forgot") }}>Mot de passe oublié</div>
+      <div className='create-account' onClick={() => { navigate("/signup") }}>Je n'ai pas de compte</div>
+      <button type="submit" className='submit-button' onClick={() => connexion()}>Se connecter</button>
+    </div>
+  );
+  
 }
 export default Login
