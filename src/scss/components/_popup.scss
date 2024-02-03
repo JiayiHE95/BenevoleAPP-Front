@@ -80,7 +80,6 @@
   background-color: white; /* Couleur de fond */
   cursor: pointer; /* Curseur de pointeur lorsqu'il est survolé */
  }
-
  .zones{
   display: flex;
   flex-direction: row;
@@ -127,7 +126,7 @@
   }
  }
 
- 
+
  .selectedZones{
   display: flex;
   flex-direction: column;

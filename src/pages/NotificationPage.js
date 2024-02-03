@@ -71,7 +71,7 @@ const NotificationPage = () => {
           ))}
         </div>
       ) : (
-        <p className='centrer'>Aucune notification</p>
+        <div className='centrer'>Aucune notification</div>
       )}
     </div>
   );
