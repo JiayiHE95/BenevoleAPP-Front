@@ -12,11 +12,12 @@ const CarteInscription = ({ inscription, onValider }) => {
   setIsValidationInProgress(false);
   };
 
+  console.log("inscription",inscription)
+
   return (
     <div className='carte'> 
-      <div>Poste : {inscription.idposte}</div>
-      <div>Creneau : {inscription.idcreneau}</div>
-      <div>Valide : {inscription.valide ? 'Oui' : 'Non'}</div>
+       {` ${inscription.Poste.nom}`}
+      {inscription.idposte === 1 && `${inscription.Espace.nom}`}
       {inscription.valide === false && (
         <div>
           <button onClick={() => handleValidation(true)} disabled={isValidationInProgress}>
@@ -27,7 +28,6 @@ const CarteInscription = ({ inscription, onValider }) => {
           </button>
         </div>
       )}
-      <div> _________________________________ </div>
     </div>
   );
 };

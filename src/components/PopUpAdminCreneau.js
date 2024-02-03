@@ -135,9 +135,8 @@ const handleAddPerson= async (iduser) =>{
 }
 
 const calculerTotalInscrits = (zones) => {
-  console.log("coucou",zones)
-  const total = zones.reduce((acc, zone) => acc + (zone.Inscriptions ? zone.Inscriptions.length : 0), 0);
-  console.log("total",total)
+  const total = zones.reduce((acc, zone) => 
+  acc + (zone.PosteCreneaus.length>0 ? (zone.PosteCreneaus[0].capacite - zone.PosteCreneaus[0].capacite_restante) : 0), 0);
   return total;
 };
 

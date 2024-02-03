@@ -50,19 +50,19 @@ useEffect(() => {
 
   <div className='navbar-container'>
    <div onClick={()=>{navigate("/")}}>
-      <div className='logo-name'>Festival de Jeux</div>
+      <div className='logo-name cursor'>Festival de Jeux</div>
    </div>  
    {user&&
     <div className='navbar'>
-    <div  onClick={() => { navigate("/home/user"); }}>Home</div>
-    <div  onClick={() => { navigate(`/festival/${festivalId}`); }}>Accueil</div>
-    <div  onClick={() => { navigate(`/notification/${festivalId}`)}}>Notifications <span className='bulle'>{compteur}</span></div>
-    <div  onClick={() => { navigate(`/infos/${festivalId}`); }}>Infos</div>
-    <div  onClick={() => { navigate(`/planning/${festivalId}`); }}>Planning</div>
+    <div className='cursor' onClick={() => { navigate("/home/user"); }}>Home</div>
+    <div className='cursor' onClick={() => { navigate(`/festival/${festivalId}`); }}>Accueil</div>
+    <div className='cursor' onClick={() => { navigate(`/notification/${festivalId}`)}}>Notifications <span className='bulle'>{compteur}</span></div>
+    <div className='cursor' onClick={() => { navigate(`/infos/${festivalId}`); }}>Infos</div>
+    <div className='cursor' onClick={() => { navigate(`/planning/${festivalId}`); }}>Planning</div>
     {(user.role === "BENEVOLE") &&
-      <div  onClick={() => { navigate(`/registration/${festivalId}`); }}>Inscription</div>
+      <div className='cursor' onClick={() => { navigate(`/registration/${festivalId}`); }}>Inscriptions</div>
     }
-    <div class="material-icons" onClick={() => {localStorage.removeItem('accessToken');navigate(`/`);}}>logout</div>
+    <div class="material-icons cursor" onClick={() => {localStorage.removeItem('accessToken');navigate(`/`);}}>logout</div>
   </div>
   
     }

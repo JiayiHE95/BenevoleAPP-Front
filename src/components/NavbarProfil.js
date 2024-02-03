@@ -29,17 +29,17 @@ const NavBarProfil =()=>{
 
   <div className='navbar-container'>
    <div  onClick={()=>{navigate("/")}}>
-      <div className='logo-name'>Festival de Jeux</div>
+      <div className='logo-name cursor'>Festival de Jeux</div>
    </div>  
    {user&&
     <div className='navbar'>
-      <div  onClick={()=>{navigate("/home/user")}}>Home</div>
+      <div className='cursor' onClick={()=>{navigate("/home/user")}}>Home</div>
       {(user.role==="ADMIN") &&
-      <div  onClick={()=>{navigate("/admin")}}>Admin</div>
+      <div className='cursor' onClick={()=>{navigate("/admin")}}>Admin</div>
       }
      
     
-      <div class="material-icons" onClick={() => {localStorage.removeItem('accessToken');navigate(`/`);}}>logout</div>
+      <div class="material-icons cursor" onClick={() => {localStorage.removeItem('accessToken');navigate(`/`);}}>logout</div>
     </div>
     }
    </div>

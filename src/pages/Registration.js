@@ -5,6 +5,7 @@ import inscriptionAPI from '../api/inscriptionAPI';
 import userAPI from '../api/userAPI';
 import { useJwt } from 'react-jwt';
 import CarteInscription from '../components/CarteInscription';
+import {formatDate} from '../utils/dateUtils';
 
 const Registration = () => {
   const { festivalId } = useParams();
@@ -32,12 +33,53 @@ const Registration = () => {
   const recuperationInscriptions = async () => {
     try {
       const response = await inscriptionAPI.getInscriptionOfUser(user.iduser, festivalId);
-      console.log("inscriptions ..........................", response.data.inscriptions);
-      setInscriptions(response.data.inscriptions);
+      const temp = trierInscriptions(response.data.inscriptions);
+      console.log("inscriptions triées ..........................", temp);
+      setInscriptions(temp);
     } catch (error) {
       console.error('Error fetching inscriptions:', error);
     }
   };
+
+  const trierInscriptions = (inscriptions) => {
+    // Trier par jour (ordre croissant)
+    const inscriptionsTrie = [...inscriptions].sort((a, b) => {
+      return a.Creneau.jour.localeCompare(b.Creneau.jour);
+    });
+  
+    // Créer un objet où chaque clé est un jour et la valeur est un tableau d'inscriptions pour ce jour
+    const inscriptionsParJour = inscriptionsTrie.reduce((acc, inscription) => {
+      const jour = inscription.Creneau.jour;
+      if (!acc[jour]) {
+        acc[jour] = [];
+      }
+      acc[jour].push(inscription);
+      return acc;
+    }, {});
+  
+    // Trier les inscriptions de chaque jour par heure_debut (ordre croissant)
+    for (const jour in inscriptionsParJour) {
+      inscriptionsParJour[jour].sort((a, b) => {
+        return a.Creneau.heure_debut.localeCompare(b.Creneau.heure_debut);
+      });
+    }
+  
+    // Regrouper les inscriptions ayant le même Creneau.heure_debut
+    const inscriptionsRegroupees = {};
+    for (const jour in inscriptionsParJour) {
+      inscriptionsRegroupees[jour] = inscriptionsParJour[jour].reduce((acc, inscription) => {
+        const heureDebut = inscription.Creneau.heure_debut;
+        if (!acc[heureDebut]) {
+          acc[heureDebut] = [];
+        }
+        acc[heureDebut].push(inscription);
+        return acc;
+      }, {});
+    }
+  
+    return inscriptionsRegroupees;
+  };
+  
 
   const handleValidation = async (idinscription, valide) => {
     const data = {
@@ -58,21 +100,34 @@ const Registration = () => {
   return (
     <div>
       <NavBar festivalId={festivalId} />
-      <h1>Registration</h1>
-      <h2>Postes où je suis inscrit</h2>
+      <h1>Mes inscriptions</h1>
 
-      {inscriptions.length > 0 ? (
-        <div>
-          {inscriptions.map((inscription, index) => (
-            <CarteInscription
-              key={index}
-              inscription={inscription}
-              onValider={handleValidation}
-            />
+      {Object.entries(inscriptions).length > 0 ? (
+        <div className='centrer'>
+          {Object.entries(inscriptions).map(([jour, heures]) => (
+            <div key={jour}>
+          <h2>{formatDate(jour)}</h2>
+          {Object.entries(heures).map(([heureDebut, inscriptions]) => (
+            <div key={heureDebut}>
+              <h3>{`${inscriptions[0].Creneau.heure_debut} - ${inscriptions[0].Creneau.heure_fin}`}</h3>
+              <div>
+                {inscriptions.map((inscription) => (
+                  <div>
+                    {console.log("jouxxxxr",inscription)}
+                    <CarteInscription
+                      inscription={inscription}
+                      onValider={handleValidation}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
           ))}
         </div>
+      ))}
+        </div>
       ) : (
-        <p>Aucune inscription</p>
+        <div>Aucune inscription, inscrivez-vous dès maintenant depuis le planning ! </div>
       )}
     </div>
   );
