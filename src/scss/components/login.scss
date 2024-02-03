@@ -63,6 +63,84 @@
   }
   
   .submit-button:hover {
+    background-color: #137a29;
+  }
+  
+
+/*---------------------------------------------------------------------------------------------------*/
+/* Style du formulaire général */
+.signup-containers { /* Ajoutez une marge en haut */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  /* Style du conteneur du formulaire */
+  .signup-form-containers {
+    max-width: 400px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 50%;
+    text-align: center;
+    background-color: whitesmoke;
+  }
+  
+  /* Style des étiquettes */
+  .signup-labels {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+  
+  /* Style des champs de saisie */
+  .signup-input-fields,
+  .signup-checkbox-fields {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  /* Style du bouton de soumission */
+  .signup-submit-buttons {
+    background-color: #28a745;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  /* Style du bouton au survol */
+  .signup-submit-buttons:hover {
     background-color: #218838;
   }
   
+  /* Style du lien "J'ai déjà un compte" */
+  .signup-clickables {
+    color: #007bff;
+    cursor: pointer;
+    margin-bottom: 16px;
+  }
+  
+  /* Style des messages d'erreur */
+  .signup-notif-errors {
+    display: flex;
+    align-items: center;
+    background-color: #ffe3e3;
+    color: #cc0000;
+    padding: 10px;
+    border: 1px solid #cc0000;
+    border-radius: 4px;
+    margin-bottom: 16px;
+  }
+  
+  .signup-error-icons {
+    margin-right: 8px;
+  }
+   
