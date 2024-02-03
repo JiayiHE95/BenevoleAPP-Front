@@ -1,8 +1,9 @@
-import React from 'react';
+// Bouton.js
+import React from 'react'; // Assurez-vous d'importer votre fichier de style
 
-const Bouton = ({ label, onClick }) => {
+const Bouton = ({ label, onClick, isActive }) => {
   return (
-    <button className="bouton" onClick={onClick}>
+    <button className={`bouton ${isActive ? 'active' : ''}`} onClick={onClick}>
       {label}
     </button>
   );

@@ -42,7 +42,13 @@ const Espace = () => {
     return (
         <div>
             <NavBar festivalId = {festivalId}/>
-            <h1>Informations sur les espaces</h1>
+
+            <div className='groupement'>
+                <div className='groupement' onClick={()=>{navigate(`/infos/${festivalId}`)}}><span class="material-symbols-outlined">arrow_back</span></div>
+                <h1 className='h1'>Informations sur les espaces</h1>                
+            </div>
+            
+
             {!csvImported ?
             <div>
                    <div>
@@ -51,14 +57,16 @@ const Espace = () => {
                 <div className='clickable' onClick={()=>{navigate(`/festival/${festivalId}`)}}>Importer le fichier</div>
                 </div>
             :
-            <div>
+            <div className='contenant'>
                 <Sidebar dataName="espace" onEspaceClick={handleEspaceClick} />
-                {selectedEspaceId!=null&&
-                    <TableauJeux jeux={jeux} idEspace={selectedEspaceId}/>
-                }
+                <div className='lot'> 
+                    {selectedEspaceId!=null&&
+                        <TableauJeux jeux={jeux} idEspace={selectedEspaceId}/>
+                    }
+                </div>
             </div>
             }
-            <div className='clickable' onClick={()=>{navigate(`/infos/${festivalId}`)}}>Retourner à la page Info</div>
+            
         </div>
     )
 }

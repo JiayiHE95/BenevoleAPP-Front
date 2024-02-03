@@ -201,12 +201,13 @@ const PosteDetails = ({ posteId, idfestival, user }) => {
 
           {referents.length > 0 ? (
             referents.map((referent, index) => (
-              <div className="ref" key={index}>
-                pseudo : {referent.User.pseudo} | tel : {referent.User.tel}
+              <div className="reff" key={index}>
+                <div className="pseudo">Pseudo : {referent.User.pseudo}</div>
+                <div className="tel">Tel : {referent.User.tel}</div>
               </div>
             ))
           ) : (
-            <div className="ref">Aucun référent</div>
+            <div className="reff">Aucun référent</div>
           )}
 
         </div>
