@@ -1,7 +1,4 @@
-import Sidebar from "./Sidebar"
 import { useEffect, useState } from "react"
-import posteCreneauAPI from "../api/posteCreneauAPI";
-import flexibleAPI from "../api/flexibleAPI";
 import inscriptionAPI from "../api/inscriptionAPI";
 import espaceAPI from "../api/espaceAPI";
 
@@ -10,12 +7,19 @@ const InscriptionPopUp=({user,creneau,festival,fetchInscriptions, setInscription
  const [selectedZones,setSelectedZones]=useState({}) 
  const [listeZoneBenevole, setListeZoneBenevole]=useState(null)
  const [selectZoneAlerte, setSelectZoneAlert]=useState(false)
+ const [comfirmerZone, setComfirmerZone]=useState(false)
 
  console.log("c dans inscription popop",creneau)
 
  useEffect(() => {
     fetchListeZoneBenevole();
  },[]);
+
+ useEffect(() => {
+  if(Object.keys(selectedZones).length===0){
+    setComfirmerZone(false)
+  }
+ }, [selectedZones]);
 
  
  const fetchListeZoneBenevole = async () => {
@@ -40,21 +44,8 @@ const InscriptionPopUp=({user,creneau,festival,fetchInscriptions, setInscription
 
    setListeZoneBenevole(sortedTemp)
   }
- 
-  }
+}
 
- const popupStyle = {
-  position: 'fixed',
-  top: '50%',
-  left: '50%',
-  width: '500px',
-  transform: 'translate(-50%, -50%)',
-  backgroundColor: 'white',
-  padding: '20px',
-  border: '1px solid #ccc',
-  boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',
-  zIndex: '1000',
-};
 
 const inscrireBenevole=(idcreneau,idposte)=>{
   if(idposte===1 && Object.keys(selectedZones).length===0){
@@ -73,6 +64,7 @@ const inscrireBenevole=(idcreneau,idposte)=>{
        console.log(res.data);
        fetchInscriptions();
        setInscriptionPopUp(null)
+       setComfirmerZone(false)
      }
    })
  }
@@ -100,13 +92,13 @@ const handleClickZone = (e) => {
  }
 
  return(
-  <div style={popupStyle} onClick={(e) => e.stopPropagation()}>
-  <div>Veuillez choisir une ou plusieurs zone</div>
-  {listeZoneBenevole &&
+  <div className={`popup ${ comfirmerZone ? "popup__middle": "popup__big"}`} onClick={(e) => e.stopPropagation()}>
+    <h3>Inscription</h3>
+  {listeZoneBenevole && !comfirmerZone &&
    <div>
     {Object.entries(listeZoneBenevole).map(([cle, zone], index) => (
-     <div key={index}>
-      {cle} :
+     <div key={index} className="zones">
+      <div className="zonename">{cle} : </div>
       <select id={cle} name={cle} onChange={(e) => handleClickZone(e)} >
         <option value="" disabled selected>Choisir une zone</option>
         {Object.entries(zone).map(([sousCle, souszone], index) => (
@@ -136,21 +128,30 @@ const handleClickZone = (e) => {
   </div>
 
  }
-  {Object.keys(selectedZones).length>0 && 
+  {Object.keys(selectedZones).length>0 && comfirmerZone &&
    <div>
-    <div>Zones selectionnées : </div>
+    <div className="bold">Zones selectionnées : </div>
       {Object.entries(selectedZones).map(([cle, zone], index) => (
-        <div>
-        <div key={index}>{zone}</div>
-        <div onClick={()=>{deleteZone(cle)}}>delete</div>
+        <div className="zones">
+        <div className="zonename" key={index}>{zone.split("(")[0]}</div>
+        <div className="cursor" onClick={()=>{deleteZone(cle)}}>Delete</div>
         </div>
       ))}
+      {selectZoneAlerte && <div>Vous devez choisir au moins une zone</div>}
   </div>
   }
 
-  {selectZoneAlerte && <div>Vous devez choisir au moins une zone</div>}
-  <div onClick={()=>{inscrireBenevole(creneau[0].Creneau.idcreneau, creneau[0].Poste.idposte)}}>Comfirmer</div>
-  <div onClick={()=>{setInscriptionPopUp(null)}}>Annuler</div>
+  <div className="boutons">
+    {comfirmerZone ?
+    <>
+    {<div className="bouton1 cursor" onClick={()=>{inscrireBenevole(creneau[0].Creneau.idcreneau, creneau[0].Poste.idposte)}}>Comfirmer</div>}
+    <div className="bouton1 cursor" onClick={()=>{setComfirmerZone(false)}}>Liste des zones</div>
+    </>
+    :
+    Object.keys(selectedZones).length>0 && 
+      <div className="bouton1 cursor" onClick={()=>{setComfirmerZone(true)}}>Comfirmer Zones</div>}
+    <div className="bouton1 cursor" onClick={()=>{setInscriptionPopUp(null) ; setComfirmerZone(false)}}>Annuler</div>
+  </div>
  </div>
  )
 

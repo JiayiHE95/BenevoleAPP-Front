@@ -24,10 +24,6 @@ const PlanningColumnAdmin = ({ creneaux, user, getPosteCreneau }) => {
   
    }
 
-  const isCapacityFilled = (creneau) => {
-    return creneau.capacite - creneau.capacite_restante === 0;
-  };
-
   const handleCreneauClick = (creneau) => {
     setSelectedCreneau(creneau);
     setPopupVisible(true);
@@ -41,35 +37,44 @@ const PlanningColumnAdmin = ({ creneaux, user, getPosteCreneau }) => {
   };
 
   return (
-    <div>
-      <div>
-        {creneaux.map((c, index) => (
-          c.length > 1 ? (
-            <div key={index} onClick={() => handleCreneauClick(c[0])}>
-              <div style={{ color: isCapacityFilled(c[0]) ? "red" : "green" }}>
-                {listeInscription ? `${listeInscription.length}/` : '0/'}
-                {Object.values(c).reduce((somme, posteCreneau) => somme + posteCreneau.capacite, 0)}
+    <>
+
+      {creneaux.map((c, index) => (
+        c.length > 1 ? (
+          <div key={index} onClick={() => handleCreneauClick(c[0])}>
+            <div 
+              className={`planningTable__creneau cursor 
+              ${Object.values(c).reduce((somme, posteCreneau) => somme + posteCreneau.capacite, 0) === listeInscription?.length ? 
+                "estComplet" 
+                : 
+                listeInscription?.length> 0 && "estInscrit"}`
+              }
+            >
+              {listeInscription ? `${listeInscription.length}/` : '0/'}
+              {Object.values(c).reduce((somme, posteCreneau) => somme + posteCreneau.capacite, 0)}
+            </div>
+          </div>
+        ) : (
+          c.map((creneau, index) => (
+            <div key={index} onClick={() => handleCreneauClick(creneau)}>
+              <div 
+                className={`planningTable__creneau cursor 
+                ${ creneau.capacite_restante===0 ? "estComplet" : creneau.capacite - creneau.capacite_restante > 0 && "estInscrit"}`}
+              >
+                {creneau.capacite - creneau.capacite_restante}/{creneau.capacite}
               </div>
             </div>
-          ) : (
-            c.map((creneau, index) => (
-              <div key={index} onClick={() => handleCreneauClick(creneau)}>
-                <div style={{ color: isCapacityFilled(creneau) ? "red" : "green" }}>
-                  {creneau.capacite - creneau.capacite_restante}/{creneau.capacite}
-                </div>
-              </div>
-            ))
-          )
-        ))}
-      </div>
-
+          ))
+        )
+      ))}
+    
       {popupVisible &&(
         <PopUpAdminCreneau creneau={selectedCreneau} closePopup={closePopup} user={user}/>
       )}
 
 
 
-    </div>
+    </>
   );
 };
 

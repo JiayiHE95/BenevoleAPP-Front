@@ -6,6 +6,7 @@ import inscriptionAPI from "../api/inscriptionAPI";
 import PlanningColumnUser from "./PlanningColumnUser";
 import PlanningColumnAdmin from "./PlanningColumnAdmin";
 import ChangeHorairePopup from "./ChangeHorairePopup";
+import { formatDate } from "../utils/dateUtils";
 
 const PlanningTable = ({ festival, user }) => {
 
@@ -111,26 +112,31 @@ const handleClickHoraire=(date, horaire)=>{
 
  return(
  <div className="planningTable"> 
-  <h2>Plannning du festival {festival.annee} ({festival.date_debut} - {festival.date_fin})</h2>
+  <h1>Plannning du festival {festival.annee}</h1>
+  <h2>Du {formatDate(festival.date_debut)} au {formatDate(festival.date_fin)}</h2>
   {posteCreneau &&
   Object.entries(posteCreneau).map(([date, horaires]) => (
     <div key={date} className="planningTable__date">
-      <div className="date">{date}</div>
+      <div className="date">{formatDate(date)}</div>
       <div className="planningTable__creneaux">
         <div className="planningTable__colonne">
           <div className="planningTable__creneauPoste"></div>
           {listePoste && listePoste.map((poste) => (
             <div key={poste.idposte} className="planningTable__creneauPoste">{poste.nom}</div>
           ))}
-          <div className="planningTable__creneauPoste">Flexible</div>
+          {user.role ==="BENEVOLE" && <div className="planningTable__creneauPoste">Flexible</div>}
         </div>
       {Object.entries(horaires).map( ([horaire, creneaux]) => (
         <div key={horaire} className="planningTable__colonne">
           
-          <div 
-            className="planningTable__creneauHoraire"
-            onClick={()=>{user.role ==="ADMIN" && !festival.valide && handleClickHoraire(date, horaire)}}>
+          <div className="planningTable__creneauHoraire">
               {horaire}
+              {user.role ==="ADMIN" && !festival.valide &&
+              <button className="editButton cursor" onClick={() => { handleClickHoraire(date, horaire)}}>
+                <span className="material-symbols-outlined">
+                  edit
+                </span>
+              </button>}
           </div>
 
           {changeHoraire && clickedDate===date && clickedHoraire===horaire &&

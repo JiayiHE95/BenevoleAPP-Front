@@ -10,7 +10,6 @@
     padding: 10px;
     margin:  0 0 10px 0;
     width: 98%;
-    border-radius: 15px 15px 0 0;
     text-align: center;
     font-size: 20px;
     border-bottom: 2px solid #9dabe2;
@@ -19,11 +18,10 @@
   flex-direction: column;
   border: 1px solid whitesmoke;
   width: 70%;
-  
+  min-width: 700px;
   margin: 10px;
-  font-weight: bold;
   align-items: center;
-  border-radius: 15px;
+  border-radius: 10px;
   background-color: whitesmoke;
  }
 
@@ -88,6 +86,10 @@
 
  .estInscrit{
   background-color: #002663;
+ }
+
+ .estComplet{
+  background-color: black
  }
 
 }

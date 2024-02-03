@@ -144,7 +144,7 @@ const PosteDetails = ({ posteId, idfestival, user }) => {
             <div className='presentationPoste'>Présentation du poste :</div>
 
             {!modeEdition && user.role === "ADMIN" && (
-              <button className="editButton" onClick={() => { setModeEdition(true) }}>
+              <button className="editButton cursor" onClick={() => { setModeEdition(true) }}>
                 <span className="material-symbols-outlined">
                   edit
                 </span>
