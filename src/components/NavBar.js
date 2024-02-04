@@ -60,7 +60,7 @@ const NavBar = ({ festivalId }) => {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [isMobileScreen]);
+  }, []);
 
   // Function to fetch notifications
   const recuperationNotifications = async () => {

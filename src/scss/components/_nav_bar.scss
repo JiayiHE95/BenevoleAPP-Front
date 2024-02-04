@@ -44,6 +44,10 @@
     margin-left: 30px;
     padding: 5px;
   }
+  .navbar>div:hover {
+    border-bottom: 2px solid #4CAF50; /* Couleur verte à ajuster selon vos préférences */
+}
+  
   
   /* Vos autres styles pour le menu mobile */
   .mobile-menu-icon {
