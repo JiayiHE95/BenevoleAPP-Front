@@ -90,7 +90,6 @@ const FestivalPage = () => {
           
           <div className="welcome-message">Le festival {festival.valide ? " est " : "n'est pas encore "} ouvert aux inscriptions des bénévoles</div>
           
-          <div className="boutonGestion clickable" onClick={() => { navigate(`/inscriptions/${festivalId}`); }}>Gestion Inscription</div>
           <div className="boutonGestion clickable" onClick={() => { setShow(!show) }}>Import CSV</div>
           {show &&<div className='import'>  
             
