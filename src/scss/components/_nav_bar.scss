@@ -68,7 +68,7 @@
     background-color: #60b963;
   }
   /* Afficher le menu mobile uniquement sur les écrans plus petits */
-  @media (max-width: 768px) {
+  @media (max-width: 935px) {
     .navbar {
       display: none; /* Cacher le menu sur grand écran */
     }

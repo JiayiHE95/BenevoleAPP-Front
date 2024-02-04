@@ -22,7 +22,7 @@ const NavBarProfil = () => {
     }
   }, [decodedToken]);
 
-  const isMobileScreen = windowWidth <= 768;
+  const isMobileScreen = windowWidth <= 935;
 
   useEffect(() => {
     const handleResize = () => {

@@ -14,11 +14,11 @@ br{
     padding: 1em;
     border: rgb(213, 213, 213) solid 1px;
     box-shadow:  0 4px 8px rgba(0, 0, 0, 0.1); 
-    margin: 1em;
+    margin: auto;
     
 }
 
-.admin-section{
+.admin-section, .welcome-message{
     display: flex;
     flex-direction: column;
     justify-content: center;

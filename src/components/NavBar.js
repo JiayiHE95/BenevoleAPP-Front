@@ -44,7 +44,7 @@ const NavBar = ({ festivalId }) => {
     }
   }, [user]);
   // Check if the screen is mobile based on the window width
-  const isMobileScreen = windowWidth <= 768;
+  const isMobileScreen = windowWidth <= 935;
   // Effect to update window width when the window is resized
   useEffect(() => {
     const handleResize = () => {
