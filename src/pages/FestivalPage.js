@@ -14,6 +14,7 @@ const FestivalPage = () => {
   const [deletePopup, setDeletePopup] = useState(false);
   const navigate=useNavigate()
   const  [user,setUser]=useState(null)
+  const  [show,setShow]=useState(false)
   const [comfirmFestivalPopUp, setComfirmFestivalPopUp] = useState(false);
   
 
@@ -86,10 +87,17 @@ const FestivalPage = () => {
   
       {user.role === "ADMIN" &&
         <div className="admin-section">
+          
           <div className="welcome-message">Le festival {festival.valide ? " est " : "n'est pas encore "} ouvert aux inscriptions des bénévoles</div>
-          <div>Importer le fichier contenant les informations des jeux et des espaces</div>
-          <FileUploader festival={festival} />
-  
+          
+          <div className="boutonGestion clickable" onClick={() => { navigate(`/inscriptions/${festivalId}`); }}>Gestion Inscription</div>
+          <div className="boutonGestion clickable" onClick={() => { setShow(!show) }}>Import CSV</div>
+          {show &&<div className='import'>  
+            
+            <FileUploader festival={festival} />
+          </div>
+          }
+
           {festival.valide === false && <div className="open-registration" onClick={() => setComfirmFestivalPopUp(true)}>Ouvrir l'inscription des bénévoles au festival</div>}
           
           {comfirmFestivalPopUp &&
@@ -110,7 +118,7 @@ const FestivalPage = () => {
             </div>
           }
   
-          <div className="clickable" onClick={() => { navigate(`/inscriptions/${festivalId}`); }}>Gestion Inscription</div>
+          
         </div>
       }
     </div>

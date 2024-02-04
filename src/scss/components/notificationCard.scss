@@ -1,3 +1,11 @@
+body, html{
+    background-color: #f0f0f0;
+}
+.bg{
+    background-color: #f0f0f0;
+
+    height: 100%;
+}
 .carte{
     border: 1px solid whitesmoke;
     width : 70%;
@@ -12,7 +20,7 @@
 
 }
 .bulle {
-    background-color: red;
+    background-color: rgba(247, 92, 165);
     color: white;
     font-size: 12px;
     padding: 2px 6px;
@@ -22,10 +30,10 @@
 }
   
 .carte:hover{
-    background-color: lightgray;
+    background-color: rgba(145, 212, 0, 0.336);;
 }
 .couleur{
-    background-color: #9dabe2;
+    background-color: rgba(0, 38, 99,0.6);
     width: 5px;
     left: 0;
     overflow: hidden;

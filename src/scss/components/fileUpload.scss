@@ -1,2 +1,75 @@
+.dropzone{
+    padding: 2em;
+}
+p{
+    padding: 1em;
+}
+.import-button{
+    background-color: orange;
+    text-align: center;
+    margin:1em;
+    padding: 1em;
+    border-radius: 10px;
+    width:100%;
 
+}
+.import-button:hover{
+    background-color: rgb(230, 149, 1);
+}
+.file-uploader-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.confirmation-popup {
+    background-color: #ffcccc; /* Rouge clair */
+    padding: 15px;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  
+  .confirmation-popup-text {
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .confirmation-popup div {
+    margin-bottom: 5px;
+  }
+  
+  .confirmation-popup-confirm,
+  .confirmation-popup-cancel {
+    cursor: pointer;
+    padding: 8px 15px;
+    margin-top: 10px;
+    background-color: #ff0000; /* Rouge */
+    color: #ffffff; /* Blanc */
+    border-radius: 3px;
+    display: inline-block;
+    text-align: center;
+  }
+  
+  .confirmation-popup-cancel {
+    margin-left: 10px;
+    background-color: #ffffff; /* Blanc */
+    color: #ff0000; /* Rouge */
+  }
+  .botun{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .alert-message {
+    background-color: lightgreen; 
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    color: green;
+  }
+  
+  .alert-message strong {
+    font-weight: bold;
+  }
   

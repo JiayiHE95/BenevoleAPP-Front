@@ -63,6 +63,7 @@ const FileUploader = ({ festival }) => {
       );
 
       setAlert('Importation réussie');
+      setComfirm(false)
     };
   };
 
@@ -82,8 +83,8 @@ const FileUploader = ({ festival }) => {
           )}
         </div>
         {alert && <div className="alert-message">{alert}</div>}
-        {!alert && file && (
-          <div className="import-button" onClick={() => setComfirm(true)}>
+        {!alert && file && !comfirm && (
+          <div className="import-button cursor" onClick={() => setComfirm(true)}>
             Importer
           </div>
         )}
@@ -96,11 +97,13 @@ const FileUploader = ({ festival }) => {
             <div>
               Si vous souhaitez supprimer des données pour le festival en cours, veuillez vous diriger vers l'espace admin.
             </div>
-            <div className="confirmation-popup-confirm" onClick={() => readFile()}>
-              Confirmer
-            </div>
-            <div className="confirmation-popup-cancel" onClick={() => setComfirm(false)}>
-              Annuler
+            <div className='botun'>
+              <div className="confirmation-popup-confirm" onClick={() => readFile()}>
+                Confirmer
+              </div>
+              <div className="confirmation-popup-cancel" onClick={() => setComfirm(false)}>
+                Annuler
+              </div>
             </div>
           </div>
         )}

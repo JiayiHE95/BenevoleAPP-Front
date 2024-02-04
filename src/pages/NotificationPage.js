@@ -56,7 +56,7 @@ const NotificationPage = () => {
   
 
   return (
-    <div>
+    <div className='bg'>
       <NavBar festivalId={festivalId} />
       <h1>Notifications</h1>
 
