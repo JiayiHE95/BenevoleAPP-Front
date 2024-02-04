@@ -56,7 +56,7 @@ const Infos = () => {
 
 
         {(user.role==="BENEVOLE" && !festival.valide )&& 
-          <div>Veuillez patienter, les informations du festival seront bientôt disponible</div>}
+          <div className='center-texte'>Veuillez patienter, les informations du festival seront bientôt disponible</div>}
     </div>
     
     );

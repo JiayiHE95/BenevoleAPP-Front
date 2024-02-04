@@ -109,7 +109,7 @@ const Registration = () => {
           user={user}/>
       ) : (
         
-        <div>Aucune inscription trouvée </div>
+        <div className='center-texte'>Aucune inscription trouvée </div>
       )}
     </div>
   );

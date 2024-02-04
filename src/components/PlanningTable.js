@@ -113,8 +113,6 @@ const handleClickHoraire=(date, horaire)=>{
 
  return(
  <div className="planningTable"> 
-  <h1>Plannning du festival {festival.annee}</h1>
-  <h2>Du {formatDate(festival.date_debut)} au {formatDate(festival.date_fin)}</h2>
   {posteCreneau &&
   Object.entries(posteCreneau).map(([date, horaires]) => (
     <div key={date} className="planningTable__date">

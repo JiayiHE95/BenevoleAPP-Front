@@ -203,7 +203,7 @@ const PosteDetails = ({ posteId, idfestival, user }) => {
             referents.map((referent, index) => (
               <div className="reff" key={index}>
                 <div className="pseudo">Pseudo : {referent.User.pseudo}</div>
-                <div className="tel">Tel : {referent.User.tel}</div>
+                <div className="tel">Téléphone : {referent.User.tel}</div>
               </div>
             ))
           ) : (

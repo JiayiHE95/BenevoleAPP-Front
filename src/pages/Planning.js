@@ -5,6 +5,7 @@ import NavBar from '../components/NavBar';
 import festivalAPI from '../api/festivalAPI';
 import userAPI from "../api/userAPI";
 import PlanningTable from "../components/PlanningTable";
+import { formatDate } from "../utils/dateUtils";
 
 const Planning = () => {
   const { festivalId } = useParams();
@@ -50,17 +51,22 @@ const Planning = () => {
   :
   <div>
     <NavBar festivalId = {festivalId}/>
-   {user && user.role === "ADMIN" ?
-    (festival ?
-     <PlanningTable festival={festival} user={user}/>
-     :
-     <div>Il n'y a pas de festival en cours </div>
-    )
-    :
-    (festival && festival.valide===true && user) ? 
-    <PlanningTable festival={festival} user={user}/> 
-    : 
-    <div>Veuillez patienter, l'inscription pour les bénévoles n'est pas encore ouverte</div>
+    {festival && <div>
+      <h1>Plannning du festival {festival.annee}</h1>
+      <h2 className="center-texte">Du {formatDate(festival.date_debut)} au {formatDate(festival.date_fin)}</h2>
+      {user && user.role === "ADMIN" ?
+      (festival ?
+        <PlanningTable festival={festival} user={user}/>
+        :
+        <div>Il n'y a pas de festival en cours </div>
+        )
+        :
+        (festival && festival.valide===true && user) ? 
+        <PlanningTable festival={festival} user={user}/> 
+        : 
+        <div className="center-texte">Veuillez patienter, l'inscription pour les bénévoles n'est pas encore ouverte</div>
+      }
+    </div>
     }
 
   </div>

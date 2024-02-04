@@ -21,4 +21,5 @@
   }
   .bouton.active {
     background-color: #5966b9;
+    color: white;
   }
