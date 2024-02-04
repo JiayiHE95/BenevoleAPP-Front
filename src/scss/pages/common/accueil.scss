@@ -1,0 +1,27 @@
+.main-title{
+    text-align: center;
+    margin: 1em;
+}
+br{
+    height: 1em
+}
+.welcome-message{
+    font-size: 20px;
+    text-align: center;
+    background-color: whitesmoke;
+    border-radius: 20px;
+    width: 50%;
+    padding: 1em;
+    border: rgb(213, 213, 213) solid 1px;
+    box-shadow:  0 4px 8px rgba(0, 0, 0, 0.1); 
+    margin: 1em;
+    
+}
+
+.admin-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}

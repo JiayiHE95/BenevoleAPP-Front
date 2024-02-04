@@ -1,48 +1,82 @@
-import React, { useState, useEffect } from 'react'
-import {useNavigate} from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { verifyToken } from '../redux/authReducer'
-import { authActions } from '../redux/authReducer'
-import userAPI from '../api/userAPI'
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import userAPI from '../api/userAPI';
 import { useJwt } from "react-jwt";
+import LogoFestivalPetit from '../images/LogoFestivalPetit.png'
 
-const NavBarProfil =()=>{
- const [user, setUser] = useState(null);
- const navigate=useNavigate()
- //const [isOpenedDropdown, setIsOpenedDropdown] = useState(false)
- //let imagePath = window.location.origin+"/picture/";
- const token=localStorage.getItem('accessToken')
- const { decodedToken,isExpired } = useJwt(token?token:"");
+const NavBarProfil = () => {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+  const token = localStorage.getItem('accessToken');
+  const { decodedToken, isExpired } = useJwt(token ? token : "");
 
- useEffect(() => {
-  if (decodedToken) {
-    userAPI.getUserById(decodedToken.iduser).then((resp)=>{
-      if(resp.data){
-        setUser(resp.data.user)
-      }
-    })
-  }
-}, [decodedToken]);
-
-
- return(
-
-  <div className='navbar-container'>
-   <div  onClick={()=>{navigate("/")}}>
-      <div className='logo-name cursor'>Festival de Jeux</div>
-   </div>  
-   {user&&
-    <div className='navbar'>
-      <div className='cursor' onClick={()=>{navigate("/home/user")}}>Home</div>
-      {(user.role==="ADMIN") &&
-      <div className='cursor' onClick={()=>{navigate("/admin")}}>Admin</div>
-      }
-     
-    
-      <div class="material-icons cursor" onClick={() => {localStorage.removeItem('accessToken');navigate(`/`);}}>logout</div>
-    </div>
+  useEffect(() => {
+    if (decodedToken) {
+      userAPI.getUserById(decodedToken.iduser).then((resp) => {
+        if (resp.data) {
+          setUser(resp.data.user);
+        }
+      });
     }
-   </div>
-   )
+  }, [decodedToken]);
+
+  const isMobileScreen = windowWidth <= 768;
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+      if (!isMobileScreen) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [isMobileScreen]);
+
+  const handleToggleMobileMenu = () => {
+    const not = !isMobileMenuOpen;
+    setMobileMenuOpen(not);
+    console.log("Toggle: " + not);
+  };
+
+  return (
+    <div>
+    <div className='navbar-container'>
+    <div className='logo-container cursor' onClick={() => navigate("/")}>
+      <img className="logo" src={LogoFestivalPetit} alt="Festival du jeu" />
+    </div>
+      {user && (
+        <div className={`navbar ${isMobileScreen ? 'mobile-menu-open' : ''}`}>
+          <div className='cursor' onClick={() => navigate("/home/user")}>Home</div>
+          {user.role === "ADMIN" && (
+            <div className='cursor' onClick={() => navigate("/admin")}>Admin</div>
+          )}
+          <div className="material-icons cursor" onClick={() => { localStorage.removeItem('accessToken'); navigate(`/`); }}>logout</div>
+        </div>
+      )}
+      {isMobileScreen && (
+        <div className='mobile-menu-icon cursor' onClick={handleToggleMobileMenu}>
+          <i className="material-icons">menu</i>
+        </div>
+      )}
+      </div>
+      {isMobileMenuOpen && isMobileScreen && (
+        <div className={`mobile-menu-open`}>
+          <div className='cursor' onClick={() => navigate("/home/user")}>Home</div>
+          {user.role === "ADMIN" && (
+            <div className='cursor' onClick={() => navigate("/admin")}>Admin</div>
+          )}
+          <div className="material-icons cursor" onClick={() => { localStorage.removeItem('accessToken'); navigate(`/`); }}>logout</div>
+        </div>
+      )}
+    </div>
+  );
 }
+
 export default NavBarProfil;

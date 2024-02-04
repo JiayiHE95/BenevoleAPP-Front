@@ -1,61 +1,77 @@
 
 
-.navbar-container{
- //position: fixed;
- top: 0;
- left: 0;
- width: 100%;
- height: 10vh;
- padding: 20px 30px;
- background-color: whitesmoke;
- display: flex;
- justify-content: space-between;
- align-items: center;
- z-index: 99;
-}
+.mobile-menu-icon {
+    cursor: pointer;
+    color: #000; /* Couleur du texte pour le test, ajustez selon vos besoins */
+    font-size: 24px; /* Taille de la police pour le test, ajustez selon vos besoins */
+  }
+  
 
-.navbar{
- display: flex;
- justify-content: space-between;
+.logo-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo {
+    width:20%; /* ajustez la taille selon vos besoins */
+    height: 70%;
+    margin-right: 10px;
+    /* Ajoutez d'autres styles nécessaires */
+  }
+/* Vos autres styles */
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: whitesmoke;
+    padding: 10px 15px;
+    z-index: 99;
+  }
+  
+  
+  
+  /* Styles pour grand écran */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .navbar>div {
+    position: relative;
+    font-size: 20px;
+    color: black;
+    margin-left: 30px;
+    padding: 5px;
+  }
+  
+  /* Vos autres styles pour le menu mobile */
+  .mobile-menu-icon {
+    display: none; /* Masquer par défaut sur grand écran */
+  }
+  .mobile-menu-open {
+    text-align: center;
+
+  }
  
-}
-
-.navbar>div{
- position: relative;
- font-size: 20px;
- color: black;
- margin-left: 30px;
- padding: 5px;
-}
-
-
-
-.dropdown-navbar-open>div:hover{
- background-color: rgba(255, 255, 255, 0.5);
- padding: 5px;
-}
-
-.navbar>div::after{
- content: '';
- position: absolute;
- left: 0;
- bottom: -3px;
- width: 100%;
- height: 1px;
- background: green;
- border-radius: 5px;
- transform-origin: r;
- transform: scale(0);
-}
-.material-icons{
-    color : grey
-}
-.navbar>div:hover::after{
-transform: scale(1);
-}
-
-
-.logo-name{
- font-size: 20px;
- color: black;
-}
+  
+  .mobile-menu-open>div {
+    width: 100%;
+    padding: 10px;
+    border-bottom: 1px solid #bacff7;
+  }
+  .mobile-menu-open>div:hover{
+    background-color: lightblue;
+  }
+  /* Afficher le menu mobile uniquement sur les écrans plus petits */
+  @media (max-width: 768px) {
+    .navbar {
+      display: none; /* Cacher le menu sur grand écran */
+    }
+  
+    .mobile-menu-icon {
+      display: block; /* Afficher le bouton du menu mobile sur petit écran */
+      cursor: pointer;
+    }
+  }
+  
