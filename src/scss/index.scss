@@ -3,6 +3,7 @@
 @import 'pages/common/all_common';
 @import 'components/all_components';
 
+
 *{
  margin: 0;
  padding: 0;
@@ -17,8 +18,7 @@
  justify-content: center;
  align-items: center;
  min-height: 100vh;
- background-size: cover;
- background-position: center;
+ background-color: #5966b9;
  overflow-y:auto;
  color: #fff;
  img{
