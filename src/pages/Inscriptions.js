@@ -126,7 +126,7 @@ const Inscriptions = () => {
          {Object.entries(inscriptions).length > 0 ? (
           <CarteInscription inscriptions={inscriptions} user={user} />
         ) : (
-          <p className='selectedUser'>Aucune inscription trouvée pour ce bénévole.</p>
+          <p className='selectedUser'>Aucune inscription trouvée.</p>
         )}
       </div>
       }

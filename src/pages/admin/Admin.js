@@ -63,7 +63,7 @@ const Admin=()=>{
       <div className='Admin-main'>
         <div className='boutons'>
         <div 
-          className="bouton2"  
+          className="bouton2 cursor"  
           onClick={() => { navigate("/new-festival") }}
         >Ajouter un festival</div>
         </div>

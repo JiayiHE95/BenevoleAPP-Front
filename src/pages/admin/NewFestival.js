@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import userAPI from '../../api/userAPI'
 import {useParams,useNavigate, Navigate} from 'react-router-dom'
-import {MdMail,MdPerson,MdPersonOutline, MdKey,MdPhone, MdOutlineCancel, MdLocationCity} from 'react-icons/md'
+import {MdMail,MdPerson,MdPersonOutline, MdKey,MdPhone, MdOutlineCancel} from 'react-icons/md'
+
+import {AiOutlineCheckCircle} from 'react-icons/ai'
 import { useJwt } from "react-jwt";
 import festivalAPI from '../../api/festivalAPI'
 import posteAPI from '../../api/posteAPI'
@@ -24,6 +26,7 @@ const [heure_fin, setHeure_fin]=useState()
  const [postesId, setPostesId]=useState([])
  const [notif,setNotif]=useState(false)
  const [festival, setFestival] = useState(null);
+ const navigate=useNavigate()
 
  const dateActuelle = new Date().toISOString().split('T')[0];
 
@@ -62,9 +65,13 @@ const [heure_fin, setHeure_fin]=useState()
    const festivalData={
     date_debut:date_debut,
     date_fin:date_fin,
-    annee: date_debut.split('-')[0],
+    annee: date_debut?.split('-')[0],
     nom:nomFestival,
    }
+   
+   //verify si festivalData est bien rempli
+
+
 
    festivalAPI.createFestival(festivalData).then((resp)=>{
     const festivalId = resp.data.festival.idfestival
@@ -96,7 +103,8 @@ const [heure_fin, setHeure_fin]=useState()
    nom:nom,
    description:description
   }
-  console.log(data);
+  setNom('')
+  setDescription('')
   posteAPI.createPoste(data).then((resp)=>{
    console.log(resp.data);
    posteAPI.getPostesListe().then((resp)=>{
@@ -234,11 +242,13 @@ const handleCapaciteClick = (id, capacite) => {
     <div className='inputs'>
 
       <input type="text" name="newPoste" id="newPoste" 
+        value={nom}
         onChange={(e)=> {setNom(e.target.value)}}
         required
         className="signup-input-fields"
       />
       <input type="text" name="newPosteDescription" id="newPosteDescription" 
+        value={description}
         onChange={(e)=> {setDescription(e.target.value)}}
         required
         className="signup-input-fields"
@@ -246,13 +256,14 @@ const handleCapaciteClick = (id, capacite) => {
     </div>
   
    {festival ?
-   <div>
-      <div>Festival créé ! Importer le fichier de jeu et espace maintenant ou depuis la page Admin</div>
-      <FileUploader festival={festival}/>
+   <div className="notif-succes">
+    <AiOutlineCheckCircle className='error-icon'/>
+      <div>Festival créé ! Importer le fichier de jeu et espace dès maintenant depuis l'accueil du festival</div>
     </div>
     :
     <div className='boutons'>
       <button type="submit" className='bouton2 cursor' onClick={()=>createFestival()}>Créer le festival</button>
+      <button type="submit" className='bouton2 cursor' onClick={()=>navigate("/admin")}>Annuler</button>
     </div>
     }
     
