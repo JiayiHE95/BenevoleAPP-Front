@@ -107,22 +107,23 @@ input[type=date]:valid {
 }
 
 .bouton2{
-  color: white;
+  color: black;
   margin : 10px;
   border: none;
   width: 250px;
   height : 40px;
-  background-color: #4caf50;
+  background-color: #FDB41D;
   text-align: center;
   align-items: center;
   display: flex;
   justify-content: center;
   border-radius: 5px;
-  border: 3px solid #45a049;
+  border: 2px solid hsl(40, 77%, 49%);
 }
 
 .bouton2:hover{
-  background-color: #45a049;
+  color: white;
+  background-color: hsl(40, 77%, 49%);
 }
 
 

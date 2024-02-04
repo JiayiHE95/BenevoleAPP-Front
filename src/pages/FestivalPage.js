@@ -108,8 +108,8 @@ const FestivalPage = () => {
               <div className='ccc'>Attention, cette action est irréversible. Les dates et les créneaux seront bloqués pour que les bénévoles puissent s'inscrire, mais vous pouvez toujours ajuster le nombre de bénévoles pour chaque créneau</div>
               
               <div className='deuxBoutons'>
-                <div className="cc" onClick={() => comfirmFestival()}>Confirmer</div>
-                <div className="cc" onClick={() => setComfirmFestivalPopUp(false)}>Annuler</div>
+                <div className="cc cursor" onClick={() => comfirmFestival()}>Confirmer</div>
+                <div className="cc cursor" onClick={() => setComfirmFestivalPopUp(false)}>Annuler</div>
               </div>
             </div>
           }
@@ -121,8 +121,8 @@ const FestivalPage = () => {
               <div className='ccc'>Attention, cette action est irréversible. Etes-vous sûr de vouloir supprimer ce festival ?</div>
               
               <div className='deuxBoutons'>
-                <div className="cc" onClick={() => deleteFestival()}>Oui</div>
-                <div className="cc" onClick={() => setDeletePopup(false)}>Non</div>
+                <div className="cc cursor" onClick={() => deleteFestival()}>Oui</div>
+                <div className="cc cursor" onClick={() => setDeletePopup(false)}>Non</div>
               </div>
             </div>
           }

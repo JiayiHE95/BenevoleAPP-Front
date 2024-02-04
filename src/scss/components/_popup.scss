@@ -12,6 +12,21 @@
  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
  z-index: 1000;
 
+  &__small{
+    height: 200px;
+    width: 300px;
+  }
+
+  &__middle{
+    height: 400px;
+    width: 400px;
+  }
+  
+  &__big{
+    width: 500px;
+    height: 550px;
+  }
+
 
  .boutons {
    display: flex;
@@ -36,18 +51,7 @@
    text-align: center;
  }
  
- &__small{
-   height: 200px;
-   width: 300px;
- }
- &__middle{
-   height: 400px;
-   width: 400px;
- }
- &__big{
-   width: 500px;
-   height: 550px;
- }
+
 }
 
 
