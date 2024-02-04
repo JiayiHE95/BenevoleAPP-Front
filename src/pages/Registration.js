@@ -108,7 +108,8 @@ const Registration = () => {
           onValider={handleValidation} 
           user={user}/>
       ) : (
-        <div>Aucune inscription, inscrivez-vous dès maintenant depuis le planning ! </div>
+        
+        <div>Aucune inscription trouvée </div>
       )}
     </div>
   );
