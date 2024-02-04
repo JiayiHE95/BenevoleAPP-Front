@@ -1,7 +1,6 @@
 // import { useJwt } from "react-jwt";
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate, Navigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 
 import { useJwt } from "react-jwt";
 import NavBarProfil from "../components/NavbarProfil";
@@ -9,15 +8,13 @@ import FestivalInfo from "../components/FestivalInfo"
 import Profil from "../components/Profil";
 import userAPI from "../api/userAPI";
 import festivalAPI from '../api/festivalAPI';
-import FileUploader from "../components/FileUploader";
-import "../scss/pages/UserHome.css";
 
 const UserHome = () => {
 
   const [user, setUser] = useState(null);
-  const navigate = useNavigate();
   const [festivals, setFestivals] = useState(null);
   const [currentfestivals, setCurrentFestivals] = useState(null);
+  const [showRightSide, setShowRightSide] = useState(true);
 
   const token = localStorage.getItem('accessToken');
   const { decodedToken, isExpired } = useJwt(token ? token : "");
@@ -58,20 +55,20 @@ const UserHome = () => {
     isExpired ?
       <Navigate to={'/'} /> :
       
-      <div >
+      <div className="userHome">
 
         <NavBarProfil/>
-        <div className="userHome">
+        <div className="userHomeMain">
           <div className="left-block">
-            {/* bloc à gauche */}
-            <h1>User Home Page</h1>
-            {user && <Profil user={user} onUpdateUser={handleUpdateUser} />}
+            <h1>Home</h1>
+            {user && <Profil user={user} onUpdateUser={handleUpdateUser} showRightSide={setShowRightSide} />}
           </div>
           
-          <div className="right-block">
+          {showRightSide &&
+            <div className="right-block">
             {/* Ajout de la présentation des différents festivals en cours : */}
-            <h2>Festival en cours</h2>
-            <div>
+            <h1>Festival en cours</h1>
+        
             {currentfestivals && Array.isArray(currentfestivals) ? (
               currentfestivals.map((festival) => (
                 <FestivalInfo key={festival.idfestival} festival={festival} />
@@ -80,8 +77,8 @@ const UserHome = () => {
             ) : (
               <div>Il n'y a pas de festival en cours</div>
             )}
-            </div>
-          </div>
+      
+          </div>}
 
         </div>
       </div>

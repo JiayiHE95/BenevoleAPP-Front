@@ -1,17 +1,21 @@
 // Card.js
 import React from "react";
 import { Link } from "react-router-dom";
+import { formatDate } from "../utils/dateUtils";
+import { useNavigate } from 'react-router-dom';
 
 const FestivalInfo = ({ festival }) => {
+  const navigate = useNavigate();
+  
 
   return (
     <div className="card" key={festival.idfestival}>
-      <Link to={`/festival/${festival.idfestival}`} className="custom-link">
-        <div>{festival.nom}</div>
+      <div onClick={() => navigate(`/festival/${festival.idfestival}`)} className="custom-link">
+        <div className="bold">{festival.nom}</div>
         <div>
-          {festival.date_debut} - {festival.date_fin}
+          {formatDate(festival.date_debut)} - {formatDate(festival.date_fin)}
         </div>
-      </Link>
+      </div>
     </div>
   );
 };

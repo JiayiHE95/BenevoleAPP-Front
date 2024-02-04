@@ -8,7 +8,7 @@ import {TbAddressBook} from 'react-icons/tb'
 import {RxCodesandboxLogo} from 'react-icons/rx'
 import {MdMail,MdPerson,MdPersonOutline, MdKey,MdPhone, MdOutlineCancel, MdLocationCity} from 'react-icons/md'
 
-const Profil = ({user, onUpdateUser})=>{
+const Profil = ({user, onUpdateUser, showRightSide})=>{
  const [infoReset,setInfoReset]=useState(false)
  const [passwordSucces,setPasswordSucces]=useState(false)
  const [infoSucces,setInfoSucces]=useState(false)
@@ -100,129 +100,160 @@ const changeInfos=()=>{
   })
 }
 
-
+const hiddleMotif=()=>{
+  setNotif(false)
+  setPwNotif(false)
+  setOldPwNotif(false)
+  setPasswordSucces(false)
+  setInfoSucces(false)
+}
 
  return(
   user&&
   <div className='personal-data'>
-   <div className="text-bold">Informations Personnelles</div>
-   {!infoReset && 
-   <div>
-  <div>{pseudo}</div>
-  <div>{nom} {prenom}</div>
-  <div>{mail}</div>
-  <div>{tel}</div>
-  <div>{association}</div>
-  <div>{taille_tshirt}</div>
-  <div>{est_vegetarien}</div>
-  <div>{hebergement}</div>
-  <div>{jeu_prefere}</div>
-  <div>{user.role}</div>
-</div>
+   <div className="bold">Informations Personnelles</div>
+   {!infoReset && !passwordReset&&
+   <div className='personal-data-main'>
+    <div>{nom} {prenom} ({pseudo})</div>
+    <div>{mail}</div>
+    <div>{tel}</div>
+    {association&&<div>Ma association : {association}</div>}
+    <div>Taille T-shirt : {taille_tshirt}</div>
+    <div>{est_vegetarien===true? "Végétarien":"Non végétarien"}</div>
+    {hebergement&&<div>{hebergement}</div>}
+    {jeu_prefere&&<div>{jeu_prefere}</div>}
+    <div>{user.role==="BENEVOLE"? "Bénévole":"Admin"}</div>
+ </div>
    }
-   {!passwordReset&& !infoReset&&<div className='clickable button' onClick={()=>{setPasswordReset(true); setPasswordSucces(false)}}>Changer le mot de passe</div>}
-   {!passwordReset&& !infoReset&&<div className='clickable button' onClick={()=>{setInfoReset(true); setInfoSucces(false)}}>Changer les informtions</div>}
-   {passwordSucces&&<div className="notif-succes"><AiOutlineCheckCircle className='error-icon'/><div>Changement de mot de passe réussi</div></div>}
-   {infoSucces&&<div className="notif-succes"><AiOutlineCheckCircle className='error-icon'/><div>Changement d'informations réussi</div></div>}
+
+  {passwordSucces&&<div className="notif-succes"><AiOutlineCheckCircle className='error-icon'/><div>Changement de mot de passe réussi</div></div>}
+  {infoSucces&&<div className="notif-succes"><AiOutlineCheckCircle className='error-icon'/><div>Changement d'informations réussi</div></div>}
+   {!passwordReset&& !infoReset&&
+   <div className='boutons'>
+     <div className='cursor bouton2' onClick={()=>{setPasswordReset(true); setPasswordSucces(false); hiddleMotif()}}>Changer le mot de passe</div>
+     <div className='cursor bouton2' onClick={()=>{setInfoReset(true); setInfoSucces(false); hiddleMotif()}}>Changer les informtions</div>
+   </div>
+   }
   
    {passwordReset&&
-   <div className='form-inputs'>
-      <label htmlFor="mdp">Ancien mot de Passe:</label>
+   <div className="signup-form-containers">
+    <div className='labels'>
+      <label htmlFor="mdp">Ancien mot de passe:</label>
+      <label htmlFor="mdp">Nouveau mot de passe:</label>
+      <label htmlFor="mdp-reset">Resaisir le mot de passe:</label>
+    </div>
+    <div className='inputs'>
         <input
           type="password"
           name="mdp"
+          className="signup-input-fields"
           onChange={(e)=>{setOldPassword(e.target.value)}}
           required
         />
 
-      <label htmlFor="mdp">Nouveau mot de Passe:</label>
         <input
           type="password"
           name="mdp"
+          className="signup-input-fields"
           onChange={(e)=>{setNewPassword(e.target.value)}}
           required
         />
 
-        <label htmlFor="mdp-reset">Resaisir le mot de Passe:</label>
         <input
           type="password"
           name="mdp"
+          className="signup-input-fields"
           onChange={(e)=>{setResetPassword(e.target.value)}}
           required
         />
-
-      {notif&& <div className="notif-error"><TbAlertCircle className='error-icon'/>Aucun champs ne peut être vide</div>}
-      {pwnotif&& <div className="notif-error"><TbAlertCircle className='error-icon'/>Nouveaux mots de passe non identiques, veuillez resaisir</div>}
-      {oldpwnotif&& <div className="notif-error"><TbAlertCircle className='error-icon'/>Mot de passe non correct, veuillez resaisir</div>}
+    </div>
     </div>
    }
+   {notif&& <div className="notif-error"><TbAlertCircle className='error-icon'/>Aucun champs ne peut être vide</div>}
+   {pwnotif&& <div className="notif-error"><TbAlertCircle className='error-icon'/>Nouveaux mots de passe non identiques, veuillez resaisir</div>}
+   {oldpwnotif&& <div className="notif-error"><TbAlertCircle className='error-icon'/>Mot de passe non correct, veuillez resaisir</div>}
 
    {infoReset&&
-    <div className='form-inputs'>
-           <label htmlFor="pseudo">Pseudo:</label>
+    <div className="signup-form-containers">
+       <div className='labels'>
+          <label htmlFor="pseudo">Pseudo:</label>
+          <label htmlFor="nom">Nom:</label>
+          <label htmlFor="prenom">Prénom:</label>
+          <label htmlFor="tel">Téléphone:</label>
+          <label htmlFor="mail">Email:</label>
+          <label htmlFor="association">Association:</label>
+          <label htmlFor="taille_tshirt">Taille Tshirt:</label>
+          <label htmlFor="est_vegetarien">Est Végétarien:</label>
+          <label htmlFor="hebergement">Hébergement:</label>
+          <label htmlFor="jeu_prefere">Jeu Préféré:</label>
+       </div>
+        <div className='inputs'>
         <input
           type="text"
           id="pseudo"
           name="pseudo"
-          placeholder={user.pseudo}
+          className="signup-input-fields"
+          value={pseudo}
           onChange={(e)=>{setPseudo(e.target.value)}} 
           required
         />
 
-        <label htmlFor="nom">Nom:</label>
         <input
           type="text"
           id="nom"
           name="nom"
-          placeholder={user.nom}
+          className="signup-input-fields"
+          value={nom}
           onChange={(e)=>{setNom(e.target.value)}} 
           required
         />
 
-        <label htmlFor="prenom">Prénom:</label>
         <input
           type="text"
           id="prenom"
           name="prenom"
-          placeholder={user.prenom}
+          className="signup-input-fields"
+          value={prenom}
           onChange={(e)=>{setPrenom(e.target.value)}}
           required
         />
 
-        <label htmlFor="tel">Téléphone:</label>
         <input
           type="tel"
           id="tel"
           name="tel"
-          placeholder={user.tel}
+          className="signup-input-fields"
+          value={tel}
           onChange={(e)=>{setTel(e.target.value)}}
           required
         />
 
-        <label htmlFor="mail">Email:</label>
         <input
           type="email"
           id="mail"
           name="mail"
-          placeholder={user.mail}
+          className="signup-input-fields"
+          value={mail}
           onChange={(e)=>{setMail(e.target.value)}}
           required
         />
 
-        <label htmlFor="association">Association:</label>
+        
         <input
           type="text"
           id="association"
           name="association"
-          placeholder={user.association}
+          className="signup-input-fields"
+          value={association}
           onChange={(e)=>{setAssociation(e.target.value)}}
         />
 
-        <label htmlFor="taille_tshirt">Taille Tshirt:</label>
+        
         <select
           id="taille_tshirt"
           name="taille_tshirt"
-          placeholder={user.taille_tshirt}
+          className="signup-input-fields"
+          value={taille_tshirt}
           onChange={(e)=>{setTailleT(e.target.value)}}
           required
         >
@@ -234,39 +265,52 @@ const changeInfos=()=>{
           <option value="XXL" selected={user.taille_tshirt==="XXL"}>XXL</option>
         </select>
 
-        <label htmlFor="est_vegetarien">Est Végétarien:</label>
+        
         <input
           type="checkbox"
           id="est_vegetarien"
           name="est_vegetarien"
-          defaultChecked={user.est_vegetarien}
+          defaultChecked={est_vegetarien}
+          className="signup-checkbox-fields"
           onChange={(e)=>{setEst_vegetarien(e.target.value)}}
         />
 
-        <label htmlFor="hebergement">Hébergement:</label>
+        
         <input
           type="text"
           id="hebergement"
           name="hebergement"
-          placeholder={user.hebergement}
+          className="signup-input-fields"
+          value={hebergement}
           onChange={(e)=>{setHebergement(e.target.value)}}
         />
 
-        <label htmlFor="jeu_prefere">Jeu Préféré:</label>
+       
         <input
           type="text"
           id="jeu_prefere"
           name="jeu_prefere"
-          placeholder={user.jeu_prefere}
+          className="signup-input-fields"
+          value={jeu_prefere}
           onChange={(e)=>{setJeu_prefere(e.target.value)}}
         />
+        </div>
   </div>
    }
    
-  {passwordReset&&<div className='clickable button' onClick={()=>changePassword()}>Comfirmer</div>}
-  {passwordReset&&<div className='clickable button' onClick={()=>setPasswordReset(false)}>Annuler</div>}
-  {infoReset&&<div className='clickable button' onClick={()=>changeInfos()}>Comfirmer</div>}
-  {infoReset&&<div className='clickable button' onClick={()=>setInfoReset(false)}>Annuler</div>}
+  {passwordReset&&
+    <div className='boutons'>
+      <div className='bouton2 cursor' onClick={()=>changePassword()}>Comfirmer</div>
+      <div className='bouton2 cursor' onClick={()=>{setPasswordReset(false);hiddleMotif()}}>Annuler</div>
+    </div>
+  }
+
+  {infoReset&&
+    <div className='boutons'>
+      <div className='bouton2 cursor' onClick={()=>changeInfos()}>Comfirmer</div>
+      <div className='bouton2 cursor' onClick={()=>{setInfoReset(false); hiddleMotif()}}>Annuler</div>
+    </div>
+  }
  
   </div>
  )

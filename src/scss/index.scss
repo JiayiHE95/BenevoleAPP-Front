@@ -107,16 +107,37 @@ input[type=date]:valid {
 }
 
 .bouton2{
+  color: white;
   margin : 10px;
   border: none;
-  width: 20vw;
-  height : 5vh;
-  background-color: lightblue;
+  width: 250px;
+  height : 40px;
+  background-color: #4caf50;
   text-align: center;
   align-items: center;
   display: flex;
   justify-content: center;
+  border-radius: 5px;
+  border: 3px solid #45a049;
 }
+
 .bouton2:hover{
-  background-color: rgb(125, 203, 228);
+  background-color: #45a049;
 }
+
+
+.notif-succes {
+  display: flex;
+  align-items: center;
+  background-color: #9dabe2;
+  color: #002663;
+  padding: 10px;
+  border: 1px solid #002663;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+.succes-icons {
+  margin-right: 8px;
+}
+ 
