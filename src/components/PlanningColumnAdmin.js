@@ -69,7 +69,12 @@ const PlanningColumnAdmin = ({ creneaux, user, getPosteCreneau }) => {
       ))}
     
       {popupVisible &&(
-        <PopUpAdminCreneau creneau={selectedCreneau} closePopup={closePopup} user={user}/>
+        <PopUpAdminCreneau 
+          creneau={selectedCreneau} 
+          closePopup={closePopup} 
+          user={user}
+          getPosteCreneau={getPosteCreneau}
+        />
       )}
 
 

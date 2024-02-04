@@ -3,7 +3,7 @@ import React from 'react'; // Assurez-vous d'importer votre fichier de style
 
 const Bouton = ({ label, onClick, isActive }) => {
   return (
-    <button className={`bouton ${isActive ? 'active' : ''}`} onClick={onClick}>
+    <button className={`bouton ${isActive ? 'active' : ''} cursor bold`} onClick={onClick}>
       {label}
     </button>
   );

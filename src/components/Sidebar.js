@@ -51,7 +51,7 @@ const Sidebar = ({ dataName, onPosteClick, onEspaceClick }) => {
   };
 
   return (
-    <div className="sidebar">
+    <div className="sidebar cursor">
       {liste && liste.map((item) => (
         <Bouton
           key={dataName === 'poste' ? `Poste ${item.idposte}` : `Espace ${item.idzonebenevole}`}

@@ -44,7 +44,7 @@ const Espace = () => {
             <NavBar festivalId = {festivalId}/>
 
             <div className='groupement'>
-                <div className='groupement' onClick={()=>{navigate(`/infos/${festivalId}`)}}><span class="material-symbols-outlined">arrow_back</span></div>
+                <div className='groupement cursor' onClick={()=>{navigate(`/infos/${festivalId}`)}}><span class="material-symbols-outlined">arrow_back</span></div>
                 <h1 className='h1'>Informations sur les espaces</h1>                
             </div>
             

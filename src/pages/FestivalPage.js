@@ -117,6 +117,7 @@ const FestivalPage = () => {
               <div onClick={() => setDeletePopup(false)}>Non</div>
             </div>
           }
+
   
           
         </div>

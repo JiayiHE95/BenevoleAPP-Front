@@ -64,7 +64,7 @@ const groupByIdCreneau = (subList) => {
  subList.forEach((posteCreneau) => {
   
    const heureDebut = posteCreneau.Creneau.heure_debut.split(":").slice(0, 2).join(":");
-   const heureFin = posteCreneau.Creneau.heure_fin.split(":").slice(0, 2).join(":");;
+   const heureFin = posteCreneau.Creneau.heure_fin.split(":").slice(0, 2).join(":");
 
    const key = `${heureDebut}-${heureFin}`;
 
@@ -156,7 +156,12 @@ const handleClickHoraire=(date, horaire)=>{
             onColonneChange={getPosteCreneau} 
            />
            :
-            <PlanningColumnAdmin festival={festival} user={user} creneaux={creneaux} getPosteCreneau={getPosteCreneau} />
+            <PlanningColumnAdmin 
+              festival={festival} 
+              user={user} 
+              creneaux={creneaux} 
+              getPosteCreneau={getPosteCreneau} 
+            />
            } 
         </div>
       ))}

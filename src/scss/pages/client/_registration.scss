@@ -1,9 +1,18 @@
 .inscriptions{
  display: flex;
- flex-direction: column;
+ flex-direction: row;
+ justify-content: space-around;
+
+ .SearchBar{
+  height: 5vh;
+  width: 50px;
 }
+
+
+}
+
 .inscriptions-jour{
- width: 70%;
+ width: 40%;
  padding: 20px;
  background-color: whitesmoke;
  margin-bottom: 20px;
@@ -47,15 +56,10 @@
   flex-direction: row;
   justify-content: center
  }
- .admin{
-  >div{width: 33%;}
- }
- .user{
-  >div{width: 40%;}
- }
+
  .notif-error{
   display: flex;
-  width: 50%;
+  width: 100%;
   justify-content: left;
   border: none;
   color: white;
@@ -67,11 +71,24 @@
 }
 
 .inscription-info{
- display: flex;
- flex-direction: row;
- >div{
-  width: 30%;
-  text-align: left;
- }
+ text-align: center;
+}
 
+.selectedUser{
+ width: 100%;
+ text-align: center;
+ margin-bottom: 20px;
+}
+.search{
+  display: flex;
+  justify-content: right;
+  margin-bottom: 20px;
+  width:90%;
+  margin: 0 auto 20px auto;
+  
+  .SearchBar{
+    width: 300px;
+
+  }
+  
 }

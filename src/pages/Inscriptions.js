@@ -16,7 +16,8 @@ const Inscriptions = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const {festivalId} = useParams();
 
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null)
+  const [showliste, setShowListe] = useState(false)
 
   const token = localStorage.getItem('accessToken');
   const { decodedToken, isExpired } = useJwt(token ? token : "");
@@ -36,6 +37,8 @@ const Inscriptions = () => {
       fetchUsers();
     }else{
       allInscriptions();
+      setSelectedUser(null);
+      setShowListe(false)
     }
   }, [searchQuery]);
 
@@ -65,7 +68,11 @@ const Inscriptions = () => {
       const data = {
         searchQuery: searchQuery
       };
-      const response = await userAPI.searchUsers(data); // Assurez-vous d'avoir l'API des utilisateurs importée
+      const response = await userAPI.searchUsers(data);
+      console.log("serach",response.data.users)
+      if(response.data.users.length>0){
+        setShowListe(true)
+      }
       setUsers(response.data.users);
     } catch (error) {
       console.error('Error fetching users:', error);
@@ -92,29 +99,34 @@ const Inscriptions = () => {
     setSelectedUserID(user.iduser);
     setSelectedUser(user);
     setInscriptions([]); // Réinitialisez les inscriptions lorsqu'un nouvel utilisateur est sélectionné
+    setShowListe(false)
   };
 
   return (
     <div>
       <NavBar festivalId={festivalId}/>
-      <h1>Gestion Inscription test</h1>
+      <h1>Gestion Inscription</h1>
 
       {/* Utilisez le composant UserSearch réutilisé */}
-      <UserSearch
-        searchQuery={searchQuery}
-        handleSearchChange={handleUserSearchChange}
-        users={users}
-        selectedUserID={selectedUserID}
-        handleUserSelect={handleUserSelect}
-      />
+      <div className='search'>
+
+        <UserSearch
+          searchQuery={searchQuery}
+          handleSearchChange={handleUserSearchChange}
+          users={users}
+          selectedUserID={selectedUserID}
+          handleUserSelect={handleUserSelect}
+          showliste={showliste}
+          />
+      </div>
 
       {inscriptions && user && <div>
-        {selectedUser && <p>Les inscriptions de l'utilisateur {selectedUser.pseudo} :</p>}
+        {selectedUser && <h3 className='selectedUser'>Les inscriptions de {selectedUser.prenom} {selectedUser.nom} ({selectedUser.pseudo})</h3>}
 
          {Object.entries(inscriptions).length > 0 ? (
           <CarteInscription inscriptions={inscriptions} user={user} />
         ) : (
-          <p>Aucune inscription trouvée pour cet utilisateur.</p>
+          <p className='selectedUser'>Aucune inscription trouvée pour ce bénévole.</p>
         )}
       </div>
       }

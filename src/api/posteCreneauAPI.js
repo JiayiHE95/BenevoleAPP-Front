@@ -24,6 +24,9 @@ const posteCreneauAPI = {
     getByZoneFestival(data){
         return axiosInstance.post(`poste-creneau/get-by-zone-festival`, data); 
     },
+    updateCapacite(data){
+        return axiosInstance.post(`poste-creneau/update-capacite`, data); 
+    },
 
     
 }
