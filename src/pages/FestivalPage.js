@@ -10,11 +10,12 @@ import { useJwt } from 'react-jwt';
 
 const FestivalPage = () => {
   const { festivalId } = useParams();
+  const [showPopup, setShowPopup] = useState(false);
+
   const [festival, setFestival] = useState(null);
   const [deletePopup, setDeletePopup] = useState(false);
   const navigate=useNavigate()
   const  [user,setUser]=useState(null)
-  const  [show,setShow]=useState(false)
   const [comfirmFestivalPopUp, setComfirmFestivalPopUp] = useState(false);
   
 
@@ -67,9 +68,9 @@ const FestivalPage = () => {
     backgroundColor: 'white',
     padding: '20px',
     border: '1px solid #ccc',
-    boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',
     zIndex: '1000',
   };
+  
   
 
   return (
@@ -90,30 +91,39 @@ const FestivalPage = () => {
           
           <div className="welcome-message">Le festival {festival.valide ? " est " : "n'est pas encore "} ouvert aux inscriptions des bénévoles</div>
           
-          <div className="boutonGestion clickable" onClick={() => { setShow(!show) }}>Import CSV</div>
-          {show &&<div className='import'>  
-            
-            <FileUploader festival={festival} />
+          <div className="boutonGestion clickable" onClick={() => { setShowPopup(!showPopup) }}>Import CSV</div>
+          {showPopup &&<div className='import'>  
+            <div className="popupStyle2" >
+              
+              <FileUploader festival={festival} />
+              <button className='del d cursor' onClick={() => setShowPopup(false)}><span class="material-symbols-outlined ">cancel</span></button>
+            </div>
           </div>
           }
 
-          {festival.valide === false && <div className="open-registration" onClick={() => setComfirmFestivalPopUp(true)}>Ouvrir l'inscription des bénévoles au festival</div>}
+          {festival.valide === false && <div className="boutonGestion clickable" onClick={() => setComfirmFestivalPopUp(true)}>Ouvrir l'inscription des bénévoles au festival</div>}
           
           {comfirmFestivalPopUp &&
-            <div className="popup" style={popupStyle}>
-              <div>Attention, cette action est irréversible. Les dates et les créneaux seront bloqués pour que les bénévoles puissent s'inscrire, mais vous pouvez toujours ajuster le nombre de bénévoles pour chaque créneau</div>
-              <div onClick={() => comfirmFestival()}>Confirmer</div>
-              <div onClick={() => setComfirmFestivalPopUp(false)}>Annuler</div>
+            <div className="popupStyle2" style={popupStyle}>
+              <div className='ccc'>Attention, cette action est irréversible. Les dates et les créneaux seront bloqués pour que les bénévoles puissent s'inscrire, mais vous pouvez toujours ajuster le nombre de bénévoles pour chaque créneau</div>
+              
+              <div className='deuxBoutons'>
+                <div className="cc" onClick={() => comfirmFestival()}>Confirmer</div>
+                <div className="cc" onClick={() => setComfirmFestivalPopUp(false)}>Annuler</div>
+              </div>
             </div>
           }
   
-          {!festival.valide && <div className="delete-festival" onClick={() => { setDeletePopup(true) }}>Supprimer le festival</div>}
+          {!festival.valide && <div className="boutonGestion clickable" onClick={() => { setDeletePopup(true) }}>Supprimer le festival</div>}
   
           {deletePopup &&
-            <div className="popup" style={popupStyle}>
-              <div>Attention, cette action est irréversible. Etes-vous sûr de vouloir supprimer ce festival ?</div>
-              <div onClick={() => deleteFestival()}>Oui</div>
-              <div onClick={() => setDeletePopup(false)}>Non</div>
+            <div className="popupStyle2" style={popupStyle}>
+              <div className='ccc'>Attention, cette action est irréversible. Etes-vous sûr de vouloir supprimer ce festival ?</div>
+              
+              <div className='deuxBoutons'>
+                <div className="cc" onClick={() => deleteFestival()}>Oui</div>
+                <div className="cc" onClick={() => setDeletePopup(false)}>Non</div>
+              </div>
             </div>
           }
 
