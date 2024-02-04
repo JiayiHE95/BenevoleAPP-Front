@@ -42,7 +42,7 @@ const Infos = () => {
 
     return (
   
-    user && festival && <div>
+    user && festival && <div className='height'>
         <NavBar festivalId = {festivalId}/>
         
         <h1>Informations sur les postes</h1>

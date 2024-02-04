@@ -186,7 +186,7 @@ const PosteDetails = ({ posteId, idfestival, user }) => {
           </div>
 
           {showSearchBar && (
-            <div className='group'>
+            <div className='group' style={{backgroundColor: 'white'}}>
               <UserSearch
                 searchQuery={searchQuery}
                 handleSearchChange={handleSearchChange}
@@ -209,15 +209,16 @@ const PosteDetails = ({ posteId, idfestival, user }) => {
           ) : (
             <div className="reff">Aucun référent</div>
           )}
+          <div className="ref">
+            {posteDetails && posteId === 1 && (
+              <button className="showEspaceButton" onClick={handleButtonClick}> Voir les espaces de jeu</button>
+            )}
+          </div>
 
         </div>
       )}
 
-      <div className="ref">
-        {posteDetails && posteId === 1 && (
-          <button className="showEspaceButton" onClick={handleButtonClick}> Voir les espaces de jeu</button>
-        )}
-      </div>
+      
     </div>
   );
 };

@@ -40,7 +40,7 @@ const Espace = () => {
     };
 
     return (
-        <div>
+        <div className='height'>
             <NavBar festivalId = {festivalId}/>
 
             <div className='groupement'>

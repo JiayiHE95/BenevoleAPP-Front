@@ -2,6 +2,16 @@
     width:79%;
     justify-content: center;
     margin: 10px;
+    height: 100%
+}
+html{
+    height: 100%;
+}
+body{
+    height: 100%;
+}
+#root{
+    height: 100%;
 }
 .presentationPoste{
     font-weight: bold;
@@ -16,18 +26,23 @@
 
     display: flex;
     justify-content: center;
+    align-items: center;
+    
+    background-color: whitesmoke;
+    margin: 3px;
 }
 .material-symbols-outlined{
     text-align: center;
 }
 .material-symbols-outlined:hover{
-    color:green;
+    color:blue;
 }
 .groupement{
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin: 3vh;
+
 }
 .addReferentBouton{
     height: 5vh;
@@ -43,12 +58,17 @@
     width: 50vw;
 }
 
-.editButton{
-    height: 2em;
-    width: auto;
-    border-color: lightblue;
-    
-}
+.editButton {
+    height: 100%;
+    background-color: transparent;
+    border: none;
+    cursor: pointer; /* Ajoutez ceci pour indiquer qu'il s'agit d'un élément cliquable */
+  }
+  
+  .editButton:hover {
+    background-color: transparent; /* Ajoutez ceci pour gérer le style au survol du bouton */
+  }
+  
 .searchResult:hover{
 background-color: whitesmoke;
 
@@ -56,13 +76,7 @@ background-color: whitesmoke;
 .selectable-user-list{
     border : solid lightgray 1px
 }
-.editButton:hover{
-    height: 2em;
-    width: auto;
-    
-    background-color: rgb(125, 203, 228);
-    
-}
+
 .ref{
     text-align: center;
     padding: 10px ;
