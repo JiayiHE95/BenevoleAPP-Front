@@ -21,10 +21,10 @@ const Home = () =>{
       user ? 
       <Navigate to={'/home/user'} />
       :
-      <div className="site-container">
+      <div className="site-container"  >
         <div className="navbar">
-          <div className="accueil" onClick={()=>{navigate('/login')}}>Connexion</div>
-          <div className="accueil" onClick={()=>{navigate('/signup')}}>Inscription</div>
+          <div className="accueil" style={{color:"white"}} onClick={()=>{navigate('/login')}}>Connexion</div>
+          <div className="accueil" style={{color:"white"}} onClick={()=>{navigate('/signup')}}>Inscription</div>
       </div >
     </div>
     );
