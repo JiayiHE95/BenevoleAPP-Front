@@ -5,10 +5,11 @@ import flexibleAPI from "../api/flexibleAPI";
 import espaceAPI from "../api/espaceAPI";
 import { useParams } from "react-router-dom";
 import posteCreneauAPI from "../api/posteCreneauAPI";
-import { TiUserAdd } from "react-icons/ti";
+import { TiUserAdd, TiArrowUnsorted } from "react-icons/ti";
+import { MdCheckCircleOutline, MdOutlineCancel } from "react-icons/md";
 
 
-const PopUpAdminCreneau = ({ creneau, closePopup, user }) => {
+const PopUpAdminCreneau = ({ creneau, closePopup, user, getPosteCreneau }) => {
   const [registeredPeople, setRegisteredPeople] = useState([]);
   const [flexiblePeople, setFlexiblePeople] = useState([])
 
@@ -18,6 +19,8 @@ const PopUpAdminCreneau = ({ creneau, closePopup, user }) => {
   const [listeZoneBenevole, setListeZoneBenevole]=useState(null)
 
   const [selectedCreneau, setSelectedCreaneau]=useState(creneau)
+  const [changeCapacite, setChangeCapacite]=useState(false)
+  const [newCapacite, setNewCapacite]=useState(selectedCreneau?.capacite !== 0 ? selectedCreneau.capacite:0)
  
   useEffect(() => {
      fetchListeZoneBenevole();
@@ -140,6 +143,26 @@ const calculerTotalInscrits = (zones) => {
   return total;
 };
 
+const formatHeure = (heure) => {
+  return heure.split(":").slice(0, 2).join(":");
+}
+
+const handleChangeCapacite = async () => {
+  const data = {
+    idcreneau: selectedCreneau.idcreneau,
+    capacite: newCapacite,
+    idposte: selectedCreneau.idposte,
+    idfestival: selectedCreneau.idfestival
+  }
+  const response = await posteCreneauAPI.updateCapacite(data);
+  if(response.data.success){
+    console.log("capacité modifiée", response.data.posteCreneau)
+    setSelectedCreaneau(response.data.posteCreneau)
+    setChangeCapacite(false)
+    getPosteCreneau();
+  }
+}
+
   
   return (
     <div className={`popup popup__middle`}
@@ -190,9 +213,27 @@ const calculerTotalInscrits = (zones) => {
                   Object.entries(selectedZones).map(([cle, zone], index) => (
                   <div key={index} className="bold"> {zone.split("(")[0]}</div>))
                 }
-              <div className="bold">{selectedCreneau.Poste.nom} ({selectedCreneau.Creneau.heure_debut} - {selectedCreneau.Creneau.heure_fin})</div>
-              <div>Capacité restante: {selectedCreneau.capacite_restante}/{selectedCreneau.capacite}</div>
-              {/* Add more details as needed */}
+              <div className="bold">{selectedCreneau.Poste.nom} ({formatHeure(selectedCreneau.Creneau.heure_debut)} - {formatHeure(selectedCreneau.Creneau.heure_fin)})</div>
+            
+              {!changeCapacite?  
+                <div className="creneau-info-capacite">
+                  <div>Capacité restante : {selectedCreneau.capacite_restante}/{selectedCreneau.capacite}</div>
+                  <TiArrowUnsorted className="cursor" onClick={()=>{setChangeCapacite(true)}}/>
+                </div>
+              :
+                <div className="creneau-info-capacite">
+                  <div>Capacité total </div>
+                  <input 
+                  className="input-capacite"
+                    type="number" 
+                    min={selectedCreneau.capacite} 
+                    value={newCapacite}
+                    onChange={(e)=>{setNewCapacite(e.target.value)}}
+                  />
+                  <MdCheckCircleOutline className="cursor" onClick={()=>{handleChangeCapacite()}}/>
+                  <MdOutlineCancel className="cursor" onClick={()=>{setChangeCapacite(false)}}/>
+                </div>
+              }
             </div>
             <div>
               <div className="bold"> Bénévoles inscrits : </div>

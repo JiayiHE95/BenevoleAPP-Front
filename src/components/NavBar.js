@@ -98,8 +98,10 @@ return (
         <div className='cursor' onClick={() => navigate(`/notification/${festivalId}`)}>Notifications <span className='bulle'>{compteur}</span></div>
         <div className='cursor' onClick={() => navigate(`/infos/${festivalId}`)}>Infos</div>
         <div className='cursor' onClick={() => navigate(`/planning/${festivalId}`)}>Planning</div>
-        {(user && user.role === "BENEVOLE") &&
+        {user && user.role === "BENEVOLE" ? 
           <div className='cursor' onClick={() => navigate(`/registration/${festivalId}`)}>Inscriptions</div>
+          :
+          <div className='cursor' onClick={() => navigate(`/inscriptions/${festivalId}`)}>Inscriptions</div>
         }
         <div className="material-icons cursor" onClick={() => { localStorage.removeItem('accessToken'); navigate(`/`); }}>logout</div>
       </div>
@@ -120,9 +122,11 @@ return (
           <div className='cursor' onClick={() => navigate(`/notification/${festivalId}`)}>Notifications <span className='bulle'>{compteur}</span></div>
           <div className='cursor' onClick={() => navigate(`/infos/${festivalId}`)}>Infos</div>
           <div className='cursor' onClick={() => navigate(`/planning/${festivalId}`)}>Planning</div>
-          {(user && user.role === "BENEVOLE") &&
-            <div className='cursor' onClick={() => navigate(`/registration/${festivalId}`)}>Inscriptions</div>
-          }
+          {user && user.role === "BENEVOLE" ? 
+          <div className='cursor' onClick={() => navigate(`/registration/${festivalId}`)}>Inscriptions</div>
+          :
+          <div className='cursor' onClick={() => navigate(`/inscriptions/${festivalId}`)}>Inscriptions</div>
+        }
           <div className="material-icons cursor" onClick={() => { localStorage.removeItem('accessToken'); navigate(`/`); }}>logout</div>
         </div>
       )}

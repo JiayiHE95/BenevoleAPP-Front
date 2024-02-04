@@ -109,8 +109,7 @@ const FestivalPage = () => {
               <div onClick={() => setDeletePopup(false)}>Non</div>
             </div>
           }
-  
-          <div className="clickable" onClick={() => { navigate(`/inscriptions/${festivalId}`); }}>Gestion Inscription</div>
+
         </div>
       }
     </div>

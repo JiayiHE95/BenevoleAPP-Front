@@ -151,5 +151,21 @@
    flex-direction: column;
    text-align: center;
   }
+
+  .creneau-info-capacite{
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: center;
+   .input-capacite{
+    width: 40px;
+    margin-right: 10px;
+    margin-left: 10px;
+   }
+   .cursor{
+    cursor: pointer;
+    margin-right: 5px;
+   }
+  }
  }
 }

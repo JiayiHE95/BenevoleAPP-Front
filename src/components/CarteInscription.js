@@ -14,26 +14,28 @@ const CarteInscription = ({ inscriptions, onValider, user }) => {
   setIsValidationInProgress(false);
   };
 
+  const formatHeure = (heure) => {
+    return heure.split(":").slice(0, 2).join(":");
+  }
+
   console.log("inscriptions",inscriptions)
 
   return (
 
-    inscriptions && <div className='inscriptions centrer'>
+    inscriptions && <div className='inscriptions'>
           {Object.entries(inscriptions).map(([jour, heures]) => (
           <div key={jour} className='inscriptions-jour'>
           <h3>{formatDate(jour)}</h3>
           {Object.entries(heures).map(([heureDebut, inscriptions]) => (
             <div key={heureDebut} className="inscription-creneau">
-              <div className="bold">{`${inscriptions[0].Creneau?.heure_debut} - ${inscriptions[0].Creneau?.heure_fin}`}</div>
+              <div className="bold">{`${formatHeure(inscriptions[0].Creneau.heure_debut)} - ${formatHeure(inscriptions[0].Creneau.heure_fin)}`}</div>
             
                 {inscriptions.map((inscription) => (
                   <div className={`inscription-single ${inscription.valide === false ? "attente":"valide"}`}>
                     {inscription.valide === false && <div className='notif-error'><TbAlertCircle className='error-icon' />Inscription en attente de validation</div>}
-                    <div className={`inscription-info ${user.role==="ADMIN" ? "admin":"user"}`}>
-                      <div>Poste : {inscription.Poste.nom}</div>
-                      {user.role === "ADMIN" && <div>Occupé par : {inscription.User.pseudo}</div>}
-                      {inscription.idposte === 1 &&<div>Espace : {inscription.Espace.nom}</div>}
-                    </div>
+                 
+                      <div className="inscription-info"><span className="bold">{inscription.Poste.nom}</span>{inscription.idposte === 1 && ` (${inscription.Espace.nom})`}{user.role === "ADMIN" && `, occupé par : ${inscription.User.pseudo}`}</div>
+                    
 
                       {inscription.valide === false && user.role !== "ADMIN" && (
                         <div className="boutons">
