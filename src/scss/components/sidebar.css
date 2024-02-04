@@ -9,13 +9,7 @@
     height: 100%;
   
   }
-.height{
-  height: 100%;
-}
-#root{
-  height: 100%;
 
-}
   /* Add some additional styling for buttons if needed */
   .sidebar .bouton {
     margin-bottom: 3px; /* Adjust the spacing between buttons */
