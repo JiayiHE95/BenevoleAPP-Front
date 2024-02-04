@@ -7,6 +7,7 @@ import FileUploader from '../components/FileUploader';
 import festivalAPI from '../api/festivalAPI';
 import userAPI from '../api/userAPI';
 import { useJwt } from 'react-jwt';
+import { formatDate } from '../utils/dateUtils';
 
 const FestivalPage = () => {
   const { festivalId } = useParams();
@@ -78,7 +79,7 @@ const FestivalPage = () => {
     <div className="main-container">
       <NavBar festivalId={festivalId} />
   
-      <h2 className="main-title"> Accueil Festival <br></br>{festival.date_debut} - {festival.date_fin}</h2>
+      <h2 className="main-title"> Accueil Festival <br></br>{formatDate(festival.date_debut)} - {formatDate(festival.date_fin)}</h2>
   
       {user.role === "BENEVOLE" && (festival.valide ?
         <div className="welcome-message">Bienvenue {user.pseudo} ! Devenez notre bénévole tout de suite en cliquant sur Planning</div>

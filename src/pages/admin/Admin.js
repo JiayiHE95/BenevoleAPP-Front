@@ -59,33 +59,43 @@ const Admin=()=>{
     :
     <div className="Admin">
       <NavBarProfil />
-      <h1>AdminPage</h1>
+      <h1>Admin</h1>
+      <div className='Admin-main'>
+        <div className='boutons'>
+        <div 
+          className="bouton2"  
+          onClick={() => { navigate("/new-festival") }}
+        >Ajouter un festival</div>
+        </div>
 
-      <div onClick={() => { navigate("/new-festival") }}>Ajouter un festival</div>
+        <div>
+          {currentfestivals && currentfestivals.length > 0 ? (
+            <div>
+              <h2>Festival en cours</h2>
+              <div className='festivals'>
 
-      <div>
-        {currentfestivals && currentfestivals.length > 0 ? (
-          <div>
-            <h2>Festival en cours</h2>
-            {currentfestivals.map((festival) => (
-              <FestivalInfo key={festival.idfestival} festival={festival} />
-            ))}
-          </div>
-        ) : (
-          <div>Il n'y a pas de festival en cours</div>
-        )}
+                {currentfestivals.map((festival) => (
+                  <FestivalInfo key={festival.idfestival} festival={festival} />
+                  ))}
+              </div>
+            </div>
+          ) : (
+            <div>Aucun festival en cours</div>
+          )}
 
-        <h2>Festivals précédents</h2>
-        {pastFestivals && pastFestivals.length > 0 ? (
-          <div>
-            {pastFestivals.map((festival) => (
-              <FestivalInfo key={festival.idfestival} festival={festival} />
-            ))}
-          </div>
-        ) : (
-          <div>Il n'y a pas de festivals précédents</div>
-        )}
+          <h2>Festivals précédents</h2>
+          {pastFestivals && pastFestivals.length > 0 ? (
+            <div>
+              {pastFestivals.map((festival) => (
+                <FestivalInfo key={festival.idfestival} festival={festival} />
+              ))}
+            </div>
+          ) : (
+            <div>Aucun festival précédent</div>
+          )}
+        </div>
       </div>
+
     </div>
     
   )

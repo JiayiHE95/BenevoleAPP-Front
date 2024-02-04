@@ -136,90 +136,127 @@ const handleCapaciteClick = (id, capacite) => {
   :
   <div className="NewFestival">
      <NavBarProfil/>
-    <h1>Créer un nouveau festival</h1>
-    <label htmlFor="date_debut">Date Début : </label>
-    <input type="date" name="date_debut" id="date_debut"
-    onChange={(e)=> {setDate_debut(e.target.value)} }
-    min={dateActuelle}
-    required/>
+    <h1>Nouveau festival</h1>
+    <div className="signup-form-containers">
+      <div className='labels bold'>
+        <label htmlFor="date_debut">Date début : </label>
+        <label htmlFor="date_fin">Date fin : </label>
+        <label htmlFor="nomFestival">Nom du festival : </label>
+        <label htmlFor="heuredebut">Heure debut : </label>
+        <label htmlFor="heurefin">Heure fin : </label>
+        <label htmlFor='intervalle'>Durée créneau (heure) : </label>
+        <label>Postes disponibles : </label>
+      </div>
 
-    <label htmlFor="date_fin">Date Fin : </label>
-    <input type="date" name="date_fin" id="date_fin"
-    onChange={(e)=> {setDate_fin(e.target.value)} }
-    min={date_debut}
-    required/>
+      <div className='inputs'>
+        <input type="date" name="date_debut" id="date_debut"
+          onChange={(e)=> {setDate_debut(e.target.value)} }
+          min={dateActuelle}
+          className="signup-input-fields"
+          required
+        />
 
-    <label htmlFor="nomFestival">Nom du festival : </label>
-    <input type="text" name="nomFestival" id="nomFestival"
-    defaultValue={"Festival du Jeu Montpellier"}
-    onChange={(e)=> {setNomFestival(e.target.value)}}
-    required
-    />
-    <label htmlFor="heuredebut">L'heure de debut </label>
-    <input type="time" name="heuredebut" id="heuredebut"
-    onChange={(e)=> {setHeure_debut(e.target.value)}} 
-    required
-    />
+        <input type="date" name="date_fin" id="date_fin"
+          onChange={(e)=> {setDate_fin(e.target.value)} }
+          min={date_debut}
+          className="signup-input-fields"
+          required
+        />
 
-    <label htmlFor="heurefin">L'heure de fin </label>
-    <input type="time" name="heurefin" id="heurefin"
-    onChange={(e)=> {setHeure_fin(e.target.value)}}
-    required/>
+        <input type="text" name="nomFestival" id="nomFestival"
+          defaultValue={"Festival du Jeu Montpellier"}
+          onChange={(e)=> {setNomFestival(e.target.value)}}
+          className="signup-input-fields"
+          required
+        />
+        <input type="time" name="heuredebut" id="heuredebut"
+          onChange={(e)=> {setHeure_debut(e.target.value)}} 
+          className="signup-input-fields"
+          required
+        />
 
-    <label htmlFor='intervalle'>Durée créneau poste : </label>
-    <input type="number" name="intervalle" id="intervalle" value={intervalle}
-    onChange={(e)=> {setIntervalle(e.target.value)}}
-    min={0}
-    required/>
+        <input type="time" name="heurefin" id="heurefin"
+          onChange={(e)=> {setHeure_fin(e.target.value)}}
+          className="signup-input-fields"
+          required
+        />
 
-{postes &&
-  <div className='postes'>
-    {postes.map((poste) => (
-        <div className='poste' key={poste.idposte}>
-          <input
-            type="checkbox"
-            name={poste.idposte}
-            id={poste.idposte}
-            onClick={(e) => handlePosteClick(poste.idposte, Number(e.target.nextElementSibling.value))}
-          />
-          <label htmlFor={poste.idposte}>{poste.nom}</label>
-          {postesId.some((post) => post.id === poste.idposte) && (
-            <input
-              type="number"
-              placeholder="Capacité par créneau"
-              min={1}
-              onChange={(e) => handleCapaciteClick(poste.idposte, Number(e.target.value))}
-            />
-            )}
-        </div>
-      ))}
-      {notif && <div className='notif'><MdOutlineCancel /> Veuillez sélectionner une capacité supérieur à 0</div>}
-    {notif && <div className='notif'><MdOutlineCancel /> Veuillez sélectionner au moins un poste</div>}
-  </div>
-}
+        <input type="number" name="intervalle" id="intervalle" value={intervalle}
+          onChange={(e)=> {setIntervalle(e.target.value)}}
+          min={0}
+          className="signup-input-fields"
+          required
+        />
+      </div>
 
-   <div>
-    <label htmlFor="newPoste">Nom du poste</label>
-    <input type="text" name="newPoste" id="newPoste" 
-    onChange={(e)=> {setNom(e.target.value)}}
-    required/>
-    <label htmlFor="newPosteDescription">Description du poste</label>
-    <input type="text" name="newPosteDescription" id="newPosteDescription" 
-    onChange={(e)=> {setDescription(e.target.value)}}
-    required/>
-    <button type="submit" onClick={()=>createPoste()}>Ajouter le poste</button>
+    {postes &&
+      <div className='postes'>
+        {postes.map((poste) => (
+            <div className='poste' key={poste.idposte}>
+              <div className='poste-check'>
+                <input
+                  type="checkbox"
+                  name={poste.idposte}
+                  id={poste.idposte}
+                  onClick={(e) => handlePosteClick(poste.idposte, Number(e.target.nextElementSibling.value))}
+                />
+                <label htmlFor={poste.idposte}>{poste.nom}</label>
+              </div>
+              {postesId.some((post) => post.id === poste.idposte) && (
+                <input
+                  type="number"
+                  placeholder="Capacité par créneau"
+                  className="input-fields"
+                  min={1}
+                  onChange={(e) => handleCapaciteClick(poste.idposte, Number(e.target.value))}
+                />
+                )}
+            </div>
+          ))}
+        {notif && <div className="notif-error"><MdOutlineCancel className='error-icon' /> Veuillez sélectionner une capacité supérieur à 0</div>}
+        {notif && <div className="notif-error"><MdOutlineCancel className='error-icon' /> Veuillez sélectionner au moins un poste</div>}
+      </div>
+    }
+
+   <div >
+
    </div>
 
+   <div className='addNewPoste'>
+      <label className='labels-newPoste bold'>Nouveau poste (facultatif) </label>
+      <button className='bouton1 cursor' type="submit" onClick={()=>createPoste()}>Ajouter le poste</button>
+    </div>
+
+    <div className='labels bold'>
+      <label htmlFor="newPoste">Nom du poste :</label>
+      <label htmlFor="newPosteDescription">Description :</label>
+    </div>
+    <div className='inputs'>
+
+      <input type="text" name="newPoste" id="newPoste" 
+        onChange={(e)=> {setNom(e.target.value)}}
+        required
+        className="signup-input-fields"
+      />
+      <input type="text" name="newPosteDescription" id="newPosteDescription" 
+        onChange={(e)=> {setDescription(e.target.value)}}
+        required
+        className="signup-input-fields"
+      />
+    </div>
+  
    {festival ?
    <div>
       <div>Festival créé ! Importer le fichier de jeu et espace maintenant ou depuis la page Admin</div>
       <FileUploader festival={festival}/>
     </div>
     :
-   <button type="submit" onClick={()=>createFestival()}>Créer le festival</button>
+    <div className='boutons'>
+      <button type="submit" className='bouton2 cursor' onClick={()=>createFestival()}>Créer le festival</button>
+    </div>
     }
     
-
+    </div>
        
   </div>
  )

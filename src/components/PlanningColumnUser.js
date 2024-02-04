@@ -166,7 +166,7 @@ const PlanningColumnUser = ({ festival, user, creneaux, onColonneChange }) => {
           (creneau.capacite_restante>0?
           <div className="popup popup__small" onClick={(e) => e.stopPropagation()}>
             <h3>Inscription</h3>
-           <div>Etes-vous sûr(e) de vouloir vous inscrire à ce créneau ? </div>
+           <div className="content__small">Etes-vous sûr(e) de vouloir vous inscrire à ce créneau ? </div>
            <div className="boutons">
             <div className="bouton1 cursor"  onClick={()=>{inscrireBenevole(creneau.Creneau.idcreneau, creneau.Poste.idposte)}}>Comfirmer</div>
             <div className="bouton1 cursor"  onClick={()=>{handleClickCreneau(null)}}>Annuler</div>
@@ -175,7 +175,7 @@ const PlanningColumnUser = ({ festival, user, creneaux, onColonneChange }) => {
            :
            <div  className="popup popup__small">
             <h3>Attention</h3>
-           <div>Ce créneau est complet. Veuillez vous inscrire à un autre créneau</div>
+           <div className="content__small">Ce créneau est complet. Veuillez vous inscrire à un autre créneau</div>
            <div className="boutons">
             <div className="bouton1 cursor" onClick={()=>{handleClickCreneau(null)}}>Annuler</div>
            </div>
@@ -185,12 +185,12 @@ const PlanningColumnUser = ({ festival, user, creneaux, onColonneChange }) => {
          <div className="popup popup__small">
           <h3>Attention</h3>
           {estFlexible?
-          <div>Vous êtes déjà inscrit sur ce créneau en tant que benevole flexible, annule le statut flexible avant de vous inscrire </div>
+          <div className="content__small">Vous êtes déjà inscrit sur ce créneau en tant que benevole flexible, annule le statut flexible avant de vous inscrire </div>
            :
           selectedCreaneau===estInscrit? 
-           <div>Vous êtes déjà inscrit sur ce créneau, allez à Inscription pour gérer vos inscriptions </div>
+           <div className="content__small">Vous êtes déjà inscrit sur ce créneau, allez à Inscription pour gérer vos inscriptions </div>
           :
-           <div>Vous êtes déjà inscrit sur un des créneaux de cette horaire, allez à Inscription pour gérer vos inscriptions </div>
+           <div className="content__small">Vous êtes déjà inscrit sur un des créneaux de cette horaire, allez à Inscription pour gérer vos inscriptions </div>
           }
           <div className="boutons">
             <div className="bouton1 cursor" onClick={()=>{handleClickCreneau(null)}}>Fermer</div>
@@ -219,7 +219,7 @@ const PlanningColumnUser = ({ festival, user, creneaux, onColonneChange }) => {
      (estInscrit?
       <div className="popup popup__small">
         <h3>Attention</h3>
-       <div>Vous êtes déjà inscrit sur un créneau, annuler l'inscription pour devenir bénévole flexible sur ce créneau </div>
+       <div className="content__small">Vous êtes déjà inscrit sur un créneau, annuler l'inscription pour devenir bénévole flexible sur ce créneau </div>
        <div className="boutons">
        <div className="bouton1 cursor"  onClick={()=>{setFlexiblePopUp(false)}}>Fermer</div>
        </div>
@@ -227,7 +227,7 @@ const PlanningColumnUser = ({ festival, user, creneaux, onColonneChange }) => {
       :
     <div className="popup popup__small">
         <h3>Inscription</h3>
-     <div>Vous voulez devenir bénévole flexible ? Admin va bientôt vous attribuer un des poste de ce créneau</div>
+     <div className="content__small">Vous voulez devenir bénévole flexible ? Admin va bientôt vous attribuer un des poste de ce créneau</div>
      <div className="boutons">
       <div className="bouton1 cursor"  onClick={()=>{inscrireFlexible(creneaux[0][0].Creneau.idcreneau)}}>Comfirmer</div>
       <div className="bouton1 cursor"  onClick={()=>{setFlexiblePopUp(false)}}>Annuler</div>
@@ -237,7 +237,7 @@ const PlanningColumnUser = ({ festival, user, creneaux, onColonneChange }) => {
      :
       <div className="popup popup__small">
         <h3>Attention</h3>
-       <div>Etes-vous sûr d'annuler le statut flexible sur ce créneau ?</div>
+       <div className="content__small">Etes-vous sûr d'annuler le statut flexible sur ce créneau ?</div>
        <div className="boutons">
         <div className="bouton1 cursor"  onClick={()=>{desinscrireFlexible(creneaux[0][0].Creneau.idcreneau)}}>Comfirmer</div>
         <div className="bouton1 cursor"  onClick={()=>{setFlexiblePopUp(false)}}>Annuler</div>

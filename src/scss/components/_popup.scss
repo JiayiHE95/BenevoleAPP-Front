@@ -13,7 +13,7 @@
  z-index: 1000;
 
   &__small{
-    height: 200px;
+    height: 250px;
     width: 300px;
   }
 
@@ -25,6 +25,11 @@
   &__big{
     width: 500px;
     height: 550px;
+  }
+
+  .content__small{
+    height: 80px;
+  
   }
 
 

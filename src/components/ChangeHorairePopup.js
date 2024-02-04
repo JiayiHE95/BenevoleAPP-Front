@@ -43,13 +43,15 @@ const ChangeHorairePopup = ({festival,horaire, date, setChangeHoraire, getPosteC
  return(
   <div  className='popup popup__small'>
    <h3>Changer l'horaire</h3>
-   <div className='heure'>
-    <div>Heure de début</div>
-    <input className='cursor' type="time" value={newHeure_debut} onChange={(e)=>setNewHeure_debut(e.target.value)}/>
-   </div>
-   <div className='heure'>
-    <div>Heure de fin</div>
-    <input className='cursor' type="time" value={newHeure_fin} onChange={(e)=>setNewHeure_fin(e.target.value)}/>
+   <div className="content__small">
+    <div className='heure'>
+      <div>Heure de début</div>
+      <input className='cursor' type="time" value={newHeure_debut} onChange={(e)=>setNewHeure_debut(e.target.value)}/>
+    </div>
+    <div className='heure'>
+      <div>Heure de fin</div>
+      <input className='cursor' type="time" value={newHeure_fin} onChange={(e)=>setNewHeure_fin(e.target.value)}/>
+    </div>
    </div>
    <div className='boutons'>
     <div className='bouton1 cursor' onClick={()=>handleChangeHoraire()}>Valider</div>
