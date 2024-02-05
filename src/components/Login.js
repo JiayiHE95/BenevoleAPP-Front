@@ -56,7 +56,7 @@ const Login=()=>{
         required
       />
   
-      {notif && <div className='notif-error'><TbAlertCircle className='error-icon' /><div>{notif}</div></div>}
+      {notif && <div className='signup-notif-errors'><TbAlertCircle className='error-icon' /><div>{notif}</div></div>}
       <div className='clickable' onClick={() => { navigate("/password-forgot") }}>Mot de passe oublié</div>
       <div className='create-account' onClick={() => { navigate("/signup") }}>Je n'ai pas de compte</div>
       <button type="submit" className='submit-button' onClick={() => connexion()}>Se connecter</button>

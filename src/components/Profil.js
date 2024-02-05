@@ -131,7 +131,7 @@ const hiddleMotif=()=>{
    {!passwordReset&& !infoReset&&
    <div className='boutons'>
      <div className='cursor bouton2' onClick={()=>{setPasswordReset(true); setPasswordSucces(false); hiddleMotif()}}>Changer le mot de passe</div>
-     <div className='cursor bouton2' onClick={()=>{setInfoReset(true); setInfoSucces(false); hiddleMotif()}}>Changer les informtions</div>
+     <div className='cursor bouton2' onClick={()=>{setInfoReset(true); setInfoSucces(false); hiddleMotif()}}>Changer les informations</div>
    </div>
    }
   

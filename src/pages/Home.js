@@ -25,7 +25,7 @@ const Home = () =>{
       <div className="home">
         <NavbarAccueil></NavbarAccueil>
         <div className="home-main">
-          <h1>Système Bénévole du Festival du Jeu Montpellier</h1>
+          <h1>Système Bénévole du Festival du Jeu de Montpellier</h1>
           <div>
 
           <div className="bouton2 cursor" onClick={()=>{navigate('/login')}}>Rejoignez-nous dès maintenant</div>
