@@ -8,6 +8,44 @@ display: flex;
 align-items: center;
 justify-content: center;
 }
-  
+
+.home{
+ display: flex;
+ flex-direction: column;
+ height: 100vh;
+ justify-content: center;
+ 
+ 
+ .home-main{
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  >div{
+   width: 100%;
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   align-items: center;
+   height: 150px;
+ 
+  }
+ }
+
+ .bouton2
+{
+ background-color: #4c5cc5;
+ color: white;
+ border: none;
+}
+.bouton2:hover
+{
+ background-color: #002663;
+ color: white;
+
+}
+}
  
   

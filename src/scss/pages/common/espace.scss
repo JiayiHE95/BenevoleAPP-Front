@@ -35,3 +35,10 @@ width: 300px;
     width:3px;
     text-align: center;
 }  
+
+.manqueCsv{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

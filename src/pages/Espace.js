@@ -50,12 +50,12 @@ const Espace = () => {
             
 
             {!csvImported ?
-            <div>
-                   <div>
-                Veuillez importer le fichier csv contenant les informations des jeux et des espaces
+            <div className='manqueCsv'>
+                <div className='centrer'>
+                    Veuillez importer le fichier csv contenant les informations des jeux et des espaces
                 </div>
-                <div className='clickable' onClick={()=>{navigate(`/festival/${festivalId}`)}}>Importer le fichier</div>
-                </div>
+                <div className='bouton2 cursor centrer' onClick={()=>{navigate(`/festival/${festivalId}`)}}>Importer le fichier</div>
+            </div>
             :
             <div className='contenant'>
                 <Sidebar dataName="espace" onEspaceClick={handleEspaceClick} />
