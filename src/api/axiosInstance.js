@@ -30,6 +30,18 @@ axiosInstance.interceptors.request.use(
   },
 );
  
-  // Ajoutez un intercepteur pour gérer les erreurs de réponse
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    // Vérifie si l'erreur est due à un statut 401 (non autorisé)
+    if (error.response && error.response.status === 401) {
+      // Utilisez votre fonction de gestion des erreurs non autorisées
+      handleUnauthorizedError();
+    }
+
+    // Propage l'erreur pour qu'elle puisse être gérée ailleurs si nécessaire
+    return Promise.reject(error);
+  }
+);
 
   export default axiosInstance;
