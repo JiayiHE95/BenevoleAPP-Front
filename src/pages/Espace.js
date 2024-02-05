@@ -5,6 +5,7 @@ import NavBar from '../components/NavBar';
 import Sidebar from '../components/Sidebar';
 import TableauJeux from '../components/TableauJeux';
 import jeuEspaceAPI from '../api/jeuEspaceAPI';
+import espaceAPI from '../api/espaceAPI';
 
 const Espace = () => {
     const [selectedEspaceId, setSelectedEspaceId] = useState(null);
@@ -22,7 +23,12 @@ const Espace = () => {
     }, []);
 
     
-    useEffect( () => {
+    useEffect( () => { 
+        const getList = async () => {
+            const response = await espaceAPI.getEspacesListe(festivalId);
+            console.log('tesssssssssssst :', response.data);
+            setSelectedEspaceId(response.data.espaces[0].idzonebenevole);
+        }
         if(selectedEspaceId!=null){
             try {
                jeuEspaceAPI.getJeuxListe(selectedEspaceId).then((response) => {
@@ -32,7 +38,10 @@ const Espace = () => {
             } catch (error) {
                 console.error('Erreur lors de la récupération des jeux :', error);
             }
-    }
+        }else{
+            getList()
+        }
+       
     }, [selectedEspaceId]); 
 
     const handleEspaceClick = (idzonebenevole) => {

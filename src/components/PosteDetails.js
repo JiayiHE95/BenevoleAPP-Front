@@ -211,7 +211,7 @@ const PosteDetails = ({ posteId, idfestival, user }) => {
           )}
           <div className="ref">
             {posteDetails && posteId === 1 && (
-              <button className="showEspaceButton" onClick={handleButtonClick}> Voir les espaces de jeu</button>
+              <button className="showEspaceButton cursor" onClick={handleButtonClick}> Voir les espaces de jeu</button>
             )}
           </div>
 

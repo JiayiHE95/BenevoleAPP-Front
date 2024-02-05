@@ -1,8 +1,13 @@
 .contenant2{
     width:100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     margin-top: 3em;
+    h3{
+      margin-top: 0;
+    }
 }
 
 .jeux-table {
@@ -27,7 +32,7 @@ width: 300px;
     width: 79%;
 }
 .jeux-table th {
-    background-color: #4CAF50; /* Couleur de fond du titre */
+    background-color: #002663; /* Couleur de fond du titre */
     color: white; /* Couleur du texte du titre */
     padding: 10px; /* Ajoute un peu de rembourrage pour un meilleur aspect */
   }

@@ -7,6 +7,7 @@ const TableauJeux = ({ jeux, idEspace }) => {
   return (
     (jeux && jeux.length > 0) ?
       <div className='contenant2'>
+        <h3 className='bold'>Liste des jeux</h3>
         <table className='jeux-table'>
           <thead>
             <tr>

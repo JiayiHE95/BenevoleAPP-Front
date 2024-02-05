@@ -69,9 +69,9 @@ const Admin=()=>{
         </div>
 
         <div>
+          <h2>Festival en cours</h2>
           {currentfestivals && currentfestivals.length > 0 ? (
             <div>
-              <h2>Festival en cours</h2>
               <div className='festivals'>
 
                 {currentfestivals.map((festival) => (

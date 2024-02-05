@@ -6,7 +6,12 @@
 
   h2{
     margin-bottom: 10px;
+    margin-top: 20px;
   }
+  h2:first-child{
+    margin-top: 0px;
+  }
+  
 }
 .Admin-main{
   display: flex;

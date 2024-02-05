@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import userAPI from '../api/userAPI'
 import {useNavigate} from 'react-router-dom'
-import {MdMail,MdPerson,MdPersonOutline, MdKey,MdPhone, MdOutlineCancel, MdLocationCity} from 'react-icons/md'
+import {MdMail,MdPerson,MdPersonOutline, MdKey,MdPhone, MdOutlineCancel, MdLocationCity, MdHeight} from 'react-icons/md'
 import {TbAlertCircle} from 'react-icons/tb'
 
 const PasswordForgot=({isOpen})=>{
@@ -78,13 +78,14 @@ const PasswordForgot=({isOpen})=>{
       <div className="site-container">
         <div className='form-wrapper'>
           <div className='form-container password-reset'>
-            <div className='form-title'>Nouveau mot de passe</div>
+            <div className='form-title' style={{color:'black'}}>Nouveau mot de passe</div>
             <div className='passwordreset-mail'>
-              <div>{user.mail}</div>
+              <div style={{color:'black'}}>{user.mail}</div>
             </div>
             <div className='form-inputs'>
-              <label htmlFor="password" className='label'>Mot de passe :</label>
+              <label style={{color:'black'}} htmlFor="password" className='label'>Mot de passe :</label>
               <input
+              style={{color:'black'}}
                 type="password"
                 id="password"
                 name="password"
@@ -92,8 +93,9 @@ const PasswordForgot=({isOpen})=>{
                 onChange={(e) => { setMdp(e.target.value) }}
                 required
               />
-              <label htmlFor="password" className='label'>Resaisir le mot de passe :</label>
+              <label style={{color:'black'}} htmlFor="password" className='label'>Resaisir le mot de passe :</label>
               <input
+              style={{color:'black'}}
                 type="password"
                 id="password"
                 name="password"
@@ -111,8 +113,9 @@ const PasswordForgot=({isOpen})=>{
         </div>
       </div>
       :
-      <div className="site-container">
-        <div className='passwordreset-token'>
+      <div className="" >
+        <div  style={{height:"100vh"}} className='form-container passwordreset-token'>
+          <div className='form-title'>Mot de passe oublié</div>
           <div>Token expiré, veuillez refaire une demande d'initialisation du mot de passe</div>
           <div className='clickable' onClick={() => { navigate("/") }}>Retourner à la page d'accueil</div>
         </div>
