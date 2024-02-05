@@ -26,8 +26,7 @@ const Espace = () => {
     useEffect( () => { 
         const getList = async () => {
             const response = await espaceAPI.getEspacesListe(festivalId);
-            console.log('tesssssssssssst :', response.data);
-            setSelectedEspaceId(response.data.espaces[0].idzonebenevole);
+            setSelectedEspaceId(response.data.espaces[0]?.idzonebenevole);
         }
         if(selectedEspaceId!=null){
             try {

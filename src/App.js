@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
+import {BrowserRouter, Routes, Route, Navigate, useNavigate} from 'react-router-dom'
 import Home from './pages/Home'
 import ErrorPage from './pages/ErrorPage'
 import SignUp from './components/SignUp'
@@ -16,6 +16,8 @@ import FestivalPage from './pages/FestivalPage';
 import Referent from './pages/admin/Referent'
 import NotificationPage from './pages/NotificationPage'
 import Inscriptions from './pages/Inscriptions'
+import AuthProvider from './components/AuthProvider'
+
 
 
 const App =()=> {
@@ -27,18 +29,21 @@ const App =()=> {
         <Route path={'/login'} element={<Login/>} />
         <Route path={'/signup'} element={<SignUp/>} />
         <Route path={'/password-forgot'} element={<PasswordForgot/>} />
-        <Route path={'/reset-password/:token'} element={<PasswordForgot />} />
-        <Route path={'/home/user'} element={<UserHome />} /> 
-        <Route path={'/infos/:festivalId'} element={<Infos />} />
-        <Route path={'/planning/:festivalId'} element={<Planning />} />
-        <Route path={'/registration/:festivalId'} element={<Registration />} />
-        <Route path={'/inscriptions/:festivalId'} element={<Inscriptions />} />
-        <Route path={'/notification/:festivalId'} element={<NotificationPage />} />
-        <Route path={'/admin'} element={<Admin />} />
-        <Route path={'/jeux-espaces/:festivalId'} element={<Espace/>} />
-        <Route path={'/new-festival'} element={<NewFestival/>} />
+        <Route element={<AuthProvider/>}>
+          <Route path={'/reset-password/:token'} element={<PasswordForgot />} />
+          <Route path={'/home/user'} element={<UserHome />} /> 
+          <Route path={'/infos/:festivalId'} element={<Infos />} />
+          <Route path={'/planning/:festivalId'} element={<Planning />} />
+          <Route path={'/registration/:festivalId'} element={<Registration />} />
+          <Route path={'/inscriptions/:festivalId'} element={<Inscriptions />} />
+          <Route path={'/notification/:festivalId'} element={<NotificationPage />} />
+          <Route path={'/admin'} element={<Admin />} />
+          <Route path={'/jeux-espaces/:festivalId'} element={<Espace/>} />
+          <Route path={'/new-festival'} element={<NewFestival/>} />
+          <Route path={'/festival/:festivalId'} element={<FestivalPage />} />
+        </Route>
         <Route path={"*"} element={<ErrorPage/>} />
-        <Route path="/festival/:festivalId" element={<FestivalPage />} />
+        
 
       </Routes>
     </BrowserRouter>
