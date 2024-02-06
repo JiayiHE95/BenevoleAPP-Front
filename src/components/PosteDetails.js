@@ -25,7 +25,6 @@ const PosteDetails = ({ posteId, idfestival, user }) => {
   const fetchPosteDetails = async () => {
         try {
           const response = await posteAPI.getPosteDetails(posteId);
-          console.log('Détails du poste :', response.data.poste);
           setPosteDetails(response.data.poste);
           setDescriptions(
             response.data.poste.description.split("\n").map((phrase) => phrase.replace(/\s*$/g, ''))
@@ -43,7 +42,6 @@ const PosteDetails = ({ posteId, idfestival, user }) => {
               idfestival: idfestival,
             };
             const response = await supervisionAPI.getReferentByPoste(data);
-            console.log("referents: " + response.data.referents);
             setReferents(response.data.referents);
           } catch (error) {
             console.log(error);
@@ -126,7 +124,6 @@ const PosteDetails = ({ posteId, idfestival, user }) => {
         description: newDescription
       }
       const response = await posteAPI.updatePoste(data);
-      console.log(response.data.poste);
       setPosteDetails(response.data.poste);
       setDescriptions(
         response.data.poste.description.split("\n").map((phrase) => phrase.replace(/\s*$/g, ''))

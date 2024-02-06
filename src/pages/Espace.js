@@ -32,7 +32,6 @@ const Espace = () => {
             try {
                jeuEspaceAPI.getJeuxListe(selectedEspaceId).then((response) => {
                    setJeux(response.data.jeux);
-                   console.log(response.data)
                })
             } catch (error) {
                 console.error('Erreur lors de la récupération des jeux :', error);

@@ -2,8 +2,6 @@ import React from 'react';
 
 const TableauJeux = ({ jeux, idEspace }) => {
 
-  console.log("jeux",jeux);
-
   return (
     (jeux && jeux.length > 0) ?
       <div className='contenant2'>

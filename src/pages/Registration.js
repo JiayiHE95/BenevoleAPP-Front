@@ -34,7 +34,6 @@ const Registration = () => {
     try {
       const response = await inscriptionAPI.getInscriptionOfUser(user.iduser, festivalId);
       const temp = trierInscriptions(response.data.inscriptions);
-      console.log("inscriptions triées ..........................", temp);
       setInscriptions(temp);
     } catch (error) {
       console.error('Error fetching inscriptions:', error);
@@ -92,7 +91,6 @@ const Registration = () => {
       recuperationInscriptions();
     } catch (error) {
       console.error('Error handling validation:', error);
-      // Consider providing user-friendly feedback or a global error handling solution
     }
   };
   

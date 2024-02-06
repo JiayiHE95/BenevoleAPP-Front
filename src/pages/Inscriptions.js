@@ -32,7 +32,6 @@ const Inscriptions = () => {
 
 
   useEffect(() => {
-    // Fetch users based on search query
     if (searchQuery.trim() !== '') {
       fetchUsers();
     }else{
@@ -43,7 +42,6 @@ const Inscriptions = () => {
   }, [searchQuery]);
 
   useEffect(() => {
-    // Fetch inscriptions when selectedUserID changes
     if (selectedUserID) {
       recuperationInscriptions();
     }
@@ -51,8 +49,6 @@ const Inscriptions = () => {
 
   const allInscriptions = async () => {
     inscriptionAPI.getByFestival(festivalId).then((res)=>{
-      console.log(res.data.inscriptions)
-      console.log("get all",res.data.inscriptions)
       const temp = trierInscriptions(res.data.inscriptions);
       setInscriptions(temp);
     })
@@ -69,7 +65,6 @@ const Inscriptions = () => {
         searchQuery: searchQuery
       };
       const response = await userAPI.searchUsers(data);
-      console.log("serach",response.data.users)
       if(response.data.users.length>0){
         setShowListe(true)
       }
@@ -81,7 +76,6 @@ const Inscriptions = () => {
 
   const recuperationInscriptions = async () => {
     try {
-      console.log("selectedUser",selectedUser)
       const response = await inscriptionAPI.getInscriptionOfUser(selectedUser.iduser, festivalId);
       const temp = trierInscriptions(response.data.inscriptions);
       setInscriptions(temp);
@@ -91,14 +85,13 @@ const Inscriptions = () => {
   };
 
   const handleUserSearchChange = (e) => {
-    console.log("teeeeeeeeest",e.target.value);
     setSearchQuery(e.target.value);
   };
 
   const handleUserSelect = (user) => {
     setSelectedUserID(user.iduser);
     setSelectedUser(user);
-    setInscriptions([]); // Réinitialisez les inscriptions lorsqu'un nouvel utilisateur est sélectionné
+    setInscriptions([]); 
     setShowListe(false)
   };
 
@@ -107,7 +100,6 @@ const Inscriptions = () => {
       <NavBar festivalId={festivalId}/>
       <h1>Gestion Inscription</h1>
 
-      {/* Utilisez le composant UserSearch réutilisé */}
       <div className='search'>
 
         <UserSearch

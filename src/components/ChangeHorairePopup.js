@@ -19,7 +19,6 @@ const ChangeHorairePopup = ({festival,horaire, date, setChangeHoraire, getPosteC
    newHeure_fin:newHeure_fin,
   }
   posteCreneauAPI.updateCreneauHoraire(data).then((resp)=>{
-   console.log(resp.data);
    getPosteCreneau()
    setChangeHoraire(false)
   })

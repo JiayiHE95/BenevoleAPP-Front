@@ -10,8 +10,6 @@ const InscriptionPopUp=({user,creneau,festival,fetchInscriptions, setInscription
  const [selectZoneAlerte, setSelectZoneAlert]=useState(false)
  const [comfirmerZone, setComfirmerZone]=useState(false)
 
- console.log("c dans inscription popop",creneau)
-
  useEffect(() => {
     fetchListeZoneBenevole();
  },[]);
@@ -62,7 +60,6 @@ const inscrireBenevole=(idcreneau,idposte)=>{
  }
    inscriptionAPI.createInscription(data).then((res)=>{
      if(res.data.created){
-       console.log(res.data);
        fetchInscriptions();
        setInscriptionPopUp(null)
        setComfirmerZone(false)

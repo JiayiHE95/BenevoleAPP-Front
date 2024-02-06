@@ -66,7 +66,6 @@ const NavBar = ({ festivalId }) => {
   const recuperationNotifications = async () => {
     try {
       const response = await notificationAPI.getNotificationByUser(user.iduser, festivalId);
-      console.log("notifs ..........................", response.data.notifications);
       setNotifications(response.data.notifications);
     } catch (error) {
       console.error('Error fetching notifications:', error);
@@ -79,7 +78,6 @@ const NavBar = ({ festivalId }) => {
   const handleToggleMobileMenu = () => {
     const not = !isMobileMenuOpen;
     setMobileMenuOpen(not);
-    console.log("Toggle: " + not);
   };
 
   // JSX for the Navbar component

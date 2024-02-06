@@ -78,7 +78,6 @@ export const verifyToken=()=>{
         })
       }
      } catch{ 
-      //console.log("une erreur est survenu lors de la vérification du token")
      }
   }
 }

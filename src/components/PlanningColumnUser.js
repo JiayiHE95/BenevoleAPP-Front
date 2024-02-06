@@ -54,7 +54,6 @@ const PlanningColumnUser = ({ festival, user, creneaux, onColonneChange }) => {
  }
    inscriptionAPI.createInscription(data).then((res)=>{
      if(res.data.created){
-       console.log(res.data);
        fetchInscriptions();
        handleClickCreneau(null)
        onColonneChange()

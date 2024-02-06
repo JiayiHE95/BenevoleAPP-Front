@@ -1,4 +1,3 @@
-// FestivalPage.js
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -34,7 +33,6 @@ const FestivalPage = () => {
   useEffect(() => {
     festivalAPI.getCurrentFestival(festivalId).then((res) => {
       if(res.data.find){
-       console.log(res.data.festival)
        setFestival(res.data.festival)
     }
   })},[festivalId])
@@ -44,7 +42,6 @@ const FestivalPage = () => {
       idfestival:festivalId
     }
     festivalAPI.deleteFestival(data).then((res)=>{
-      console.log(res.data)
       navigate('/admin')
     })
 

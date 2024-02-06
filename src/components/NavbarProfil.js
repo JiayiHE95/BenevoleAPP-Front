@@ -42,7 +42,6 @@ const NavBarProfil = () => {
   const handleToggleMobileMenu = () => {
     const not = !isMobileMenuOpen;
     setMobileMenuOpen(not);
-    console.log("Toggle: " + not);
   };
 
   return (

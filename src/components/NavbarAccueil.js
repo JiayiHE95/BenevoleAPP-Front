@@ -30,7 +30,6 @@ const NavbarAccueil = () => {
   const handleToggleMobileMenu = () => {
     const not = !isMobileMenuOpen;
     setMobileMenuOpen(not);
-    console.log("Toggle: " + not);
   };
 
   const redirectToExternalSite = () => {

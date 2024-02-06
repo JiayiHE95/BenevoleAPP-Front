@@ -95,10 +95,10 @@ const PopUpAdminCreneau = ({ creneau, closePopup, user, getPosteCreneau }) => {
                 idposte: selectedCreneau.idposte,
                 idzonebenevole: selectedCreneau.idzonebenevole
             },
-            // Other data if needed
+          
         };
         const response = await inscriptionAPI.getRegisteredPeopleByCreneau(requestData);
-        setRegisteredPeople(response.data.inscriptions); // Mise à jour de l'état avec les données de la réponse
+        setRegisteredPeople(response.data.inscriptions); 
     } catch (error) {
         console.error("Error fetching registered people:", error);
     }
@@ -112,7 +112,7 @@ const getFlexiblePeople = async () => {
       }
     
       const response = await flexibleAPI.getFlexibleUserByCreneau(selectedCreneau.idcreneau);
-      setFlexiblePeople(response.data.flexibleUserCreneau); // Mise à jour de l'état avec les données de la réponse
+      setFlexiblePeople(response.data.flexibleUserCreneau); 
   } catch (error) {
       console.error("Error fetching registered people:", error);
   }
@@ -156,7 +156,6 @@ const handleChangeCapacite = async () => {
   }
   const response = await posteCreneauAPI.updateCapacite(data);
   if(response.data.success){
-    console.log("capacité modifiée", response.data.posteCreneau)
     setSelectedCreaneau(response.data.posteCreneau)
     setChangeCapacite(false)
     getPosteCreneau();
@@ -168,6 +167,7 @@ const handleChangeCapacite = async () => {
     <div className={`popup popup__middle`}
     >
       <h3>Gestion Inscription</h3>
+      {listeZoneBenevole.length===0 && <div>Veuillez importer le CSV depuis la page accueil du festival</div>}
 
       {(listeZoneBenevole && selectedCreneau.idposte === 1 ) && selectedZones===null ?
       
@@ -240,7 +240,6 @@ const handleChangeCapacite = async () => {
               <div>
                 {registeredPeople.length>0 ? registeredPeople.map((person, index) => (
                   <div key={index}> {person.User.prenom} {person.User.nom} ({person.User.pseudo})</div>
-                  // Assuming each person has an 'iduser' property, adjust accordingly
                   ))
                   :
                   <div>Aucun bénévole inscrit</div>

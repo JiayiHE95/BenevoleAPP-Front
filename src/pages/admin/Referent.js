@@ -38,14 +38,12 @@ const Referent = () => {
   }, [decodedToken]);
 
   useEffect(() => {
-    // Fetch the list of postes when the component mounts
     if (user) {
       recuperationPostes();
     }
   }, [user]);
 
   useEffect(() => {
-    // Fetch users based on search query
     if (searchQuery.trim() !== '') {
       fetchUsers();
     }
@@ -66,7 +64,6 @@ const Referent = () => {
   const recuperationPostes = async () => {
     try {
       const reponse = await posteCreneauAPI.getPosteByFestival(festivalId);
-      console.log("postes ..........................", reponse.data.postes);
       setPostes(reponse.data.postes);
     } catch (error) {
       console.error('Error fetching postes:', error);

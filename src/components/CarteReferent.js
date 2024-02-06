@@ -21,7 +21,6 @@ const CarteReferent = ({ poste }) => {
   }, [decodedToken]);
 
   useEffect(() => {
-    // Fetch the list of inscriptions when the component mounts
     if (user) {
       recuperationReferents();
     }
@@ -34,10 +33,9 @@ const CarteReferent = ({ poste }) => {
     try {
       const data = {
         idposte: poste.idposte,
-        idfestival: festivalId // Fix the variable name here
+        idfestival: festivalId
       }
       const response = await supervisionAPI.getReferentByPoste(data);
-      console.log("referents: "+ response.data.referents)
       setReferents(response.data.referents);
     } catch (error) {
       console.log(error);

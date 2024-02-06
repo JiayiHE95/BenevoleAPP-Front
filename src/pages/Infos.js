@@ -28,7 +28,6 @@ const Infos = () => {
        }
          festivalAPI.getCurrentFestival(festivalId).then((res) => {
            if(res.data.find){
-            console.log(res.data.festival)
             setFestival(res.data.festival)
          }
         })

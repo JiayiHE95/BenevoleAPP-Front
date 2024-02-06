@@ -2,7 +2,7 @@ import axiosInstance from "./axiosInstance";
 
 const inscriptionAPI = {
     getInscriptionByUser(iduser,idcreneau){
-        return axiosInstance.get(`inscription//${iduser}/${idcreneau}`)
+        return axiosInstance.get(`inscription/${iduser}/${idcreneau}`)
     }, 
 
     getInscriptionOfUser(iduser, idfestival){

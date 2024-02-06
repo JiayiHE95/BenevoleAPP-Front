@@ -31,7 +31,6 @@ const Login = () => {
       userAPI
         .connexion(data)
         .then((resp) => {
-          console.log(resp.data.user);
           if (resp.data.auth) {
             localStorage.setItem('accessToken', resp.data.token);
             navigate(`/home/user`);

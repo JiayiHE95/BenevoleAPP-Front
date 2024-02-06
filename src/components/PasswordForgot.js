@@ -27,7 +27,6 @@ const PasswordForgot=({isOpen})=>{
         setIsValide(resp.data.auth)
         if(resp.data.auth){
           userAPI.getUserByPWToken(token).then((resp)=>{
-            console.log(resp.data[0])
             setUser(resp.data[0])
           })
         }

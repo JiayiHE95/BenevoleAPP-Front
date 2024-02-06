@@ -50,7 +50,6 @@ const NewFestival = () => {
 
   useEffect(() => {
     posteAPI.getPostesListe().then((resp) => {
-      console.log(resp.data);
       setPostes(resp.data.postes);
     });
   }, [nom]);
@@ -97,7 +96,6 @@ const NewFestival = () => {
             date_fin: date_fin,
           };
           posteCreneauAPI.createPosteCreneau(postecreneauData).then((resp) => {
-            console.log(resp.data);
           });
         });
       } else {
@@ -114,9 +112,7 @@ const NewFestival = () => {
     setNom('');
     setDescription('');
     posteAPI.createPoste(data).then((resp) => {
-      console.log(resp.data);
       posteAPI.getPostesListe().then((resp) => {
-        console.log(resp.data);
         setPostes(resp.data.postes);
       });
     });

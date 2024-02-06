@@ -117,7 +117,7 @@ const hiddleMotif=()=>{
     <div>{nom} {prenom} ({pseudo})</div>
     <div>{mail}</div>
     <div>{tel}</div>
-    {association&&<div>Ma association : {association}</div>}
+    {association&&<div>Mon association : {association}</div>}
     <div>Taille T-shirt : {taille_tshirt}</div>
     <div>{est_vegetarien===true? "Végétarien":"Non végétarien"}</div>
     {hebergement&&<div>{hebergement}</div>}

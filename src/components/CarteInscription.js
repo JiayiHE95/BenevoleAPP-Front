@@ -18,8 +18,6 @@ const CarteInscription = ({ inscriptions, onValider, user }) => {
     return heure.split(":").slice(0, 2).join(":");
   }
 
-  console.log("inscriptions",inscriptions)
-
   return (
 
     inscriptions && <div className='inscriptions'>

@@ -51,8 +51,6 @@ const Admin=()=>{
 
   },[festivals])
 
-  console.log(festivals);
-
 
   return (
     isExpired || (user && user.role !=="ADMIN") ? <Navigate to={'/'} />

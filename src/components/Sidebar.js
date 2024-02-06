@@ -1,10 +1,9 @@
-// Sidebar.js
 import React, { useEffect, useState } from 'react';
 import posteCreneauAPI from '../api/posteCreneauAPI';
 import posteAPI from '../api/posteAPI';
 import espaceAPI from '../api/espaceAPI';
 import Bouton from './Bouton';
-import '../scss/components/sidebar.css';  // Assurez-vous d'importer votre fichier de style
+import '../scss/components/sidebar.css'; 
 
 import { useParams, Navigate } from 'react-router-dom';
 
@@ -17,16 +16,13 @@ const Sidebar = ({ dataName, onPosteClick, onEspaceClick }) => {
     const getList = async () => {
       try {
         let response;
-        console.log(festivalId);
         if (dataName === 'poste') {
           response = await posteCreneauAPI.getPosteByFestival(festivalId);
-          console.log('Réponse de l\'API post :', response.data);
           setListe(response.data.postes);
           setActiveItem(response.data.postes[0].idposte);
 
         } else if (dataName === 'espace') {
           response = await espaceAPI.getEspacesListe(festivalId);
-          console.log('Réponse de l\'API :', response.data);
           setListe(response.data.espaces);
           if (response.data.espaces.length > 0) {
             setActiveItem(response.data.espaces[0].idzonebenevole);

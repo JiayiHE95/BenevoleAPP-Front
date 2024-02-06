@@ -68,7 +68,7 @@ const SignUp = () => {
       mdp: mdp,
       mail: mail,
       tel: tel,
-      asociation: asociation,
+      association: asociation,
       hebergement: hebergement,
       taille_tshirt: taille_tshirt,
       est_vegetarien: est_vegetarien,
@@ -79,7 +79,6 @@ const SignUp = () => {
     userAPI
       .createUser(data)
       .then((resp) => {
-        console.log(resp.data);
         const data = {
           mail: mail,
           mdp: mdp,
@@ -103,7 +102,6 @@ const SignUp = () => {
       });
   };
 
-  console.log(taille_tshirt);
 
   return (
     <div className="signup-containers">

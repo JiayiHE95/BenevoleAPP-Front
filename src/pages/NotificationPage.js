@@ -23,7 +23,6 @@ const NotificationPage = () => {
   }, [decodedToken]);
 
   useEffect(() => {
-    // Fetch the list of inscriptions when the component mounts
     if (user) {
       recuperationNotifications();
     }
@@ -33,7 +32,6 @@ const NotificationPage = () => {
     
     try {
       const response = await notificationAPI.getNotificationByUser(user.iduser, festivalId);
-      console.log("notifs ..........................", response.data.notifications);
       setNotifications(response.data.notifications);
     } catch (error) {
       console.error('Error fetching notifications:', error);

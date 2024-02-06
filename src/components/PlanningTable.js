@@ -39,7 +39,6 @@ const PlanningTable = ({ festival, user }) => {
         temp[subList[0].Creneau.jour]=groupedByIdPoste
         
        });
-       console.log("planning",temp);
        setPosteCreneau(temp)
     }
    })
