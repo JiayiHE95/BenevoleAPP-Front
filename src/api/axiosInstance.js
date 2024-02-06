@@ -10,7 +10,7 @@ const axiosInstance = axios.create({
 
 */}
 const axiosInstance = axios.create({
-  baseURL: 'https://benevole-app-front.onrender.com', // URL de base de l'API
+  baseURL: 'https://benevole-app-back.onrender.com', // URL de base de l'API
 });
 
 
