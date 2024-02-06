@@ -167,7 +167,7 @@ const handleChangeCapacite = async () => {
     <div className={`popup popup__middle`}
     >
       <h3>Gestion Inscription</h3>
-      {listeZoneBenevole.length===0 && <div>Veuillez importer le CSV depuis la page accueil du festival</div>}
+      {listeZoneBenevole?.length===0 && <div>Veuillez importer le CSV depuis la page accueil du festival</div>}
 
       {(listeZoneBenevole && selectedCreneau.idposte === 1 ) && selectedZones===null ?
       
