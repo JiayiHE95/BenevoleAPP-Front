@@ -6,6 +6,8 @@ import Sidebar from '../components/Sidebar';
 import TableauJeux from '../components/TableauJeux';
 import jeuEspaceAPI from '../api/jeuEspaceAPI';
 import espaceAPI from '../api/espaceAPI';
+import { useJwt } from 'react-jwt';
+import userAPI from '../api/userAPI';
 
 const Espace = () => {
     const [selectedEspaceId, setSelectedEspaceId] = useState(null);
@@ -13,6 +15,18 @@ const Espace = () => {
     const navigate=useNavigate()
     const { festivalId } = useParams();
     const [csvImported, setCsvImported] = useState(false);
+    const  [user,setUser]=useState(null)
+
+    const token=localStorage.getItem('accessToken')
+    const { decodedToken,isExpired } = useJwt(token?token:"");
+
+    useEffect(() => {
+    if (decodedToken) {
+        userAPI.getUserById(decodedToken.iduser).then((res) => {
+        setUser(res.data.user);
+        });
+    }
+    }, [decodedToken]);
 
     useEffect(() => {
         jeuEspaceAPI.getOneByFestival(festivalId).then((res) => {
@@ -57,12 +71,23 @@ const Espace = () => {
             
 
             {!csvImported ?
+            (user?.role === 'ADMIN' ?
             <div className='manqueCsv'>
                 <div className='centrer'>
                     Veuillez importer le fichier csv contenant les informations des jeux et des espaces
                 </div>
+                <div className='centrer'>
+                (Si cela a déjà été fait, il se peut que le traitement des données prenne un peu de temps, veuillez réessayer plus tard.)
+                </div>
                 <div className='bouton2 cursor centrer' onClick={()=>{navigate(`/festival/${festivalId}`)}}>Importer le fichier</div>
-            </div>
+            </div>:
+             <div className='manqueCsv'>
+             <div className='centrer'>
+                Les informations concernant les jeux ne sont pas encore disponibles
+             </div>
+         </div>
+
+            )
             :
             <div className='contenant'>
                 <Sidebar dataName="espace" onEspaceClick={handleEspaceClick} />

@@ -92,7 +92,7 @@ return (
     {!isMobileMenuOpen && (
       <div className={`navbar`}>
         <div className='cursor' onClick={() => navigate("/home/user")}>Home</div>
-        <div className='cursor' onClick={() => navigate(`/festival/${festivalId}`)}>Accueil</div>
+        <div className='cursor' onClick={() => navigate(`/festival/${festivalId}`)}>Accueil Festival</div>
         <div className='cursor' onClick={() => navigate(`/notification/${festivalId}`)}>Notifications <span className='bulle'>{compteur}</span></div>
         <div className='cursor' onClick={() => navigate(`/infos/${festivalId}`)}>Infos</div>
         <div className='cursor' onClick={() => navigate(`/planning/${festivalId}`)}>Planning</div>
@@ -116,7 +116,7 @@ return (
       {isMobileMenuOpen && isMobileScreen && (
         <div className={'mobile-menu-open'}>
           <div className='cursor' onClick={() => navigate("/home/user")}>Home</div>
-          <div className='cursor' onClick={() => navigate(`/festival/${festivalId}`)}>Accueil</div>
+          <div className='cursor' onClick={() => navigate(`/festival/${festivalId}`)}>Accueil Festival</div>
           <div className='cursor' onClick={() => navigate(`/notification/${festivalId}`)}>Notifications <span className='bulle'>{compteur}</span></div>
           <div className='cursor' onClick={() => navigate(`/infos/${festivalId}`)}>Infos</div>
           <div className='cursor' onClick={() => navigate(`/planning/${festivalId}`)}>Planning</div>

@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import posteCreneauAPI from "../api/posteCreneauAPI";
 import { TiUserAdd, TiArrowUnsorted } from "react-icons/ti";
 import { MdCheckCircleOutline, MdOutlineCancel } from "react-icons/md";
-
+import jeuEspaceAPI from "../api/jeuEspaceAPI";
 
 const PopUpAdminCreneau = ({ creneau, closePopup, user, getPosteCreneau }) => {
   const [registeredPeople, setRegisteredPeople] = useState([]);
@@ -21,6 +21,15 @@ const PopUpAdminCreneau = ({ creneau, closePopup, user, getPosteCreneau }) => {
   const [selectedCreneau, setSelectedCreaneau]=useState(creneau)
   const [changeCapacite, setChangeCapacite]=useState(false)
   const [newCapacite, setNewCapacite]=useState(selectedCreneau?.capacite !== 0 ? selectedCreneau.capacite:0)
+  const [csvImported, setCsvImported] = useState(false);
+
+  useEffect(() => {
+    jeuEspaceAPI.getOneByFestival(festivalId).then((res) => {
+        if(res.data.find){
+            setCsvImported(true)
+        }
+    })
+}, []);
  
   useEffect(() => {
      fetchListeZoneBenevole();
@@ -164,12 +173,14 @@ const handleChangeCapacite = async () => {
 
   
   return (
-    <div className={`popup popup__middle`}
+    <div className={`popup ${csvImported? "popup__middle":selectedCreneau.idposte === 1? "popup__small":"popup__middle"}`}
     >
       <h3>Gestion Inscription</h3>
-      {listeZoneBenevole?.length===0 && <div>Veuillez importer le CSV depuis la page accueil du festival</div>}
 
-      {(listeZoneBenevole && selectedCreneau.idposte === 1 ) && selectedZones===null ?
+     {!csvImported && selectedCreneau.idposte === 1 && 
+      <div>Attention, vous n'avez pas importé de fichier CSV pour les postes Animations Jeux (Si cela a déjà été fait, il se peut que le traitement des données prenne un peu de temps, veuillez réessayer plus tard.)</div>
+     }
+      {(csvImported &&listeZoneBenevole && selectedCreneau.idposte === 1 ) && selectedZones===null ?
       
       <div className="listeZones">
         {Object.entries(listeZoneBenevole).map(([cle, zone], index) => (

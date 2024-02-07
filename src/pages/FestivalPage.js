@@ -7,6 +7,7 @@ import festivalAPI from '../api/festivalAPI';
 import userAPI from '../api/userAPI';
 import { useJwt } from 'react-jwt';
 import { formatDate } from '../utils/dateUtils';
+import jeuEspaceAPI from '../api/jeuEspaceAPI';
 
 const FestivalPage = () => {
   const { festivalId } = useParams();
@@ -18,9 +19,21 @@ const FestivalPage = () => {
   const  [user,setUser]=useState(null)
   const [comfirmFestivalPopUp, setComfirmFestivalPopUp] = useState(false);
   
+  const token=localStorage.getItem('accessToken')
+  const { decodedToken,isExpired } = useJwt(token?token:"");
+  const [csvImported, setCsvImported] = useState(false);
 
- const token=localStorage.getItem('accessToken')
- const { decodedToken,isExpired } = useJwt(token?token:"");
+  console.log('festival', festival)
+  
+ useEffect(() => {
+  jeuEspaceAPI.getOneByFestival(festivalId).then((res) => {
+
+    console.log('coucou', res.data)
+      if(res.data.find){
+          setCsvImported(true)
+      }
+  })
+}, [comfirmFestivalPopUp]);
 
  useEffect(() => {
    if (decodedToken) {
@@ -103,10 +116,15 @@ const FestivalPage = () => {
           
           {comfirmFestivalPopUp &&
             <div className="popupStyle2" style={popupStyle}>
+              {csvImported?
+              
               <div className='ccc'>Attention, cette action est irréversible. Les dates et les créneaux seront bloqués pour que les bénévoles puissent s'inscrire, mais vous pouvez toujours ajuster le nombre de bénévoles pour chaque créneau</div>
+              :
+              <div className='ccc'>Attention, vous devez importer le fichier csv avant de rendre le festival accessible aux bénévoles (Si cela a déjà été fait, il se peut que le traitement des données prenne un peu de temps, veuillez réessayer plus tard.)</div>
+            }
               
               <div className='deuxBoutons'>
-                <div className="cc cursor" onClick={() => comfirmFestival()}>Confirmer</div>
+                {csvImported && <div className="cc cursor" onClick={() => comfirmFestival()}>Confirmer</div>}
                 <div className="cc cursor" onClick={() => setComfirmFestivalPopUp(false)}>Annuler</div>
               </div>
             </div>

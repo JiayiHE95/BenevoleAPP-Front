@@ -62,7 +62,7 @@ const FileUploader = ({ festival }) => {
         })
       );
 
-      setAlert('Importation réussie');
+      setAlert('Importation réussie (le traitement peut prendre un peu de temps)');
       setComfirm(false)
     };
   };

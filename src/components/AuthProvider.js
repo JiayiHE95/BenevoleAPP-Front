@@ -12,7 +12,7 @@ const AuthProvider = () => {
 
 
         if (!token || isExpired) {
-          console.log("SALLUUTTTT");
+
           navigate('/login');
         }
 
