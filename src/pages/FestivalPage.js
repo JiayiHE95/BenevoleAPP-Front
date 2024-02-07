@@ -23,12 +23,10 @@ const FestivalPage = () => {
   const { decodedToken,isExpired } = useJwt(token?token:"");
   const [csvImported, setCsvImported] = useState(false);
 
-  console.log('festival', festival)
   
  useEffect(() => {
   jeuEspaceAPI.getOneByFestival(festivalId).then((res) => {
 
-    console.log('coucou', res.data)
       if(res.data.find){
           setCsvImported(true)
       }

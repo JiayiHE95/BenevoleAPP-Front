@@ -115,6 +115,7 @@ const handleClickHoraire=(date, horaire)=>{
   {posteCreneau &&
   Object.entries(posteCreneau).map(([date, horaires]) => (
     <div key={date} className="planningTable__date">
+      {console.log("date", date)}
       <div className="date">{formatDate(date)}</div>
       <div className="planningTable__creneaux">
         <div className="planningTable__colonne">

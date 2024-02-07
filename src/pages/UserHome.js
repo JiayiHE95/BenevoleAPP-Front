@@ -29,7 +29,6 @@ const UserHome = () => {
   }, [decodedToken]);
 
   useEffect(() => {
-    console.log()
     festivalAPI.getAllFestival().then((res) => {
       if(res.data.find){
        setFestivals(res.data.festivals)
