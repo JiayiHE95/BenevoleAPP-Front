@@ -31,6 +31,7 @@ const UserHome = () => {
   useEffect(() => {
     festivalAPI.getAllFestival().then((res) => {
       if(res.data.find){
+        console.log(res.data)
        setFestivals(res.data.festivals)
     }
   })},[])

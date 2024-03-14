@@ -40,11 +40,13 @@ const Espace = () => {
     useEffect( () => { 
         const getList = async () => {
             const response = await espaceAPI.getEspacesListe(festivalId);
-            setSelectedEspaceId(response.data.espaces[0]?.idzonebenevole);
+            console.log("jeu",response.data);
+            setSelectedEspaceId(response.data);
         }
         if(selectedEspaceId!=null){
             try {
-               jeuEspaceAPI.getJeuxListe(selectedEspaceId).then((response) => {
+               jeuEspaceAPI.getJeuxListe(selectedEspaceId, festivalId).then((response) => {
+                console.log(response.data);
                    setJeux(response.data.jeux);
                })
             } catch (error) {

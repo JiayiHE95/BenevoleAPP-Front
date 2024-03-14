@@ -32,6 +32,7 @@ const Login = () => {
         .connexion(data)
         .then((resp) => {
           if (resp.data.auth) {
+            console.log(resp.data);
             localStorage.setItem('accessToken', resp.data.token);
             navigate(`/home/user`);
           } else {
