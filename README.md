@@ -1,70 +1,124 @@
-# Getting Started with Create React App
+<div align="center">
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Festival du Jeu – Application Web Bénévoles
 
-## Available Scripts
+Une application **web** dédiée à la gestion des bénévoles et des festivals.  
+Elle est complémentaire à la [version mobile iOS](https://github.com/JiayiHE95/BenevoleAPP-Back), développée spécifiquement pour les bénévoles.  
 
-In the project directory, you can run:
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">
+  <img alt="Creative Commons License" style="border-width:0"
+       src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" />
+</a><br />
+Ce projet est sous licence
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">
+  Creative Commons Attribution – NonCommercial – NoDerivatives 4.0 International
+</a>.
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+**Janvier 2024**  
+**Projet IG4 – Polytech Montpellier**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+</div>
 
-### `npm test`
+## 📋 Sommaire
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- [Présentation](#présentation)
+- [Objectifs](#objectifs)
+- [Fonctionnalités](#fonctionnalités)
+- [Architecture](#architecture)
+- [Technologies](#technologies)
+- [Déploiement](#déploiement)
+- [Sécurité](#sécurité)
+- [Contributeurs](#contributeurs)
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 📝 Présentation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Cette application web est conçue pour faciliter la gestion d’un festival et l’organisation des bénévoles.  
+Elle répond aux besoins du **Festival du Jeu de Montpellier** et permet :  
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- La gestion complète d’un festival (planning, postes, inscriptions, zones de jeux, référents, etc.).  
+- L’accès des bénévoles à toutes les informations nécessaires : inscriptions, postes, planning personnalisé.  
+- La récupération des données des festivals passés pour faciliter la préparation d’éditions futures.  
 
-### `npm run eject`
+👉 Une version mobile iOS a également été développée pour améliorer l’expérience des bénévoles sur le terrain.  
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 🎯 Objectifs
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Simplifier la **gestion de l’organisation du festival**.  
+- Proposer un **système d’inscription** intuitif pour les bénévoles.  
+- Permettre l’**import de données** (zones, jeux, postes) via un fichier CSV.  
+- Garantir une **gestion flexible** et adaptable à l’évolution des festivals et des bénévoles.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## ✅ Fonctionnalités
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Pour les utilisateurs sans compte
+- Inscription et connexion.  
+- Accès au site officiel du festival.  
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Pour les bénévoles
+- Gestion du profil personnel.  
+- Inscription à des postes ou créneaux.  
+- Suivi des inscriptions et notifications.  
+- Accès aux zones de jeux et notices.  
+- Planning personnalisé et indicateurs de remplissage.  
 
-### Code Splitting
+### Pour l’administrateur
+- Création et gestion complète d’un festival.  
+- Importation d’un fichier CSV (zones, jeux, postes).  
+- Affectation des bénévoles « flexibles ».  
+- Gestion des postes, capacités et créneaux.  
+- Ajout de référents.  
+- Accès aux données des festivals passés.  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+## 🏗 Architecture
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+L’application suit une architecture **MVC** :  
+- **Frontend** : pages et composants en React.  
+- **Backend** : gestion de la logique métier, sécurité et API.  
+- **Base de données** : stockage relationnel avec PostgreSQL.  
 
-### Making a Progressive Web App
+La sécurité est assurée par un **middleware d’authentification (JWT)**.  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+## 🛠 Technologies
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- **Backend** : Node.js, Express, Sequelize  
+- **Frontend** : React, SCSS, Axios  
+- **Base de données** : PostgreSQL  
+- **Authentification** : JSON Web Tokens (JWT)  
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 🚀 Déploiement
 
-### `npm run build` fails to minify
+- Plateforme : **Render**  
+- Déploiement continu via GitHub (auto-déploiement à chaque `git push`).  
+- Accès sécurisé par HTTPS.  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+
+## 🔒 Sécurité
+
+- HTTPS pour toutes les communications.  
+- Authentification par **JWT** avec durée limitée (24h).  
+- Redirection automatique des utilisateurs non connectés.  
+- Protection contre injections SQL et attaques XSS.  
+
+---
+
+## 🤝 Contributeurs
+
+- [**Jiayi He**](https://github.com/JiayiHE95)  
+- [**Charlène Morchipont**](https://github.com/charleneMrcp)  
+
+---
